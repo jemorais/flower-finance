@@ -1,0 +1,10 @@
+# Ignorar pastas grandes/irrelevantes
+node_modules/
+.git/
+dist/
+build/
+
+# Arquivos temp
+*.log
+*.tmp
+.DS_Store
