@@ -34,22 +34,37 @@ const topProducts = [
   { name: 'Buquê de Girassóis', sales: 34, revenue: 'R$ 3.400,00' }
 ];
 
+const handleExport = () => {
+  let csv = 'Monthly Data\nMonth,Revenue,Expenses\n';
+  monthlyData.forEach(d => csv += `${d.month},${d.revenue},${d.expenses}\n`);
+  csv += '\nTop Products\nName,Sales,Revenue\n';
+  topProducts.forEach(p => csv += `${p.name},${p.sales},${p.revenue}\n`);
+  const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement('a');
+  link.href = url;
+  link.download = 'reports.csv';
+  link.click();
+  URL.revokeObjectURL(url);
+};
+
 export default function ReportsPage() {
   return (
-    <div className="p-6">
-      {/* Header */}
-      <div className="flex items-center justify-between mb-6">
-        <div>
-          <h1 className="text-2xl font-bold text-pink-600 mb-1">Relatórios Gerenciais</h1>
-          <p className="text-gray-600 text-sm">Análise detalhada do seu negócio e performance</p>
-        </div>
-        <div className="flex items-center space-x-3">
-          <Button variant="outline" className="text-gray-600 border-gray-300">
-            <Calendar className="w-4 h-4 mr-2" />
-            Último 30 dias
-          </Button>
-          <Button className="bg-pink-500 hover:bg-pink-600 text-white">
-            <Download className="w-4 h-4 mr-2" />
+    <div className="p-8 bg-gray-50 min-h-screen">
+      <div className="max-w-7xl mx-auto">
+        {/* Header */}
+        <div className="flex items-center justify-between mb-6 bg-gradient-to-r from-pink-500 to-purple-600 p-4 rounded-lg">
+          <div>
+            <h1 className="text-2xl font-bold text-white">Relatórios Gerenciais</h1>
+            <p className="text-white/80 mt-1 text-sm">Análise detalhada do seu negócio e performance</p>
+          </div>
+          <div className="flex items-center space-x-3">
+            <Button variant="outline" className="bg-white/20 hover:bg-white/30 text-white border-white/30">
+              <Calendar className="w-4 h-4 mr-2" />
+              Último 30 dias
+            </Button>
+            <Button onClick={handleExport} className="bg-white/20 hover:bg-white/30 text-white border border-white/30">
+              <Download className="w-4 h-4 mr-2" />
               Exportar
             </Button>
           </div>
@@ -58,18 +73,18 @@ export default function ReportsPage() {
         {/* Main Metrics */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
           {/* Receita Total */}
-          <Card className="bg-green-50 border-green-100 shadow-sm">
+          <Card className="border-l-4 border-l-rose-400 bg-rose-50/50">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <div>
-                <CardTitle className="text-sm font-medium text-green-700">Receita Total</CardTitle>
+                <CardTitle className="text-sm font-medium text-rose-700">Receita Total</CardTitle>
                 <div className="flex items-center mt-1">
-                  <TrendingUp className="h-4 w-4 text-green-600 mr-1" />
+                  <TrendingUp className="h-4 w-4 text-rose-500 mr-1" />
                 </div>
               </div>
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold text-green-900">R$ 46.670,00</div>
-              <div className="flex items-center text-xs text-green-600 mt-1">
+              <div className="text-2xl font-bold text-rose-800">R$ 46.670,00</div>
+              <div className="flex items-center text-xs text-rose-600 mt-1">
                 <TrendingUp className="w-3 h-3 mr-1" />
                 +15% em relação ao mês anterior
               </div>
@@ -77,17 +92,17 @@ export default function ReportsPage() {
           </Card>
 
           {/* Despesas */}
-          <Card className="bg-red-50 border-red-100 shadow-sm">
+          <Card className="border-l-4 border-l-red-400 bg-red-50/50">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <div>
                 <CardTitle className="text-sm font-medium text-red-700">Despesas</CardTitle>
                 <div className="flex items-center mt-1">
-                  <TrendingDown className="h-4 w-4 text-red-600 mr-1" />
+                  <TrendingDown className="h-4 w-4 text-red-500 mr-1" />
                 </div>
               </div>
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold text-red-900">R$ 24.567,50</div>
+              <div className="text-2xl font-bold text-red-800">R$ 24.567,50</div>
               <div className="flex items-center text-xs text-red-600 mt-1">
                 <TrendingDown className="w-3 h-3 mr-1" />
                 -5% em relação ao mês anterior
@@ -96,36 +111,36 @@ export default function ReportsPage() {
           </Card>
 
           {/* Produtos Vendidos */}
-          <Card className="bg-blue-50 border-blue-100 shadow-sm">
+          <Card className="border-l-4 border-l-green-400 bg-green-50/50">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <div>
-                <CardTitle className="text-sm font-medium text-blue-700">Produtos Vendidos</CardTitle>
+                <CardTitle className="text-sm font-medium text-green-700">Produtos Vendidos</CardTitle>
                 <div className="flex items-center mt-1">
-                  <Package className="h-4 w-4 text-blue-600 mr-1" />
+                  <Package className="h-4 w-4 text-green-500 mr-1" />
                 </div>
               </div>
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold text-blue-900">479</div>
-              <div className="flex items-center text-xs text-blue-600 mt-1">
+              <div className="text-2xl font-bold text-green-800">479</div>
+              <div className="flex items-center text-xs text-green-600 mt-1">
                 +7% em relação ao mês anterior
               </div>
             </CardContent>
           </Card>
 
           {/* Margem de Lucro */}
-          <Card className="bg-purple-50 border-purple-100 shadow-sm">
+          <Card className="border-l-4 border-l-rose-400 bg-rose-50/50">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <div>
-                <CardTitle className="text-sm font-medium text-purple-700">Margem de Lucro</CardTitle>
+                <CardTitle className="text-sm font-medium text-rose-700">Margem de Lucro</CardTitle>
                 <div className="flex items-center mt-1">
-                  <BarChart3 className="h-4 w-4 text-purple-600 mr-1" />
+                  <BarChart3 className="h-4 w-4 text-rose-500 mr-1" />
                 </div>
               </div>
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold text-purple-900">52.7%</div>
-              <div className="flex items-center text-xs text-purple-600 mt-1">
+              <div className="text-2xl font-bold text-rose-800">52.7%</div>
+              <div className="flex items-center text-xs text-rose-600 mt-1">
                 +2.1% em relação ao mês anterior
               </div>
             </CardContent>
@@ -303,5 +318,6 @@ export default function ReportsPage() {
           </div>
         </div>
       </div>
+    </div>
   );
 }

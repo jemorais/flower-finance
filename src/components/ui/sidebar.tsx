@@ -16,7 +16,9 @@ import {
   Menu,
   X,
   LogOut,
-  UserCircle
+  UserCircle,
+  Package,
+  Tag
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
@@ -43,6 +45,18 @@ const menuItems = [
     href: '/dashboard/transactions',
     icon: DollarSign,
     description: 'Histórico de movimentações'
+  },
+  {
+    title: 'Produtos',
+    href: '/dashboard/products',
+    icon: Package,
+    description: 'Catálogo de produtos'
+  },
+  {
+    title: 'Categorias',
+    href: '/dashboard/categories',
+    icon: Tag,
+    description: 'Gerenciar categorias'
   },
   {
     title: 'Relatórios',

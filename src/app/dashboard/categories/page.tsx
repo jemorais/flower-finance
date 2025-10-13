@@ -1,0 +1,403 @@
+'use client';
+
+import { useState } from 'react';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Textarea } from '@/components/ui/textarea';
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import { Badge } from '@/components/ui/badge';
+import { Tag, Plus, Search, Edit, Trash2, Package, Flower2, Grid, List } from 'lucide-react';
+
+interface Category {
+  id: number;
+  name: string;
+  description: string;
+  color: string;
+  productCount: number;
+  active: boolean;
+}
+
+export default function CategoriesPage() {
+  const [categories, setCategories] = useState<Category[]>([
+    { id: 1, name: 'Rosas', description: 'Rosas de todas as cores e variedades', color: '#ef4444', productCount: 15, active: true },
+    { id: 2, name: 'Buquês', description: 'Arranjos e buquês para ocasiões especiais', color: '#8b5cf6', productCount: 8, active: true },
+    { id: 3, name: 'Orquídeas', description: 'Orquídeas exóticas e elegantes', color: '#06b6d4', productCount: 12, active: true },
+    { id: 4, name: 'Flores Silvestres', description: 'Flores naturais e campestres', color: '#eab308', productCount: 6, active: true },
+    { id: 5, name: 'Arranjos', description: 'Arranjos decorativos e temáticos', color: '#10b981', productCount: 4, active: true }
+  ]);
+
+  const [searchTerm, setSearchTerm] = useState('');
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [editingCategory, setEditingCategory] = useState<Category | null>(null);
+  const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
+  
+  const [formData, setFormData] = useState({
+    name: '',
+    description: '',
+    color: '#3b82f6',
+    active: true
+  });
+
+  const filteredCategories = categories.filter(category =>
+    category.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    category.description.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+  const totalCategories = categories.length;
+  const activeCategories = categories.filter(c => c.active).length;
+  const totalProducts = categories.reduce((sum, category) => sum + category.productCount, 0);
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    const categoryData = {
+      ...formData,
+      id: editingCategory ? editingCategory.id : Date.now(),
+      productCount: editingCategory ? editingCategory.productCount : 0
+    };
+
+    if (editingCategory) {
+      setCategories(categories.map(c => c.id === editingCategory.id ? categoryData as Category : c));
+    } else {
+      setCategories([...categories, categoryData as Category]);
+    }
+
+    resetForm();
+  };
+
+  const resetForm = () => {
+    setFormData({ name: '', description: '', color: '#3b82f6', active: true });
+    setEditingCategory(null);
+    setIsDialogOpen(false);
+  };
+
+  const handleEdit = (category: Category) => {
+    setEditingCategory(category);
+    setFormData({
+      name: category.name,
+      description: category.description,
+      color: category.color,
+      active: category.active
+    });
+    setIsDialogOpen(true);
+  };
+
+  const handleDelete = (id: number) => {
+    const category = categories.find(c => c.id === id);
+    if (category && category.productCount > 0) {
+      alert(`Não é possível excluir a categoria "${category.name}" pois ela possui ${category.productCount} produtos associados.`);
+      return;
+    }
+    
+    if (confirm('Tem certeza que deseja excluir esta categoria?')) {
+      setCategories(categories.filter(c => c.id !== id));
+    }
+  };
+
+  const colorOptions = [
+    { value: '#ef4444', name: 'Vermelho' },
+    { value: '#f97316', name: 'Laranja' },
+    { value: '#eab308', name: 'Amarelo' },
+    { value: '#10b981', name: 'Verde' },
+    { value: '#06b6d4', name: 'Azul Claro' },
+    { value: '#3b82f6', name: 'Azul' },
+    { value: '#8b5cf6', name: 'Roxo' },
+    { value: '#ec4899', name: 'Rosa' }
+  ];
+
+  return (
+    <div className="p-8 bg-gray-50 min-h-screen">
+      <div className="max-w-7xl mx-auto">
+        {/* Header */}
+        <div className="flex justify-between items-center mb-6 bg-gradient-to-r from-pink-500 to-purple-600 p-4 rounded-lg">
+          <div>
+            <h1 className="text-2xl font-bold text-white">Categorias</h1>
+            <p className="text-white/80 mt-1 text-sm">Organize seus produtos por categorias</p>
+          </div>
+          <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+            <DialogTrigger asChild>
+              <Button className="bg-white/20 hover:bg-white/30 text-white border border-white/30" onClick={() => resetForm()}>
+                <Plus className="h-4 w-4 mr-2" />
+                Nova Categoria
+              </Button>
+            </DialogTrigger>
+          <DialogContent className="sm:max-w-[425px]">
+            <DialogHeader>
+              <DialogTitle>{editingCategory ? 'Editar Categoria' : 'Nova Categoria'}</DialogTitle>
+              <DialogDescription>
+                {editingCategory ? 'Edite as informações da categoria.' : 'Adicione uma nova categoria de produtos.'}
+              </DialogDescription>
+            </DialogHeader>
+            <form onSubmit={handleSubmit}>
+              <div className="grid gap-4 py-4">
+                <div className="grid grid-cols-4 items-center gap-4">
+                  <Label htmlFor="name" className="text-right">Nome</Label>
+                  <Input
+                    id="name"
+                    value={formData.name}
+                    onChange={(e) => setFormData({...formData, name: e.target.value})}
+                    className="col-span-3"
+                    required
+                  />
+                </div>
+                <div className="grid grid-cols-4 items-center gap-4">
+                  <Label htmlFor="description" className="text-right">Descrição</Label>
+                  <Textarea
+                    id="description"
+                    value={formData.description}
+                    onChange={(e) => setFormData({...formData, description: e.target.value})}
+                    className="col-span-3"
+                    rows={3}
+                  />
+                </div>
+                <div className="grid grid-cols-4 items-center gap-4">
+                  <Label htmlFor="color" className="text-right">Cor</Label>
+                  <div className="col-span-3 flex gap-2 flex-wrap">
+                    {colorOptions.map((color) => (
+                      <button
+                        key={color.value}
+                        type="button"
+                        onClick={() => setFormData({...formData, color: color.value})}
+                        className={`w-8 h-8 rounded-full border-2 ${
+                          formData.color === color.value ? 'border-gray-900' : 'border-gray-300'
+                        }`}
+                        style={{ backgroundColor: color.value }}
+                        title={color.name}
+                      />
+                    ))}
+                  </div>
+                </div>
+              </div>
+              <DialogFooter>
+                <Button type="button" variant="outline" onClick={resetForm}>
+                  Cancelar
+                </Button>
+                <Button type="submit">
+                  {editingCategory ? 'Salvar' : 'Criar'}
+                </Button>
+              </DialogFooter>
+            </form>
+          </DialogContent>
+        </Dialog>
+      </div>
+
+      {/* Stats Cards */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+        <Card className="border-l-4 border-l-rose-400 bg-rose-50/50">
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium text-rose-700">Total de Categorias</CardTitle>
+            <Tag className="h-4 w-4 text-rose-500" />
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold text-rose-800">{totalCategories}</div>
+            <p className="text-xs text-rose-600">
+              {activeCategories} ativas
+            </p>
+          </CardContent>
+        </Card>
+        
+        <Card className="border-l-4 border-l-red-400 bg-red-50/50">
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium text-red-700">Produtos Categorizados</CardTitle>
+            <Package className="h-4 w-4 text-red-500" />
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold text-red-800">{totalProducts}</div>
+            <p className="text-xs text-red-600">
+              Total de produtos
+            </p>
+          </CardContent>
+        </Card>
+        
+        <Card className="border-l-4 border-l-green-400 bg-green-50/50">
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium text-green-700">Média por Categoria</CardTitle>
+            <Flower2 className="h-4 w-4 text-green-500" />
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold text-green-800">
+              {totalCategories > 0 ? Math.round(totalProducts / totalCategories) : 0}
+            </div>
+            <p className="text-xs text-green-600">
+              Produtos por categoria
+            </p>
+          </CardContent>
+        </Card>
+      </div>
+
+      {/* Search */}
+      <div className="flex gap-4 mb-6">
+        <div className="flex-1">
+          <div className="relative">
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
+            <Input
+              placeholder="Buscar categorias..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="pl-10"
+            />
+          </div>
+        </div>
+        
+        {/* View Toggle */}
+        <div className="flex border rounded-lg">
+          <Button
+            variant={viewMode === 'grid' ? 'default' : 'ghost'}
+            size="sm"
+            onClick={() => setViewMode('grid')}
+            className="rounded-r-none"
+          >
+            <Grid className="h-4 w-4" />
+          </Button>
+          <Button
+            variant={viewMode === 'list' ? 'default' : 'ghost'}
+            size="sm"
+            onClick={() => setViewMode('list')}
+            className="rounded-l-none"
+          >
+            <List className="h-4 w-4" />
+          </Button>
+        </div>
+      </div>
+
+      {/* Categories Grid/List */}
+      <div className={viewMode === 'grid' 
+        ? "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" 
+        : "space-y-4"
+      }>
+        {filteredCategories.map((category) => (
+          <Card key={category.id} className={`hover:shadow-md transition-shadow ${
+            viewMode === 'list' ? 'flex flex-row items-center' : ''
+          }`}>
+            {viewMode === 'grid' ? (
+              // Grid View
+              <>
+                <CardHeader>
+                  <div className="flex justify-between items-start">
+                    <div className="flex items-center gap-3">
+                      <div
+                        className="w-4 h-4 rounded-full"
+                        style={{ backgroundColor: category.color }}
+                      />
+                      <div>
+                        <CardTitle className="text-lg">{category.name}</CardTitle>
+                        <CardDescription className="mt-1">{category.description}</CardDescription>
+                      </div>
+                    </div>
+                    <Badge variant={category.active ? 'default' : 'secondary'}>
+                      {category.active ? 'Ativa' : 'Inativa'}
+                    </Badge>
+                  </div>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-2">
+                    <div className="flex justify-between">
+                      <span className="text-sm text-muted-foreground">Produtos:</span>
+                      <span className="font-semibold">{category.productCount}</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-sm text-muted-foreground">Cor:</span>
+                      <div className="flex items-center gap-2">
+                        <div
+                          className="w-3 h-3 rounded-full border"
+                          style={{ backgroundColor: category.color }}
+                        />
+                        <span className="text-sm">{category.color}</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="flex gap-2 mt-4">
+                    <Button variant="outline" size="sm" onClick={() => handleEdit(category)} className="flex-1">
+                      <Edit className="h-4 w-4 mr-1" />
+                      Editar
+                    </Button>
+                    <Button 
+                      variant="outline" 
+                      size="sm" 
+                      onClick={() => handleDelete(category.id)} 
+                      className="text-red-600 hover:text-red-700"
+                      disabled={category.productCount > 0}
+                    >
+                      <Trash2 className="h-4 w-4" />
+                    </Button>
+                  </div>
+                  {category.productCount > 0 && (
+                    <p className="text-xs text-muted-foreground mt-2">
+                      * Não é possível excluir categorias com produtos
+                    </p>
+                  )}
+                </CardContent>
+              </>
+            ) : (
+              // List View
+              <>
+                <div className="flex items-center gap-4 p-6 flex-1">
+                  <div
+                    className="w-6 h-6 rounded-full flex-shrink-0"
+                    style={{ backgroundColor: category.color }}
+                  />
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center gap-3 mb-1">
+                      <h3 className="font-semibold text-lg truncate">{category.name}</h3>
+                      <Badge variant={category.active ? 'default' : 'secondary'}>
+                        {category.active ? 'Ativa' : 'Inativa'}
+                      </Badge>
+                    </div>
+                    <p className="text-muted-foreground text-sm truncate">{category.description}</p>
+                  </div>
+                  <div className="flex items-center gap-6 text-sm">
+                    <div className="text-center">
+                      <div className="font-semibold">{category.productCount}</div>
+                      <div className="text-muted-foreground">Produtos</div>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <div
+                        className="w-4 h-4 rounded-full border"
+                        style={{ backgroundColor: category.color }}
+                      />
+                      <span className="text-muted-foreground">{category.color}</span>
+                    </div>
+                  </div>
+                  <div className="flex gap-2 ml-4">
+                    <Button variant="outline" size="sm" onClick={() => handleEdit(category)}>
+                      <Edit className="h-4 w-4" />
+                    </Button>
+                    <Button 
+                      variant="outline" 
+                      size="sm" 
+                      onClick={() => handleDelete(category.id)} 
+                      className="text-red-600 hover:text-red-700"
+                      disabled={category.productCount > 0}
+                    >
+                      <Trash2 className="h-4 w-4" />
+                    </Button>
+                  </div>
+                </div>
+                {category.productCount > 0 && (
+                  <div className="px-6 pb-2">
+                    <p className="text-xs text-muted-foreground">
+                      * Não é possível excluir categorias com produtos
+                    </p>
+                  </div>
+                )}
+              </>
+            )}
+          </Card>
+        ))}
+      </div>
+
+      {filteredCategories.length === 0 && (
+        <Card>
+          <CardContent className="text-center py-8">
+            <Tag className="h-12 w-12 text-gray-400 mx-auto mb-4" />
+            <h3 className="text-lg font-medium text-gray-900 mb-2">Nenhuma categoria encontrada</h3>
+            <p className="text-gray-600">Tente ajustar a busca ou adicione novas categorias.</p>
+          </CardContent>
+        </Card>
+      )}
+      </div>
+    </div>
+  );
+}
