@@ -4,6 +4,8 @@ import { useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Textarea } from '@/components/ui/textarea';
 import { Badge } from '@/components/ui/badge';
 import { 
   DollarSign, 
@@ -15,7 +17,8 @@ import {
   Calendar,
   ArrowUpCircle,
   ArrowDownCircle,
-  Plus
+  Plus,
+  FileText
 } from 'lucide-react';
 import {
   Dialog,
@@ -41,6 +44,7 @@ const transactionData = [
     date: '15/01/2024',
     category: 'Arranjos',
     amount: 150.00,
+    paymentMethod: 'PIX',
     icon: ArrowUpCircle,
     color: 'text-green-600'
   },
@@ -51,6 +55,7 @@ const transactionData = [
     date: '14/01/2024',
     category: 'Plantas',
     amount: 200.00,
+    paymentMethod: 'Cartão de Débito',
     icon: ArrowUpCircle,
     color: 'text-green-600'
   },
@@ -61,6 +66,7 @@ const transactionData = [
     date: '13/01/2024',
     category: 'Estoque',
     amount: -80.00,
+    paymentMethod: 'PIX',
     icon: ArrowDownCircle,
     color: 'text-red-600'
   },
@@ -71,6 +77,7 @@ const transactionData = [
     date: '12/01/2024',
     category: 'Fornecedores',
     amount: -300.00,
+    paymentMethod: 'Cartão de Crédito',
     icon: ArrowDownCircle,
     color: 'text-red-600'
   },
@@ -81,6 +88,7 @@ const transactionData = [
     date: '12/01/2024',
     category: 'Buquês',
     amount: 480.00,
+    paymentMethod: 'Dinheiro',
     icon: ArrowUpCircle,
     color: 'text-green-600'
   },
@@ -91,6 +99,7 @@ const transactionData = [
     date: '11/01/2024',
     category: 'Utilidades',
     amount: -120.00,
+    paymentMethod: 'Cartão de Débito',
     icon: ArrowDownCircle,
     color: 'text-red-600'
   },
@@ -101,6 +110,7 @@ const transactionData = [
     date: '10/01/2024',
     category: 'Especiais',
     amount: 180.00,
+    paymentMethod: 'iFood',
     icon: ArrowUpCircle,
     color: 'text-green-600'
   }
@@ -114,6 +124,7 @@ export default function TransactionsPage() {
   const [newCategory, setNewCategory] = useState('');
   const [newAmount, setNewAmount] = useState('');
   const [newType, setNewType] = useState('receita');
+  const [newPaymentMethod, setNewPaymentMethod] = useState('PIX');
 
   // Categorias por tipo
   const categoriesByType = {
@@ -129,6 +140,7 @@ export default function TransactionsPage() {
       date: '15/01/2024',
       category: 'Arranjos',
       amount: 150.00,
+      paymentMethod: 'PIX',
       icon: ArrowUpCircle,
       color: 'text-green-600'
     },
@@ -139,6 +151,7 @@ export default function TransactionsPage() {
       date: '14/01/2024',
       category: 'Plantas',
       amount: 200.00,
+      paymentMethod: 'Cartão de Débito',
       icon: ArrowUpCircle,
       color: 'text-green-600'
     },
@@ -149,6 +162,7 @@ export default function TransactionsPage() {
       date: '13/01/2024',
       category: 'Estoque',
       amount: -80.00,
+      paymentMethod: 'PIX',
       icon: ArrowDownCircle,
       color: 'text-red-600'
     },
@@ -159,6 +173,7 @@ export default function TransactionsPage() {
       date: '12/01/2024',
       category: 'Fornecedores',
       amount: -300.00,
+      paymentMethod: 'Cartão de Crédito',
       icon: ArrowDownCircle,
       color: 'text-red-600'
     },
@@ -169,6 +184,7 @@ export default function TransactionsPage() {
       date: '12/01/2024',
       category: 'Buquês',
       amount: 480.00,
+      paymentMethod: 'Dinheiro',
       icon: ArrowUpCircle,
       color: 'text-green-600'
     },
@@ -179,6 +195,7 @@ export default function TransactionsPage() {
       date: '11/01/2024',
       category: 'Utilidades',
       amount: -120.00,
+      paymentMethod: 'Débito Automático',
       icon: ArrowDownCircle,
       color: 'text-red-600'
     },
@@ -189,6 +206,7 @@ export default function TransactionsPage() {
       date: '10/01/2024',
       category: 'Especiais',
       amount: 180.00,
+      paymentMethod: 'iFood',
       icon: ArrowUpCircle,
       color: 'text-green-600'
     }
@@ -219,6 +237,7 @@ export default function TransactionsPage() {
       date: new Date().toLocaleDateString('pt-BR'),
       category: newCategory,
       amount: newType === 'receita' ? amountValue : -amountValue,
+      paymentMethod: newPaymentMethod,
       icon: newType === 'receita' ? ArrowUpCircle : ArrowDownCircle,
       color: newType === 'receita' ? 'text-green-600' : 'text-red-600'
     };
@@ -227,6 +246,7 @@ export default function TransactionsPage() {
     setNewCategory('');
     setNewAmount('');
     setNewType('receita');
+    setNewPaymentMethod('PIX');
     setIsOpen(false);
   };
 
@@ -241,7 +261,7 @@ export default function TransactionsPage() {
   };
 
   return (
-    <div className="p-8 bg-gray-50/50 min-h-screen">
+    <div className="min-h-screen bg-gradient-to-b from-pink-100 via-rose-50 to-pink-25 p-8">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="flex items-center justify-between mb-6 bg-gradient-to-r from-pink-500 to-purple-600 p-4 rounded-lg">
@@ -252,7 +272,7 @@ export default function TransactionsPage() {
         <Dialog open={isOpen} onOpenChange={setIsOpen}>
           <DialogTrigger asChild>
             <Button 
-              className="bg-white/20 hover:bg-white/30 text-white border border-white/30"
+              className="bg-white text-pink-600 hover:bg-pink-50"
             >
               <Plus className="w-4 h-4 mr-2" />
               Nova Transação
@@ -263,40 +283,92 @@ export default function TransactionsPage() {
               <DialogTitle>Cadastrar Nova Transação</DialogTitle>
             </DialogHeader>
             <form onSubmit={handleSubmit} className="space-y-4">
-              <Select value={newType} onValueChange={handleTypeChange}>
-                <SelectTrigger>
-                  <SelectValue placeholder="Tipo" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="receita">Receita</SelectItem>
-                  <SelectItem value="despesa">Despesa</SelectItem>
-                </SelectContent>
-              </Select>
-              <Input 
-                placeholder="Descrição" 
-                value={newDescription} 
-                onChange={(e) => setNewDescription(e.target.value)} 
-              />
-              <Select value={newCategory} onValueChange={setNewCategory}>
-                <SelectTrigger>
-                  <SelectValue placeholder="Categoria" />
-                </SelectTrigger>
-                <SelectContent>
-                  {categoriesByType[newType as keyof typeof categoriesByType].map((category) => (
-                    <SelectItem key={category} value={category}>
-                      {category}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-              <Input 
-                type="number" 
-                placeholder="Valor" 
-                value={newAmount} 
-                onChange={(e) => setNewAmount(e.target.value)} 
-              />
+              <div className="space-y-2">
+                <Label htmlFor="type">Tipo</Label>
+                <Select value={newType} onValueChange={handleTypeChange}>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Selecione o tipo" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="receita">Receita</SelectItem>
+                    <SelectItem value="despesa">Despesa</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="description">Descrição</Label>
+                <Textarea
+                  id="description"
+                  placeholder="Descreva a transação..."
+                  value={newDescription}
+                  onChange={(e) => setNewDescription(e.target.value)}
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="category">Categoria</Label>
+                <Select value={newCategory} onValueChange={setNewCategory}>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Selecione a categoria" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {categoriesByType[newType as keyof typeof categoriesByType].map((category) => (
+                      <SelectItem key={category} value={category}>
+                        {category}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="amount">Valor</Label>
+                <Input
+                  id="amount"
+                  type="text"
+                  placeholder="R$ 0,00"
+                  value={newAmount}
+                  onChange={(e) => setNewAmount(e.target.value)}
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="date">Data</Label>
+                <Input
+                  id="date"
+                  type="text"
+                  placeholder="dd/mm/aaaa"
+                  value={new Date().toLocaleDateString('pt-BR')}
+                  onChange={(e) => {
+                    let value = e.target.value.replace(/\D/g, '');
+                    if (value.length >= 2) value = value.substring(0,2) + '/' + value.substring(2);
+                    if (value.length >= 5) value = value.substring(0,5) + '/' + value.substring(5,9);
+                    // Aqui você pode adicionar lógica para salvar a data se necessário
+                  }}
+                  maxLength={10}
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="paymentMethod">Forma de Pagamento</Label>
+                <Select value={newPaymentMethod} onValueChange={setNewPaymentMethod}>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Selecione a forma de pagamento" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="PIX">PIX</SelectItem>
+                    <SelectItem value="Dinheiro">Dinheiro</SelectItem>
+                    <SelectItem value="Cartão de Débito">Cartão de Débito</SelectItem>
+                    <SelectItem value="Cartão de Crédito">Cartão de Crédito</SelectItem>
+                    <SelectItem value="Débito Automático">Débito Automático</SelectItem>
+                    <SelectItem value="iFood">iFood</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+
               <DialogFooter>
-                <Button type="submit">Salvar</Button>
+                <Button type="submit" className="w-full">Salvar</Button>
               </DialogFooter>
             </form>
           </DialogContent>
@@ -306,69 +378,54 @@ export default function TransactionsPage() {
       {/* Metric Cards */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
         {/* Saldo Líquido */}
-        <Card className="border-l-4 border-l-rose-400 bg-rose-50/50">
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <div>
-              <CardTitle className="text-sm font-medium text-rose-700">Saldo Líquido</CardTitle>
-              <div className="flex items-center mt-1">
-                <DollarSign className="h-4 w-4 text-rose-500 mr-1" />
-              </div>
-            </div>
+        <Card className="border-l-4 border-l-green-400 bg-green-50/50">
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-1">
+            <CardTitle className="text-sm font-medium text-green-700">Saldo Líquido</CardTitle>
+            <DollarSign className="h-4 w-4 text-green-500" />
           </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold text-rose-800">R$ 5.250,00</div>
-            <div className="flex items-center text-xs text-rose-600 mt-1">
-              <TrendingUp className="w-3 h-3 mr-1" />
+          <CardContent className="pt-1">
+            <div className="text-2xl font-bold text-green-800">R$ 5.250,00</div>
+            <p className="text-xs text-green-600">
               +18,7% em relação ao mês anterior
-            </div>
+            </p>
           </CardContent>
         </Card>
 
         {/* Despesas do Mês */}
         <Card className="border-l-4 border-l-red-400 bg-red-50/50">
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <div>
-              <CardTitle className="text-sm font-medium text-red-700">Despesas do Mês</CardTitle>
-              <div className="flex items-center mt-1">
-                <TrendingDown className="h-4 w-4 text-red-500 mr-1" />
-              </div>
-            </div>
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-1">
+            <CardTitle className="text-sm font-medium text-red-700">Despesas do Mês</CardTitle>
+            <TrendingDown className="h-4 w-4 text-red-500" />
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-1">
             <div className="text-2xl font-bold text-red-800">R$ 3.200,00</div>
-            <div className="flex items-center text-xs text-red-600 mt-1">
-              <TrendingDown className="w-3 h-3 mr-1" />
-              +8,5% em relação ao mês anterior
-            </div>
+            <p className="text-xs text-red-600">
+              -5,3% em relação ao mês anterior
+            </p>
           </CardContent>
         </Card>
 
         {/* Receita do Mês */}
         <Card className="border-l-4 border-l-green-400 bg-green-50/50">
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <div>
-              <CardTitle className="text-sm font-medium text-green-700">Receita do Mês</CardTitle>
-              <div className="flex items-center mt-1">
-                <TrendingUp className="h-4 w-4 text-green-500 mr-1" />
-              </div>
-            </div>
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-1">
+            <CardTitle className="text-sm font-medium text-green-700">Receita do Mês</CardTitle>
+            <TrendingUp className="h-4 w-4 text-green-500" />
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-1">
             <div className="text-2xl font-bold text-green-800">R$ 8.450,00</div>
-            <div className="flex items-center text-xs text-green-600 mt-1">
-              <TrendingUp className="w-3 h-3 mr-1" />
+            <p className="text-xs text-green-600">
               +15,2% em relação ao mês anterior
-            </div>
+            </p>
           </CardContent>
         </Card>
       </div>
 
       {/* Filters */}
       <Card className="mb-8">
-        <CardHeader>
+        <CardHeader className="pb-2">
           <CardTitle className="text-lg font-semibold text-gray-900">Filtros</CardTitle>
         </CardHeader>
-        <CardContent>
+        <CardContent className="pt-2">
           <div className="flex flex-wrap gap-4 items-center">
             <div className="relative flex-1 min-w-64">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
@@ -408,14 +465,24 @@ export default function TransactionsPage() {
 
       {/* Transaction History */}
       <Card>
-        <CardHeader>
-          <CardTitle className="text-lg font-semibold text-gray-900">Histórico de Transações</CardTitle>
-          <CardDescription className="text-gray-600">
-            {filteredTransactions.length} transação{filteredTransactions.length !== 1 ? 'ões' : ''} encontrada{filteredTransactions.length !== 1 ? 's' : ''}
-            {activeFilter !== 'todos' && ` (filtro: ${activeFilter})`}
-          </CardDescription>
+        <CardHeader className="p-0">
+          {/* Header com gradiente */}
+          <div className="bg-gradient-to-r from-gray-100 to-gray-200 p-4 rounded-t-lg">
+            <div className="flex items-center justify-between">
+              <div>
+                <h3 className="text-lg font-semibold text-gray-700 flex items-center gap-2">
+                  <FileText className="h-4 w-4" />
+                  Histórico de Transações
+                </h3>
+                <p className="text-gray-500 mt-1 text-sm">
+                  {filteredTransactions.length} transação{filteredTransactions.length !== 1 ? 'ões' : ''} encontrada{filteredTransactions.length !== 1 ? 's' : ''}
+                  {activeFilter !== 'todos' && ` (filtro: ${activeFilter})`}
+                </p>
+              </div>
+            </div>
+          </div>
         </CardHeader>
-        <CardContent>
+        <CardContent className="pt-2">
           <div className="space-y-4">
             {filteredTransactions.length === 0 ? (
               <div className="text-center py-8 text-gray-500">
@@ -433,7 +500,7 @@ export default function TransactionsPage() {
                       <div>
                         <div className="font-medium text-gray-900">{transaction.description}</div>
                         <div className="text-sm text-gray-500">
-                          {transaction.date} • {transaction.category}
+                          {transaction.date} • {transaction.category} • {transaction.paymentMethod}
                         </div>
                       </div>
                     </div>

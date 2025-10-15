@@ -2,7 +2,7 @@
 
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Heart, Flower, Gift, Star, Phone, Mail, MapPin, Clock, ArrowRight, CheckCircle } from 'lucide-react';
+import { Heart, Flower, Gift, Star, Phone, Mail, MapPin, Clock, ArrowRight, CheckCircle, Instagram, MessageCircle } from 'lucide-react';
 import Link from 'next/link';
 
 export default function HomePage() {
@@ -99,7 +99,7 @@ export default function HomePage() {
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             <Card className="bg-gradient-to-br from-pink-50 to-rose-50 border-pink-200 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
-              <CardHeader>
+              <CardHeader className="pb-2">
                 <div className="w-12 h-12 bg-gradient-to-br from-pink-500 to-rose-600 rounded-xl flex items-center justify-center mb-4">
                   <Heart className="w-6 h-6 text-white" />
                 </div>
@@ -108,7 +108,7 @@ export default function HomePage() {
                   Arranjos especiais para declarações de amor e momentos íntimos
                 </CardDescription>
               </CardHeader>
-              <CardContent>
+              <CardContent className="pt-2">
                 <ul className="space-y-2 text-sm text-pink-800">
                   <li className="flex items-center"><CheckCircle className="w-4 h-4 mr-2 text-pink-600" />Rosas premium</li>
                   <li className="flex items-center"><CheckCircle className="w-4 h-4 mr-2 text-pink-600" />Embalagem elegante</li>
@@ -118,7 +118,7 @@ export default function HomePage() {
             </Card>
 
             <Card className="bg-gradient-to-br from-purple-50 to-violet-50 border-purple-200 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
-              <CardHeader>
+              <CardHeader className="pb-2">
                 <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-violet-600 rounded-xl flex items-center justify-center mb-4">
                   <Gift className="w-6 h-6 text-white" />
                 </div>
@@ -127,7 +127,7 @@ export default function HomePage() {
                   Decoração floral completa para casamentos, aniversários e celebrações
                 </CardDescription>
               </CardHeader>
-              <CardContent>
+              <CardContent className="pt-2">
                 <ul className="space-y-2 text-sm text-purple-800">
                   <li className="flex items-center"><CheckCircle className="w-4 h-4 mr-2 text-purple-600" />Consultoria personalizada</li>
                   <li className="flex items-center"><CheckCircle className="w-4 h-4 mr-2 text-purple-600" />Montagem no local</li>
@@ -137,7 +137,7 @@ export default function HomePage() {
             </Card>
 
             <Card className="bg-gradient-to-br from-emerald-50 to-green-50 border-emerald-200 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
-              <CardHeader>
+              <CardHeader className="pb-2">
                 <div className="w-12 h-12 bg-gradient-to-br from-emerald-500 to-green-600 rounded-xl flex items-center justify-center mb-4">
                   <Flower className="w-6 h-6 text-white" />
                 </div>
@@ -146,7 +146,7 @@ export default function HomePage() {
                   Plantas para decoração de ambientes internos e externos
                 </CardDescription>
               </CardHeader>
-              <CardContent>
+              <CardContent className="pt-2">
                 <ul className="space-y-2 text-sm text-emerald-800">
                   <li className="flex items-center"><CheckCircle className="w-4 h-4 mr-2 text-emerald-600" />Vasos decorativos</li>
                   <li className="flex items-center"><CheckCircle className="w-4 h-4 mr-2 text-emerald-600" />Cuidados inclusos</li>
@@ -417,12 +417,27 @@ export default function HomePage() {
             </div>
             
             <div>
-              <h5 className="font-semibold mb-4">Horários</h5>
-              <ul className="space-y-2 text-sm text-gray-400">
-                <li>Segunda a Sexta: 8h às 18h</li>
-                <li>Sábado: 8h às 16h</li>
-                <li>Domingo: Fechado</li>
-              </ul>
+              <h5 className="font-semibold mb-4">Redes Sociais</h5>
+              <div className="space-y-3">
+                <a 
+                  href="https://wa.me/5511999999999" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="flex items-center space-x-2 text-sm text-gray-400 hover:text-green-400 transition-colors"
+                >
+                  <MessageCircle className="w-4 h-4" />
+                  <span>WhatsApp</span>
+                </a>
+                <a 
+                  href="https://instagram.com/bellarosa_flores" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="flex items-center space-x-2 text-sm text-gray-400 hover:text-pink-400 transition-colors"
+                >
+                  <Instagram className="w-4 h-4" />
+                  <span>@bellarosa_flores</span>
+                </a>
+              </div>
             </div>
           </div>
           

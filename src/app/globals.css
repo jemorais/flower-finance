@@ -84,3 +84,16 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* Força o fundo branco do sidebar */
+.sidebar-container {
+  background-color: #ffffff !important;
+  background-image: none !important;
+  background: #ffffff !important;
+  min-height: 100vh !important;
+  height: 100% !important;
+}
+
+.sidebar-container * {
+  background-color: transparent !important;
+}

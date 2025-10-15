@@ -12,7 +12,6 @@ import {
   User, 
   Bell, 
   Shield, 
-  Palette,
   Database,
   Download,
   Upload,
@@ -25,7 +24,6 @@ interface UserSettings {
   name: string;
   email: string;
   phone: string;
-  currency: string;
   language: string;
   timezone: string;
 }
@@ -50,7 +48,6 @@ export default function SettingsPage() {
     name: 'João Silva',
     email: 'joao.silva@email.com',
     phone: '(11) 99999-9999',
-    currency: 'BRL',
     language: 'pt-BR',
     timezone: 'America/Sao_Paulo'
   });
@@ -73,7 +70,6 @@ export default function SettingsPage() {
     { id: 'profile', label: 'Perfil', icon: User },
     { id: 'notifications', label: 'Notificações', icon: Bell },
     { id: 'security', label: 'Segurança', icon: Shield },
-    { id: 'appearance', label: 'Aparência', icon: Palette },
     { id: 'data', label: 'Dados', icon: Database }
   ];
 
@@ -86,7 +82,6 @@ export default function SettingsPage() {
       ['Nome', userSettings.name],
       ['Email', userSettings.email],
       ['Telefone', userSettings.phone],
-      ['Moeda', userSettings.currency],
     ];
     const csvContent = 'data:text/csv;charset=utf-8,' + data.map(row => row.join(',')).join('\n');
     const encodedUri = encodeURI(csvContent);
@@ -110,7 +105,6 @@ export default function SettingsPage() {
           name: lines[0][1] || userSettings.name,
           email: lines[1][1] || userSettings.email,
           phone: lines[2][1] || userSettings.phone,
-          currency: lines[3][1] || userSettings.currency,
           language: userSettings.language,
           timezone: userSettings.timezone
         });
@@ -120,7 +114,7 @@ export default function SettingsPage() {
   };
 
   return (
-    <div className="p-6">
+    <div className="min-h-screen bg-gradient-to-b from-pink-100 via-rose-50 to-pink-25 p-6">
       {/* Header */}
       <div className="mb-6">
         <h1 className="text-2xl font-bold text-gray-900 flex items-center gap-2">
@@ -154,11 +148,11 @@ export default function SettingsPage() {
       {/* Profile Tab */}
       {activeTab === 'profile' && (
         <Card>
-          <CardHeader>
+          <CardHeader className="pb-2">
             <CardTitle>Informações do Perfil</CardTitle>
             <CardDescription>Atualize suas informações pessoais</CardDescription>
           </CardHeader>
-          <CardContent className="space-y-4">
+          <CardContent className="space-y-4 pt-2">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
                 <Label htmlFor="name">Nome Completo</Label>
@@ -185,19 +179,6 @@ export default function SettingsPage() {
                   onChange={(e) => setUserSettings({...userSettings, phone: e.target.value})}
                 />
               </div>
-              <div>
-                <Label htmlFor="currency">Moeda</Label>
-                <select
-                  id="currency"
-                  value={userSettings.currency}
-                  onChange={(e) => setUserSettings({...userSettings, currency: e.target.value})}
-                  className="w-full p-2 border rounded-md"
-                >
-                  <option value="BRL">Real (BRL)</option>
-                  <option value="USD">Dólar (USD)</option>
-                  <option value="EUR">Euro (EUR)</option>
-                </select>
-              </div>
             </div>
             <Button onClick={handleSaveProfile} className="bg-pink-600 hover:bg-pink-700">
               <Save className="w-4 h-4 mr-2" />
@@ -210,11 +191,11 @@ export default function SettingsPage() {
       {/* Notifications Tab */}
       {activeTab === 'notifications' && (
         <Card>
-          <CardHeader>
+          <CardHeader className="pb-2">
             <CardTitle>Preferências de Notificação</CardTitle>
             <CardDescription>Configure como você deseja receber notificações</CardDescription>
           </CardHeader>
-          <CardContent className="space-y-4">
+          <CardContent className="space-y-4 pt-2">
             <div className="flex items-center justify-between">
               <div>
                 <Label>Notificações por Email</Label>
@@ -252,11 +233,11 @@ export default function SettingsPage() {
       {/* Security Tab */}
       {activeTab === 'security' && (
         <Card>
-          <CardHeader>
+          <CardHeader className="pb-2">
             <CardTitle>Configurações de Segurança</CardTitle>
             <CardDescription>Mantenha sua conta segura</CardDescription>
           </CardHeader>
-          <CardContent className="space-y-4">
+          <CardContent className="space-y-4 pt-2">
             <div className="flex items-center justify-between">
               <div>
                 <Label>Autenticação de Dois Fatores</Label>
@@ -284,11 +265,11 @@ export default function SettingsPage() {
       {/* Data Tab */}
       {activeTab === 'data' && (
         <Card>
-          <CardHeader>
+          <CardHeader className="pb-2">
             <CardTitle>Gerenciamento de Dados</CardTitle>
             <CardDescription>Exporte ou importe seus dados</CardDescription>
           </CardHeader>
-          <CardContent className="space-y-4">
+          <CardContent className="space-y-4 pt-2">
             <div className="flex gap-4">
               <Button onClick={handleExportData} variant="outline">
                 <Download className="w-4 h-4 mr-2" />

@@ -103,7 +103,7 @@ export default function ProductsPage() {
   };
 
   return (
-    <div className="p-8 bg-gray-50 min-h-screen">
+    <div className="min-h-screen bg-gradient-to-b from-pink-100 via-rose-50 to-pink-25 p-8">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="flex justify-between items-center mb-6 bg-gradient-to-r from-pink-500 to-purple-600 p-4 rounded-lg">
@@ -125,7 +125,7 @@ export default function ProductsPage() {
             </Button>
             <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
               <DialogTrigger asChild>
-                <Button className="bg-white/20 hover:bg-white/30 text-white border border-white/30" onClick={() => resetForm()}>
+                <Button className="bg-white text-pink-600 hover:bg-pink-50" onClick={() => resetForm()}>
                   <Plus className="h-4 w-4 mr-2" />
                   Novo Produto
                 </Button>
@@ -212,40 +212,40 @@ export default function ProductsPage() {
 
       {/* Stats Cards */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-        <Card className="border-l-4 border-l-rose-400 bg-rose-50/50">
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium text-rose-700">Total de Produtos</CardTitle>
-            <Package2 className="h-4 w-4 text-rose-500" />
+        <Card className="border-l-4 border-l-blue-400 bg-blue-50/50">
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-1">
+            <CardTitle className="text-sm font-medium text-blue-700">Total de Produtos</CardTitle>
+            <Package2 className="h-4 w-4 text-blue-500" />
           </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold text-rose-800">{totalProducts}</div>
-            <p className="text-xs text-rose-600">
+          <CardContent className="pt-1">
+            <div className="text-2xl font-bold text-blue-800">{totalProducts}</div>
+            <p className="text-xs text-blue-600">
               {activeProducts} ativos
             </p>
           </CardContent>
         </Card>
         
-        <Card className="border-l-4 border-l-red-400 bg-red-50/50">
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium text-red-700">Valor do Estoque</CardTitle>
-            <DollarSign className="h-4 w-4 text-red-500" />
+        <Card className="border-l-4 border-l-purple-400 bg-purple-50/50">
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-1">
+            <CardTitle className="text-sm font-medium text-purple-700">Valor do Estoque</CardTitle>
+            <DollarSign className="h-4 w-4 text-purple-500" />
           </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold text-red-800">
+          <CardContent className="pt-1">
+            <div className="text-2xl font-bold text-purple-800">
               {totalValue.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}
             </div>
-            <p className="text-xs text-red-600">
+            <p className="text-xs text-purple-600">
               Valor total em estoque
             </p>
           </CardContent>
         </Card>
         
         <Card className="border-l-4 border-l-green-400 bg-green-50/50">
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-1">
             <CardTitle className="text-sm font-medium text-green-700">Categorias</CardTitle>
             <Tag className="h-4 w-4 text-green-500" />
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-1">
             <div className="text-2xl font-bold text-green-800">{categories.length}</div>
             <p className="text-xs text-green-600">
               Tipos de produtos
@@ -306,7 +306,7 @@ export default function ProductsPage() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredProducts.map((product) => (
             <Card key={product.id} className="hover:shadow-md transition-shadow">
-              <CardHeader>
+              <CardHeader className="pb-2">
                 <div className="flex justify-between items-start">
                   <div>
                     <CardTitle className="text-lg">{product.name}</CardTitle>
@@ -317,7 +317,7 @@ export default function ProductsPage() {
                   </Badge>
                 </div>
               </CardHeader>
-              <CardContent>
+              <CardContent className="pt-2">
                 <div className="space-y-2">
                   <div className="flex justify-between">
                     <span className="text-sm text-muted-foreground">Preço:</span>
