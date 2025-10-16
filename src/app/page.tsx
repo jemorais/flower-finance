@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Heart, Flower, Gift, Star, Phone, Mail, MapPin, Clock, ArrowRight, CheckCircle, Instagram, MessageCircle } from 'lucide-react';
 import Link from 'next/link';
+import { SubtleSlideshow } from '@/components/ui/subtle-slideshow';
 
 export default function HomePage() {
   return (
@@ -37,8 +38,20 @@ export default function HomePage() {
       </header>
 
       {/* Hero Section */}
-      <section className="py-20 px-6">
-        <div className="max-w-7xl mx-auto">
+      <section className="relative py-20 px-6 overflow-hidden">
+        {/* Slideshow Background */}
+        <SubtleSlideshow 
+          images={[
+            '/images/flowers/roses-bouquet.svg',
+            '/images/flowers/sunflowers.svg',
+            '/images/flowers/mixed-bouquet.svg',
+            '/images/flowers/red-roses-bouquet.svg'
+          ]}
+          className="z-0"
+          interval={6000}
+          opacity={0.15}
+        />
+        <div className="relative z-10 max-w-7xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
               <h2 className="text-5xl font-bold text-gray-900 mb-6 leading-tight">
@@ -49,13 +62,24 @@ export default function HomePage() {
                 Cada bouquet conta uma história única de amor e carinho.
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
-                <Button size="lg" className="bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white shadow-lg hover:shadow-xl transition-all duration-300">
-                  <Heart className="w-5 h-5 mr-2" />
+                <Button 
+                  size="lg" 
+                  className="bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white shadow-lg hover:shadow-xl transition-all duration-300"
+                  onClick={() => window.open('https://wa.me/5511984327691?text=Olá! Gostaria de fazer um pedido de flores.', '_blank')}
+                >
+                  <svg className="w-5 h-5 mr-2" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.890-5.335 11.893-11.893A11.821 11.821 0 0020.885 3.787"/>
+                  </svg>
                   Fazer Pedido
                 </Button>
-                <Button size="lg" variant="outline" className="border-pink-300 text-pink-700 hover:bg-pink-50">
+                <Button 
+                  size="lg" 
+                  variant="outline" 
+                  className="border-pink-300 text-pink-700 hover:bg-pink-50"
+                  onClick={() => window.open('tel:+5511984327691', '_self')}
+                >
                   <Phone className="w-5 h-5 mr-2" />
-                  (11) 99999-9999
+                  (11) 98432-7691
                 </Button>
               </div>
             </div>
@@ -64,19 +88,27 @@ export default function HomePage() {
                 <div className="bg-white rounded-2xl p-6 shadow-lg">
                   <div className="grid grid-cols-2 gap-4">
                     <div className="bg-gradient-to-br from-pink-100 to-rose-100 rounded-xl p-4 text-center">
-                      <Flower className="w-8 h-8 text-pink-600 mx-auto mb-2" />
+                      <svg className="w-8 h-8 text-pink-600 mx-auto mb-2" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 2C13.1 2 14 2.9 14 4C14 5.1 13.1 6 12 6C10.9 6 10 5.1 10 4C10 2.9 10.9 2 12 2ZM21 9V7L15 1L13.5 2.5L16.17 5.17C15.24 5.06 14.32 5.12 13.5 5.34C11.97 5.74 10.63 6.7 9.91 8.1C8.66 10.25 9.12 13.1 10.91 14.89L4 21.91L6.09 24L13.11 17C14.89 18.78 17.75 19.25 19.9 18C21.3 17.28 22.26 15.94 22.66 14.41C22.88 13.59 22.94 12.67 22.83 11.74L20.5 14.07L19 12.57L21 10.57C21.03 10.39 21.03 10.21 21 10.03V9Z"/>
+                      </svg>
                       <p className="text-sm font-semibold text-pink-900">Arranjos Frescos</p>
                     </div>
                     <div className="bg-gradient-to-br from-purple-100 to-violet-100 rounded-xl p-4 text-center">
-                      <Gift className="w-8 h-8 text-purple-600 mx-auto mb-2" />
+                      <svg className="w-8 h-8 text-purple-600 mx-auto mb-2" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 2C13.1 2 14 2.9 14 4C14 5.1 13.1 6 12 6C10.9 6 10 5.1 10 4C10 2.9 10.9 2 12 2ZM12 7C14.76 7 17 9.24 17 12C17 14.76 14.76 17 12 17C9.24 17 7 14.76 7 12C7 9.24 9.24 7 12 7ZM12 9C10.34 9 9 10.34 9 12C9 13.66 10.34 15 12 15C13.66 15 15 13.66 15 12C15 10.34 13.66 9 12 9ZM12 18C15.31 18 18 20.69 18 24H6C6 20.69 8.69 18 12 18Z"/>
+                      </svg>
                       <p className="text-sm font-semibold text-purple-900">Entrega Rápida</p>
                     </div>
                     <div className="bg-gradient-to-br from-rose-100 to-pink-100 rounded-xl p-4 text-center">
-                      <Heart className="w-8 h-8 text-rose-600 mx-auto mb-2" />
+                      <svg className="w-8 h-8 text-rose-600 mx-auto mb-2" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 2L13.09 8.26L22 9L13.09 9.74L12 16L10.91 9.74L2 9L10.91 8.26L12 2ZM8 16L9.09 18.26L14 19L9.09 19.74L8 22L6.91 19.74L2 19L6.91 18.26L8 16ZM16 16L17.09 18.26L22 19L17.09 19.74L16 22L14.91 19.74L10 19L14.91 18.26L16 16Z"/>
+                      </svg>
                       <p className="text-sm font-semibold text-rose-900">Feito com Amor</p>
                     </div>
                     <div className="bg-gradient-to-br from-violet-100 to-purple-100 rounded-xl p-4 text-center">
-                      <Star className="w-8 h-8 text-violet-600 mx-auto mb-2" />
+                      <svg className="w-8 h-8 text-violet-600 mx-auto mb-2" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 2C13.1 2 14 2.9 14 4C14 5.1 13.1 6 12 6C10.9 6 10 5.1 10 4C10 2.9 10.9 2 12 2ZM12 7C15.31 7 18 9.69 18 13C18 16.31 15.31 19 12 19C8.69 19 6 16.31 6 13C6 9.69 8.69 7 12 7ZM12 9C9.79 9 8 10.79 8 13C8 15.21 9.79 17 12 17C14.21 17 16 15.21 16 13C16 10.79 14.21 9 12 9ZM12 20C15.87 20 19 23.13 19 27H5C5 23.13 8.13 20 12 20Z"/>
+                      </svg>
                       <p className="text-sm font-semibold text-violet-900">Qualidade Premium</p>
                     </div>
                   </div>
@@ -310,12 +342,22 @@ export default function HomePage() {
             Entre em contato conosco e deixe que nossas flores falem por você
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" className="bg-white text-pink-600 hover:bg-pink-50 shadow-lg hover:shadow-xl transition-all duration-300">
+            <Button 
+              size="lg" 
+              className="bg-white text-pink-600 hover:bg-pink-50 shadow-lg hover:shadow-xl transition-all duration-300"
+              onClick={() => window.open('tel:+5511984327691', '_self')}
+            >
               <Phone className="w-5 h-5 mr-2" />
               Ligar Agora
             </Button>
-            <Button size="lg" variant="outline" className="border-white text-white hover:bg-white/10">
-              <Mail className="w-5 h-5 mr-2" />
+            <Button 
+              size="lg" 
+              className="bg-green-500 text-white hover:bg-green-600 border-green-500 shadow-lg hover:shadow-xl transition-all duration-300"
+              onClick={() => window.open('https://wa.me/5511984327691?text=Olá! Gostaria de fazer um pedido de flores.', '_blank')}
+            >
+              <svg className="w-5 h-5 mr-2" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.890-5.335 11.893-11.893A11.821 11.821 0 0020.885 3.787"/>
+              </svg>
               Enviar WhatsApp
             </Button>
           </div>
@@ -326,55 +368,48 @@ export default function HomePage() {
       <section id="contact" className="py-20 px-6 bg-white">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
-            <h3 className="text-4xl font-bold text-gray-900 mb-4">Entre em Contato</h3>
-            <p className="text-xl text-gray-600">Estamos aqui para tornar seus momentos ainda mais especiais</p>
+            <h3 className="text-4xl font-bold text-gray-900 mb-4">Visite Nossa Loja</h3>
+            <p className="text-xl text-gray-600">Venha conhecer nosso espaço e escolher suas flores pessoalmente</p>
           </div>
           
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            <Card className="bg-gradient-to-br from-pink-50 to-rose-50 border-pink-200 shadow-lg">
-              <CardContent className="p-6 text-center">
-                <div className="w-12 h-12 bg-gradient-to-br from-pink-500 to-rose-600 rounded-xl flex items-center justify-center mx-auto mb-4">
-                  <Phone className="w-6 h-6 text-white" />
-                </div>
-                <h4 className="text-lg font-semibold text-pink-900 mb-2">Telefone</h4>
-                <p className="text-pink-700">(11) 99999-9999</p>
-                <p className="text-pink-700">(11) 3333-3333</p>
-              </CardContent>
-            </Card>
-
-            <Card className="bg-gradient-to-br from-purple-50 to-violet-50 border-purple-200 shadow-lg">
-              <CardContent className="p-6 text-center">
-                <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-violet-600 rounded-xl flex items-center justify-center mx-auto mb-4">
-                  <Mail className="w-6 h-6 text-white" />
-                </div>
-                <h4 className="text-lg font-semibold text-purple-900 mb-2">E-mail</h4>
-                <p className="text-purple-700">contato@bellarosa.com.br</p>
-                <p className="text-purple-700">pedidos@bellarosa.com.br</p>
-              </CardContent>
-            </Card>
-
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-4xl mx-auto">
+            {/* Endereço */}
             <Card className="bg-gradient-to-br from-emerald-50 to-green-50 border-emerald-200 shadow-lg">
-              <CardContent className="p-6 text-center">
-                <div className="w-12 h-12 bg-gradient-to-br from-emerald-500 to-green-600 rounded-xl flex items-center justify-center mx-auto mb-4">
-                  <MapPin className="w-6 h-6 text-white" />
+              <CardContent className="p-8 text-center">
+                <div className="w-16 h-16 bg-gradient-to-br from-emerald-500 to-green-600 rounded-xl flex items-center justify-center mx-auto mb-6">
+                  <MapPin className="w-8 h-8 text-white" />
                 </div>
-                <h4 className="text-lg font-semibold text-emerald-900 mb-2">Endereço</h4>
-                <p className="text-emerald-700">Rua das Flores, 123</p>
-                <p className="text-emerald-700">Centro - São Paulo/SP</p>
+                <h4 className="text-2xl font-semibold text-emerald-900 mb-4">Nossa Localização</h4>
+                <p className="text-lg text-emerald-700 mb-2">Av. Dom Pedro Primeiro, 450</p>
+                <p className="text-lg text-emerald-700 mb-2">Vila Osasco - Osasco/SP</p>
+                <p className="text-sm text-emerald-600">CEP: 06083-005</p>
+              </CardContent>
+            </Card>
+
+            {/* Horário */}
+            <Card className="bg-gradient-to-br from-purple-50 to-violet-50 border-purple-200 shadow-lg">
+              <CardContent className="p-8 text-center">
+                <div className="w-16 h-16 bg-gradient-to-br from-purple-500 to-violet-600 rounded-xl flex items-center justify-center mx-auto mb-6">
+                  <Clock className="w-8 h-8 text-white" />
+                </div>
+                <h4 className="text-2xl font-semibold text-purple-900 mb-4">Horário de Funcionamento</h4>
+                <div className="space-y-2 text-purple-700">
+                  <p className="text-lg"><span className="font-medium">Segunda a Sexta:</span> 8h às 18h</p>
+                  <p className="text-lg"><span className="font-medium">Sábado:</span> 8h às 16h</p>
+                  <p className="text-lg"><span className="font-medium">Domingo:</span> Fechado</p>
+                </div>
               </CardContent>
             </Card>
           </div>
 
-          <div className="mt-12 bg-gradient-to-br from-gray-50 to-gray-100 rounded-2xl p-8">
-            <div className="flex items-center justify-center space-x-8">
-              <div className="flex items-center space-x-2 text-gray-600">
-                <Clock className="w-5 h-5" />
-                <span className="font-medium">Horário de Funcionamento:</span>
-              </div>
-              <div className="text-gray-700">
-                <p>Segunda a Sexta: 8h às 18h</p>
-                <p>Sábado: 8h às 16h</p>
-              </div>
+          {/* Informações adicionais */}
+          <div className="mt-12 bg-gradient-to-br from-pink-50 to-rose-50 rounded-2xl p-8 border border-pink-200">
+            <div className="text-center">
+              <h5 className="text-xl font-semibold text-pink-900 mb-4">💐 Dica Especial</h5>
+              <p className="text-pink-700 text-lg">
+                Visite nossa loja para ver de perto a qualidade e frescor das nossas flores. 
+                Oferecemos consultoria gratuita para arranjos personalizados!
+              </p>
             </div>
           </div>
         </div>
@@ -409,10 +444,10 @@ export default function HomePage() {
             <div>
               <h5 className="font-semibold mb-4">Contato</h5>
               <ul className="space-y-2 text-sm text-gray-400">
-                <li>(11) 99999-9999</li>
-                <li>contato@bellarosa.com.br</li>
-                <li>Rua das Flores, 123</li>
-                <li>Centro - São Paulo/SP</li>
+                <li>(11) 98432-7691</li>
+                <li>@yasminflores.oficial</li>
+                <li>Av. Dom Pedro Primeiro, 450</li>
+                <li>Vila Osasco - Osasco/SP</li>
               </ul>
             </div>
             
@@ -420,7 +455,7 @@ export default function HomePage() {
               <h5 className="font-semibold mb-4">Redes Sociais</h5>
               <div className="space-y-3">
                 <a 
-                  href="https://wa.me/5511999999999" 
+                  href="https://wa.me/5511984327691" 
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="flex items-center space-x-2 text-sm text-gray-400 hover:text-green-400 transition-colors"
@@ -429,13 +464,13 @@ export default function HomePage() {
                   <span>WhatsApp</span>
                 </a>
                 <a 
-                  href="https://instagram.com/bellarosa_flores" 
+                  href="https://instagram.com/yasminflores.oficial" 
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="flex items-center space-x-2 text-sm text-gray-400 hover:text-pink-400 transition-colors"
                 >
                   <Instagram className="w-4 h-4" />
-                  <span>@bellarosa_flores</span>
+                  <span>@yasminflores.oficial</span>
                 </a>
               </div>
             </div>

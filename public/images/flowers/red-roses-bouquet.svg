@@ -1,0 +1,240 @@
+<svg width="800" height="600" viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="redRose" cx="50%" cy="30%" r="70%">
+      <stop offset="0%" style="stop-color:#fca5a5;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#dc2626;stop-opacity:1" />
+    </radialGradient>
+    <radialGradient id="darkRedRose" cx="50%" cy="30%" r="70%">
+      <stop offset="0%" style="stop-color:#dc2626;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#991b1b;stop-opacity:1" />
+    </radialGradient>
+    <linearGradient id="paperGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#fbbf24;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#d97706;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="leafGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#84cc16;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#365314;stop-opacity:1" />
+    </linearGradient>
+    <radialGradient id="bearGradient" cx="50%" cy="30%" r="70%">
+      <stop offset="0%" style="stop-color:#fef3c7;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#d97706;stop-opacity:1" />
+    </radialGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="800" height="600" fill="#fef7ed"/>
+  
+  <!-- Paper wrapping -->
+  <path d="M 200 400 Q 250 350 300 380 L 500 380 Q 550 350 600 400 L 580 500 Q 400 520 220 500 Z" fill="url(#paperGradient)" opacity="0.8"/>
+  
+  <!-- Ribbon -->
+  <ellipse cx="400" cy="420" rx="80" ry="15" fill="#dc2626"/>
+  <rect x="320" y="405" width="160" height="30" fill="#dc2626" rx="15"/>
+  
+  <!-- Stems -->
+  <rect x="350" y="300" width="8" height="120" fill="#365314" rx="4"/>
+  <rect x="380" y="290" width="8" height="130" fill="#365314" rx="4"/>
+  <rect x="410" y="295" width="8" height="125" fill="#365314" rx="4"/>
+  <rect x="440" y="285" width="8" height="135" fill="#365314" rx="4"/>
+  <rect x="470" y="300" width="8" height="120" fill="#365314" rx="4"/>
+  
+  <!-- Leaves -->
+  <ellipse cx="330" cy="350" rx="20" ry="12" fill="url(#leafGradient)" transform="rotate(-30 330 350)"/>
+  <ellipse cx="490" cy="340" rx="18" ry="10" fill="url(#leafGradient)" transform="rotate(45 490 340)"/>
+  <ellipse cx="370" cy="360" rx="15" ry="9" fill="url(#leafGradient)" transform="rotate(-60 370 360)"/>
+  <ellipse cx="450" cy="355" rx="17" ry="11" fill="url(#leafGradient)" transform="rotate(20 450 355)"/>
+  
+  <!-- Red Roses -->
+  <!-- Rose 1 -->
+  <g transform="translate(350,250)">
+    <!-- Outer petals -->
+    <g>
+      <ellipse cx="0" cy="-25" rx="6" ry="15" fill="url(#redRose)" transform="rotate(0)"/>
+      <ellipse cx="0" cy="-25" rx="6" ry="15" fill="url(#redRose)" transform="rotate(30)"/>
+      <ellipse cx="0" cy="-25" rx="6" ry="15" fill="url(#redRose)" transform="rotate(60)"/>
+      <ellipse cx="0" cy="-25" rx="6" ry="15" fill="url(#redRose)" transform="rotate(90)"/>
+      <ellipse cx="0" cy="-25" rx="6" ry="15" fill="url(#redRose)" transform="rotate(120)"/>
+      <ellipse cx="0" cy="-25" rx="6" ry="15" fill="url(#redRose)" transform="rotate(150)"/>
+      <ellipse cx="0" cy="-25" rx="6" ry="15" fill="url(#redRose)" transform="rotate(180)"/>
+      <ellipse cx="0" cy="-25" rx="6" ry="15" fill="url(#redRose)" transform="rotate(210)"/>
+      <ellipse cx="0" cy="-25" rx="6" ry="15" fill="url(#redRose)" transform="rotate(240)"/>
+      <ellipse cx="0" cy="-25" rx="6" ry="15" fill="url(#redRose)" transform="rotate(270)"/>
+      <ellipse cx="0" cy="-25" rx="6" ry="15" fill="url(#redRose)" transform="rotate(300)"/>
+      <ellipse cx="0" cy="-25" rx="6" ry="15" fill="url(#redRose)" transform="rotate(330)"/>
+    </g>
+    <!-- Inner petals -->
+    <g>
+      <ellipse cx="0" cy="-15" rx="4" ry="10" fill="url(#darkRedRose)" transform="rotate(15)"/>
+      <ellipse cx="0" cy="-15" rx="4" ry="10" fill="url(#darkRedRose)" transform="rotate(75)"/>
+      <ellipse cx="0" cy="-15" rx="4" ry="10" fill="url(#darkRedRose)" transform="rotate(135)"/>
+      <ellipse cx="0" cy="-15" rx="4" ry="10" fill="url(#darkRedRose)" transform="rotate(195)"/>
+      <ellipse cx="0" cy="-15" rx="4" ry="10" fill="url(#darkRedRose)" transform="rotate(255)"/>
+      <ellipse cx="0" cy="-15" rx="4" ry="10" fill="url(#darkRedRose)" transform="rotate(315)"/>
+    </g>
+    <!-- Center -->
+    <circle cx="0" cy="0" r="8" fill="#991b1b"/>
+  </g>
+  
+  <!-- Rose 2 -->
+  <g transform="translate(380,230)">
+    <g>
+      <ellipse cx="0" cy="-25" rx="6" ry="15" fill="url(#redRose)" transform="rotate(0)"/>
+      <ellipse cx="0" cy="-25" rx="6" ry="15" fill="url(#redRose)" transform="rotate(30)"/>
+      <ellipse cx="0" cy="-25" rx="6" ry="15" fill="url(#redRose)" transform="rotate(60)"/>
+      <ellipse cx="0" cy="-25" rx="6" ry="15" fill="url(#redRose)" transform="rotate(90)"/>
+      <ellipse cx="0" cy="-25" rx="6" ry="15" fill="url(#redRose)" transform="rotate(120)"/>
+      <ellipse cx="0" cy="-25" rx="6" ry="15" fill="url(#redRose)" transform="rotate(150)"/>
+      <ellipse cx="0" cy="-25" rx="6" ry="15" fill="url(#redRose)" transform="rotate(180)"/>
+      <ellipse cx="0" cy="-25" rx="6" ry="15" fill="url(#redRose)" transform="rotate(210)"/>
+      <ellipse cx="0" cy="-25" rx="6" ry="15" fill="url(#redRose)" transform="rotate(240)"/>
+      <ellipse cx="0" cy="-25" rx="6" ry="15" fill="url(#redRose)" transform="rotate(270)"/>
+      <ellipse cx="0" cy="-25" rx="6" ry="15" fill="url(#redRose)" transform="rotate(300)"/>
+      <ellipse cx="0" cy="-25" rx="6" ry="15" fill="url(#redRose)" transform="rotate(330)"/>
+    </g>
+    <g>
+      <ellipse cx="0" cy="-15" rx="4" ry="10" fill="url(#darkRedRose)" transform="rotate(15)"/>
+      <ellipse cx="0" cy="-15" rx="4" ry="10" fill="url(#darkRedRose)" transform="rotate(75)"/>
+      <ellipse cx="0" cy="-15" rx="4" ry="10" fill="url(#darkRedRose)" transform="rotate(135)"/>
+      <ellipse cx="0" cy="-15" rx="4" ry="10" fill="url(#darkRedRose)" transform="rotate(195)"/>
+      <ellipse cx="0" cy="-15" rx="4" ry="10" fill="url(#darkRedRose)" transform="rotate(255)"/>
+      <ellipse cx="0" cy="-15" rx="4" ry="10" fill="url(#darkRedRose)" transform="rotate(315)"/>
+    </g>
+    <circle cx="0" cy="0" r="8" fill="#991b1b"/>
+  </g>
+  
+  <!-- Rose 3 (center, larger) -->
+  <g transform="translate(410,220)">
+    <g>
+      <ellipse cx="0" cy="-30" rx="7" ry="18" fill="url(#redRose)" transform="rotate(0)"/>
+      <ellipse cx="0" cy="-30" rx="7" ry="18" fill="url(#redRose)" transform="rotate(25)"/>
+      <ellipse cx="0" cy="-30" rx="7" ry="18" fill="url(#redRose)" transform="rotate(50)"/>
+      <ellipse cx="0" cy="-30" rx="7" ry="18" fill="url(#redRose)" transform="rotate(75)"/>
+      <ellipse cx="0" cy="-30" rx="7" ry="18" fill="url(#redRose)" transform="rotate(100)"/>
+      <ellipse cx="0" cy="-30" rx="7" ry="18" fill="url(#redRose)" transform="rotate(125)"/>
+      <ellipse cx="0" cy="-30" rx="7" ry="18" fill="url(#redRose)" transform="rotate(150)"/>
+      <ellipse cx="0" cy="-30" rx="7" ry="18" fill="url(#redRose)" transform="rotate(175)"/>
+      <ellipse cx="0" cy="-30" rx="7" ry="18" fill="url(#redRose)" transform="rotate(200)"/>
+      <ellipse cx="0" cy="-30" rx="7" ry="18" fill="url(#redRose)" transform="rotate(225)"/>
+      <ellipse cx="0" cy="-30" rx="7" ry="18" fill="url(#redRose)" transform="rotate(250)"/>
+      <ellipse cx="0" cy="-30" rx="7" ry="18" fill="url(#redRose)" transform="rotate(275)"/>
+      <ellipse cx="0" cy="-30" rx="7" ry="18" fill="url(#redRose)" transform="rotate(300)"/>
+      <ellipse cx="0" cy="-30" rx="7" ry="18" fill="url(#redRose)" transform="rotate(325)"/>
+      <ellipse cx="0" cy="-30" rx="7" ry="18" fill="url(#redRose)" transform="rotate(350)"/>
+    </g>
+    <g>
+      <ellipse cx="0" cy="-18" rx="5" ry="12" fill="url(#darkRedRose)" transform="rotate(12)"/>
+      <ellipse cx="0" cy="-18" rx="5" ry="12" fill="url(#darkRedRose)" transform="rotate(60)"/>
+      <ellipse cx="0" cy="-18" rx="5" ry="12" fill="url(#darkRedRose)" transform="rotate(108)"/>
+      <ellipse cx="0" cy="-18" rx="5" ry="12" fill="url(#darkRedRose)" transform="rotate(156)"/>
+      <ellipse cx="0" cy="-18" rx="5" ry="12" fill="url(#darkRedRose)" transform="rotate(204)"/>
+      <ellipse cx="0" cy="-18" rx="5" ry="12" fill="url(#darkRedRose)" transform="rotate(252)"/>
+      <ellipse cx="0" cy="-18" rx="5" ry="12" fill="url(#darkRedRose)" transform="rotate(300)"/>
+      <ellipse cx="0" cy="-18" rx="5" ry="12" fill="url(#darkRedRose)" transform="rotate(348)"/>
+    </g>
+    <circle cx="0" cy="0" r="10" fill="#991b1b"/>
+  </g>
+  
+  <!-- Rose 4 -->
+  <g transform="translate(440,235)">
+    <g>
+      <ellipse cx="0" cy="-25" rx="6" ry="15" fill="url(#redRose)" transform="rotate(0)"/>
+      <ellipse cx="0" cy="-25" rx="6" ry="15" fill="url(#redRose)" transform="rotate(30)"/>
+      <ellipse cx="0" cy="-25" rx="6" ry="15" fill="url(#redRose)" transform="rotate(60)"/>
+      <ellipse cx="0" cy="-25" rx="6" ry="15" fill="url(#redRose)" transform="rotate(90)"/>
+      <ellipse cx="0" cy="-25" rx="6" ry="15" fill="url(#redRose)" transform="rotate(120)"/>
+      <ellipse cx="0" cy="-25" rx="6" ry="15" fill="url(#redRose)" transform="rotate(150)"/>
+      <ellipse cx="0" cy="-25" rx="6" ry="15" fill="url(#redRose)" transform="rotate(180)"/>
+      <ellipse cx="0" cy="-25" rx="6" ry="15" fill="url(#redRose)" transform="rotate(210)"/>
+      <ellipse cx="0" cy="-25" rx="6" ry="15" fill="url(#redRose)" transform="rotate(240)"/>
+      <ellipse cx="0" cy="-25" rx="6" ry="15" fill="url(#redRose)" transform="rotate(270)"/>
+      <ellipse cx="0" cy="-25" rx="6" ry="15" fill="url(#redRose)" transform="rotate(300)"/>
+      <ellipse cx="0" cy="-25" rx="6" ry="15" fill="url(#redRose)" transform="rotate(330)"/>
+    </g>
+    <g>
+      <ellipse cx="0" cy="-15" rx="4" ry="10" fill="url(#darkRedRose)" transform="rotate(15)"/>
+      <ellipse cx="0" cy="-15" rx="4" ry="10" fill="url(#darkRedRose)" transform="rotate(75)"/>
+      <ellipse cx="0" cy="-15" rx="4" ry="10" fill="url(#darkRedRose)" transform="rotate(135)"/>
+      <ellipse cx="0" cy="-15" rx="4" ry="10" fill="url(#darkRedRose)" transform="rotate(195)"/>
+      <ellipse cx="0" cy="-15" rx="4" ry="10" fill="url(#darkRedRose)" transform="rotate(255)"/>
+      <ellipse cx="0" cy="-15" rx="4" ry="10" fill="url(#darkRedRose)" transform="rotate(315)"/>
+    </g>
+    <circle cx="0" cy="0" r="8" fill="#991b1b"/>
+  </g>
+  
+  <!-- Rose 5 -->
+  <g transform="translate(470,250)">
+    <g>
+      <ellipse cx="0" cy="-25" rx="6" ry="15" fill="url(#redRose)" transform="rotate(0)"/>
+      <ellipse cx="0" cy="-25" rx="6" ry="15" fill="url(#redRose)" transform="rotate(30)"/>
+      <ellipse cx="0" cy="-25" rx="6" ry="15" fill="url(#redRose)" transform="rotate(60)"/>
+      <ellipse cx="0" cy="-25" rx="6" ry="15" fill="url(#redRose)" transform="rotate(90)"/>
+      <ellipse cx="0" cy="-25" rx="6" ry="15" fill="url(#redRose)" transform="rotate(120)"/>
+      <ellipse cx="0" cy="-25" rx="6" ry="15" fill="url(#redRose)" transform="rotate(150)"/>
+      <ellipse cx="0" cy="-25" rx="6" ry="15" fill="url(#redRose)" transform="rotate(180)"/>
+      <ellipse cx="0" cy="-25" rx="6" ry="15" fill="url(#redRose)" transform="rotate(210)"/>
+      <ellipse cx="0" cy="-25" rx="6" ry="15" fill="url(#redRose)" transform="rotate(240)"/>
+      <ellipse cx="0" cy="-25" rx="6" ry="15" fill="url(#redRose)" transform="rotate(270)"/>
+      <ellipse cx="0" cy="-25" rx="6" ry="15" fill="url(#redRose)" transform="rotate(300)"/>
+      <ellipse cx="0" cy="-25" rx="6" ry="15" fill="url(#redRose)" transform="rotate(330)"/>
+    </g>
+    <g>
+      <ellipse cx="0" cy="-15" rx="4" ry="10" fill="url(#darkRedRose)" transform="rotate(15)"/>
+      <ellipse cx="0" cy="-15" rx="4" ry="10" fill="url(#darkRedRose)" transform="rotate(75)"/>
+      <ellipse cx="0" cy="-15" rx="4" ry="10" fill="url(#darkRedRose)" transform="rotate(135)"/>
+      <ellipse cx="0" cy="-15" rx="4" ry="10" fill="url(#darkRedRose)" transform="rotate(195)"/>
+      <ellipse cx="0" cy="-15" rx="4" ry="10" fill="url(#darkRedRose)" transform="rotate(255)"/>
+      <ellipse cx="0" cy="-15" rx="4" ry="10" fill="url(#darkRedRose)" transform="rotate(315)"/>
+    </g>
+    <circle cx="0" cy="0" r="8" fill="#991b1b"/>
+  </g>
+  
+  <!-- Baby's breath -->
+  <circle cx="320" cy="280" r="2" fill="white" opacity="0.9"/>
+  <circle cx="330" cy="270" r="1.5" fill="white" opacity="0.9"/>
+  <circle cx="340" cy="290" r="2" fill="white" opacity="0.9"/>
+  <circle cx="480" cy="270" r="2" fill="white" opacity="0.9"/>
+  <circle cx="490" cy="280" r="1.5" fill="white" opacity="0.9"/>
+  <circle cx="500" cy="275" r="2" fill="white" opacity="0.9"/>
+  
+  <!-- Teddy Bear -->
+  <g transform="translate(150,400)">
+    <!-- Body -->
+    <ellipse cx="0" cy="20" rx="25" ry="35" fill="url(#bearGradient)"/>
+    <!-- Head -->
+    <circle cx="0" cy="-20" r="20" fill="url(#bearGradient)"/>
+    <!-- Ears -->
+    <circle cx="-15" cy="-30" r="8" fill="url(#bearGradient)"/>
+    <circle cx="15" cy="-30" r="8" fill="url(#bearGradient)"/>
+    <circle cx="-15" cy="-30" r="5" fill="#d97706"/>
+    <circle cx="15" cy="-30" r="5" fill="#d97706"/>
+    <!-- Arms -->
+    <ellipse cx="-20" cy="5" rx="8" ry="15" fill="url(#bearGradient)"/>
+    <ellipse cx="20" cy="5" rx="8" ry="15" fill="url(#bearGradient)"/>
+    <!-- Legs -->
+    <ellipse cx="-12" cy="45" rx="8" ry="12" fill="url(#bearGradient)"/>
+    <ellipse cx="12" cy="45" rx="8" ry="12" fill="url(#bearGradient)"/>
+    <!-- Face -->
+    <circle cx="-6" cy="-25" r="2" fill="#000"/>
+    <circle cx="6" cy="-25" r="2" fill="#000"/>
+    <ellipse cx="0" cy="-18" rx="3" ry="2" fill="#000"/>
+    <path d="M -3 -15 Q 0 -12 3 -15" stroke="#000" stroke-width="1.5" fill="none"/>
+    <!-- Red bow -->
+    <path d="M -8 -5 L -3 -8 L 3 -5 L 8 -8 L 3 -2 L -3 -2 Z" fill="#dc2626"/>
+    <circle cx="0" cy="-5" r="2" fill="#991b1b"/>
+  </g>
+  
+  <!-- Chocolates box -->
+  <g transform="translate(600,450)">
+    <rect x="-30" y="-15" width="60" height="30" fill="#92400e" rx="5"/>
+    <rect x="-25" y="-10" width="50" height="20" fill="#fbbf24" rx="3"/>
+    <!-- Chocolates -->
+    <circle cx="-15" cy="-5" r="3" fill="#451a03"/>
+    <circle cx="0" cy="-5" r="3" fill="#78350f"/>
+    <circle cx="15" cy="-5" r="3" fill="#451a03"/>
+    <circle cx="-7" cy="5" r="3" fill="#78350f"/>
+    <circle cx="7" cy="5" r="3" fill="#451a03"/>
+    <!-- Ribbon -->
+    <rect x="-35" y="-3" width="70" height="6" fill="#dc2626"/>
+  </g>
+</svg>
