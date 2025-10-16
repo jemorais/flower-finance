@@ -177,11 +177,11 @@ export default function DashboardPage() {
               <div className="flex-1 bg-red-500 rounded-t" style={{ height: '5%' }} title="iFood - 5%"></div>
             </div>
             <div className="flex justify-between text-xs text-gray-500 mt-1">
-              <span>PIX</span>
-              <span>Crédito</span>
-              <span>Débito</span>
-              <span>Dinheiro</span>
-              <span>iFood</span>
+              <span className="text-center">PIX</span>
+              <span className="text-center">Crédito</span>
+              <span className="text-center">Débito</span>
+              <span className="text-center">Dinheiro</span>
+              <span className="text-center">iFood</span>
             </div>
           </CardContent>
         </Card>
@@ -413,11 +413,35 @@ export default function DashboardPage() {
                     <SelectValue placeholder="Selecione a categoria" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="vendas">Vendas</SelectItem>
-                    <SelectItem value="eventos">Eventos</SelectItem>
-                    <SelectItem value="suprimentos">Suprimentos</SelectItem>
-                    <SelectItem value="manutencao">Manutenção</SelectItem>
-                    <SelectItem value="outros">Outros</SelectItem>
+                    {newTransaction.type === 'receita' ? (
+                      // Categorias para RECEITAS
+                      <>
+                        <SelectItem value="buques">Buquês</SelectItem>
+                        <SelectItem value="arranjos">Arranjos Florais</SelectItem>
+                        <SelectItem value="decoracao">Decoração de Eventos</SelectItem>
+                        <SelectItem value="cestas">Cestas de Chocolate</SelectItem>
+                        <SelectItem value="plantas-vendas">Plantas Ornamentais</SelectItem>
+                        <SelectItem value="coroas">Coroas de Flores</SelectItem>
+                        <SelectItem value="casamentos">Casamentos</SelectItem>
+                        <SelectItem value="aniversarios">Aniversários</SelectItem>
+                        <SelectItem value="presentes">Presentes Especiais</SelectItem>
+                        <SelectItem value="delivery">Delivery</SelectItem>
+                      </>
+                    ) : (
+                      // Categorias para DESPESAS
+                      <>
+                        <SelectItem value="vasos">Compra de Vasos</SelectItem>
+                        <SelectItem value="flores-estoque">Reposição de Flores</SelectItem>
+                        <SelectItem value="plantas-estoque">Compra de Plantas</SelectItem>
+                        <SelectItem value="fertilizantes">Fertilizantes e Adubos</SelectItem>
+                        <SelectItem value="embalagens">Embalagens e Papel</SelectItem>
+                        <SelectItem value="ferramentas">Ferramentas de Jardinagem</SelectItem>
+                        <SelectItem value="transporte">Transporte e Combustível</SelectItem>
+                        <SelectItem value="fornecedores">Pagamento a Fornecedores</SelectItem>
+                        <SelectItem value="manutencao">Manutenção da Loja</SelectItem>
+                        <SelectItem value="utilidades">Água, Luz e Internet</SelectItem>
+                      </>
+                    )}
                   </SelectContent>
                 </Select>
               </div>

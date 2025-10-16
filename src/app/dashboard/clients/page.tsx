@@ -36,6 +36,15 @@ interface Client {
   name: string;
   email: string;
   phone: string;
+  address?: {
+    street: string;
+    number: string;
+    complement?: string;
+    neighborhood: string;
+    city: string;
+    zipCode: string;
+    state: string;
+  };
   totalSpent: string;
   lastPurchase: string;
   status: string;
@@ -67,10 +76,21 @@ export default function ClientsPage() {
   const [newName, setNewName] = useState('');
   const [newEmail, setNewEmail] = useState('');
   const [newPhone, setNewPhone] = useState('');
+  const [newStreet, setNewStreet] = useState('');
+  const [newNumber, setNewNumber] = useState('');
+  const [newComplement, setNewComplement] = useState('');
+  const [newNeighborhood, setNewNeighborhood] = useState('');
+  const [newCity, setNewCity] = useState('');
+  const [newZipCode, setNewZipCode] = useState('');
+  const [newState, setNewState] = useState('');
   const [newBirthday, setNewBirthday] = useState('');
   const [specialDateType, setSpecialDateType] = useState('');
   const [specialDate, setSpecialDate] = useState('');
   const [reminderDays, setReminderDays] = useState(30); // Configuração de quantos dias antes avisar
+  
+  // Estados para edição
+  const [editingClient, setEditingClient] = useState<Client | null>(null);
+  const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
 
   const [clients, setClients] = useState<Client[]>([
     {
@@ -86,7 +106,16 @@ export default function ClientsPage() {
       avatarColor: 'bg-pink-500',
       birthday: '15/03/1985',
       specialDateType: 'casamento',
-      specialDate: '20/06/2010'
+      specialDate: '20/06/2010',
+      address: {
+        street: 'Rua das Flores',
+        number: '123',
+        complement: 'Apto 45',
+        neighborhood: 'Jardim Botânico',
+        city: 'São Paulo',
+        zipCode: '01234-567',
+        state: 'SP'
+      }
     },
     {
       id: 2,
@@ -101,7 +130,16 @@ export default function ClientsPage() {
       avatarColor: 'bg-purple-500',
       birthday: '25/12/1990',
       specialDateType: null,
-      specialDate: null
+      specialDate: null,
+      address: {
+        street: 'Avenida Paulista',
+        number: '1000',
+        complement: '',
+        neighborhood: 'Bela Vista',
+        city: 'São Paulo',
+        zipCode: '01310-100',
+        state: 'SP'
+      }
     },
     {
       id: 3,
@@ -116,7 +154,16 @@ export default function ClientsPage() {
       avatarColor: 'bg-blue-500',
       birthday: '10/07/1988',
       specialDateType: 'namoro',
-      specialDate: '12/09/2015'
+      specialDate: '12/09/2015',
+      address: {
+        street: 'Rua Augusta',
+        number: '456',
+        complement: 'Casa 2',
+        neighborhood: 'Consolação',
+        city: 'São Paulo',
+        zipCode: '01305-000',
+        state: 'SP'
+      }
     }
   ]);
 
@@ -211,6 +258,15 @@ export default function ClientsPage() {
       name: newName,
       email: newEmail,
       phone: newPhone,
+      address: {
+        street: newStreet,
+        number: newNumber,
+        complement: newComplement,
+        neighborhood: newNeighborhood,
+        city: newCity,
+        zipCode: newZipCode,
+        state: newState
+      },
       birthday: newBirthday || null,
       specialDateType: specialDateType || null,
       specialDate: specialDate || null,
@@ -226,10 +282,82 @@ export default function ClientsPage() {
     setNewName('');
     setNewEmail('');
     setNewPhone('');
+    setNewStreet('');
+    setNewNumber('');
+    setNewComplement('');
+    setNewNeighborhood('');
+    setNewCity('');
+    setNewZipCode('');
+    setNewState('');
     setNewBirthday('');
     setSpecialDateType('');
     setSpecialDate('');
     setIsOpen(false);
+  };
+
+  const handleEditClient = (client: Client) => {
+    setEditingClient(client);
+    setNewName(client.name);
+    setNewEmail(client.email);
+    setNewPhone(client.phone);
+    setNewStreet(client.address?.street || '');
+    setNewNumber(client.address?.number || '');
+    setNewComplement(client.address?.complement || '');
+    setNewNeighborhood(client.address?.neighborhood || '');
+    setNewCity(client.address?.city || '');
+    setNewZipCode(client.address?.zipCode || '');
+    setNewState(client.address?.state || '');
+    setNewBirthday(client.birthday || '');
+    setSpecialDateType(client.specialDateType || '');
+    setSpecialDate(client.specialDate || '');
+    setIsEditDialogOpen(true);
+  };
+
+  const handleUpdateClient = (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    if (!editingClient) return;
+    
+    const updatedClient = {
+      ...editingClient,
+      name: newName,
+      email: newEmail,
+      phone: newPhone,
+      address: {
+        street: newStreet,
+        number: newNumber,
+        complement: newComplement,
+        neighborhood: newNeighborhood,
+        city: newCity,
+        zipCode: newZipCode,
+        state: newState
+      },
+      birthday: newBirthday || null,
+      specialDateType: specialDateType || null,
+      specialDate: specialDate || null,
+      avatar: newName.split(' ').map(n => n[0]).join('').toUpperCase(),
+    };
+    
+    setClients(clients.map(client => 
+      client.id === editingClient.id ? updatedClient : client
+    ));
+    
+    // Limpar formulário
+    setNewName('');
+    setNewEmail('');
+    setNewPhone('');
+    setNewStreet('');
+    setNewNumber('');
+    setNewComplement('');
+    setNewNeighborhood('');
+    setNewCity('');
+    setNewZipCode('');
+    setNewState('');
+    setNewBirthday('');
+    setSpecialDateType('');
+    setSpecialDate('');
+    setEditingClient(null);
+    setIsEditDialogOpen(false);
   };
 
   return (
@@ -367,6 +495,107 @@ export default function ClientsPage() {
                   </div>
                   
                   <div className="border-t pt-4">
+                    <h4 className="text-sm font-medium mb-3 text-gray-700">Endereço para Entrega</h4>
+                    <div className="grid grid-cols-2 gap-3">
+                      <div className="col-span-2">
+                        <label className="text-sm font-medium text-gray-600">Rua/Avenida</label>
+                        <Input
+                          value={newStreet}
+                          onChange={(e) => setNewStreet(e.target.value)}
+                          placeholder="Ex: Rua das Flores"
+                          required
+                        />
+                      </div>
+                      <div>
+                        <label className="text-sm font-medium text-gray-600">Número</label>
+                        <Input
+                          value={newNumber}
+                          onChange={(e) => setNewNumber(e.target.value)}
+                          placeholder="123"
+                          required
+                        />
+                      </div>
+                      <div>
+                        <label className="text-sm font-medium text-gray-600">Complemento</label>
+                        <Input
+                          value={newComplement}
+                          onChange={(e) => setNewComplement(e.target.value)}
+                          placeholder="Apto, Casa, etc."
+                        />
+                      </div>
+                      <div>
+                        <label className="text-sm font-medium text-gray-600">Bairro</label>
+                        <Input
+                          value={newNeighborhood}
+                          onChange={(e) => setNewNeighborhood(e.target.value)}
+                          placeholder="Ex: Centro"
+                          required
+                        />
+                      </div>
+                      <div>
+                        <label className="text-sm font-medium text-gray-600">Cidade</label>
+                        <Input
+                          value={newCity}
+                          onChange={(e) => setNewCity(e.target.value)}
+                          placeholder="Ex: São Paulo"
+                          required
+                        />
+                      </div>
+                      <div>
+                        <label className="text-sm font-medium text-gray-600">CEP</label>
+                        <Input
+                          value={newZipCode}
+                          onChange={(e) => {
+                            let value = e.target.value.replace(/\D/g, '');
+                            if (value.length >= 5) value = value.substring(0,5) + '-' + value.substring(5,8);
+                            setNewZipCode(value);
+                          }}
+                          placeholder="12345-678"
+                          maxLength={9}
+                          required
+                        />
+                      </div>
+                      <div>
+                        <label className="text-sm font-medium text-gray-600">Estado</label>
+                        <Select value={newState} onValueChange={setNewState} required>
+                          <SelectTrigger>
+                            <SelectValue placeholder="UF" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="AC">AC</SelectItem>
+                            <SelectItem value="AL">AL</SelectItem>
+                            <SelectItem value="AP">AP</SelectItem>
+                            <SelectItem value="AM">AM</SelectItem>
+                            <SelectItem value="BA">BA</SelectItem>
+                            <SelectItem value="CE">CE</SelectItem>
+                            <SelectItem value="DF">DF</SelectItem>
+                            <SelectItem value="ES">ES</SelectItem>
+                            <SelectItem value="GO">GO</SelectItem>
+                            <SelectItem value="MA">MA</SelectItem>
+                            <SelectItem value="MT">MT</SelectItem>
+                            <SelectItem value="MS">MS</SelectItem>
+                            <SelectItem value="MG">MG</SelectItem>
+                            <SelectItem value="PA">PA</SelectItem>
+                            <SelectItem value="PB">PB</SelectItem>
+                            <SelectItem value="PR">PR</SelectItem>
+                            <SelectItem value="PE">PE</SelectItem>
+                            <SelectItem value="PI">PI</SelectItem>
+                            <SelectItem value="RJ">RJ</SelectItem>
+                            <SelectItem value="RN">RN</SelectItem>
+                            <SelectItem value="RS">RS</SelectItem>
+                            <SelectItem value="RO">RO</SelectItem>
+                            <SelectItem value="RR">RR</SelectItem>
+                            <SelectItem value="SC">SC</SelectItem>
+                            <SelectItem value="SP">SP</SelectItem>
+                            <SelectItem value="SE">SE</SelectItem>
+                            <SelectItem value="TO">TO</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div className="border-t pt-4">
                     <h4 className="text-sm font-medium mb-3 text-gray-700">Datas Especiais (Opcional)</h4>
                     <div className="space-y-3">
                       <div>
@@ -391,13 +620,9 @@ export default function ClientsPage() {
                             <SelectValue placeholder="Selecione o tipo de data especial" />
                           </SelectTrigger>
                           <SelectContent>
-                            <SelectItem value="casamento">Aniversário de Casamento</SelectItem>
-                            <SelectItem value="namoro">Aniversário de Namoro</SelectItem>
-                            <SelectItem value="formatura">Formatura</SelectItem>
-                            <SelectItem value="primeiro-emprego">Primeiro Emprego</SelectItem>
-                            <SelectItem value="aposentadoria">Aposentadoria</SelectItem>
-                            <SelectItem value="outro">Outro</SelectItem>
-                          </SelectContent>
+                        <SelectItem value="casamento">Aniversário de Casamento</SelectItem>
+                        <SelectItem value="namoro">Aniversário de Namoro</SelectItem>
+                      </SelectContent>
                         </Select>
                         {specialDateType && (
                           <Input
@@ -420,6 +645,184 @@ export default function ClientsPage() {
                   
                   <DialogFooter>
                     <Button type="submit" className="w-full">Adicionar Cliente</Button>
+                  </DialogFooter>
+                </form>
+              </DialogContent>
+            </Dialog>
+            
+            {/* Dialog de Edição */}
+            <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
+              <DialogContent className="sm:max-w-[425px]">
+                <DialogHeader>
+                  <DialogTitle>Editar Cliente</DialogTitle>
+                </DialogHeader>
+                <form onSubmit={handleUpdateClient} className="space-y-4">
+                  <div>
+                    <label className="text-sm font-medium">Nome</label>
+                    <Input
+                      value={newName}
+                      onChange={(e) => setNewName(e.target.value)}
+                      placeholder="Nome completo"
+                      required
+                    />
+                  </div>
+                  <div>
+                    <label className="text-sm font-medium">Email</label>
+                    <Input
+                      type="email"
+                      value={newEmail}
+                      onChange={(e) => setNewEmail(e.target.value)}
+                      placeholder="email@exemplo.com"
+                      required
+                    />
+                  </div>
+                  <div>
+                    <label className="text-sm font-medium">Telefone</label>
+                    <Input
+                      value={newPhone}
+                      onChange={(e) => setNewPhone(e.target.value)}
+                      placeholder="(11) 99999-9999"
+                      required
+                    />
+                  </div>
+                  
+                  <div className="border-t pt-4">
+                    <h4 className="text-sm font-medium mb-3 text-gray-700">Endereço para Entrega</h4>
+                    <div className="grid grid-cols-2 gap-3">
+                      <div className="col-span-2">
+                        <label className="text-sm font-medium">Rua/Avenida</label>
+                        <Input
+                          value={newStreet}
+                          onChange={(e) => setNewStreet(e.target.value)}
+                          placeholder="Nome da rua"
+                          required
+                        />
+                      </div>
+                      <div>
+                        <label className="text-sm font-medium">Número</label>
+                        <Input
+                          value={newNumber}
+                          onChange={(e) => setNewNumber(e.target.value)}
+                          placeholder="123"
+                          required
+                        />
+                      </div>
+                      <div>
+                        <label className="text-sm font-medium">Complemento</label>
+                        <Input
+                          value={newComplement}
+                          onChange={(e) => setNewComplement(e.target.value)}
+                          placeholder="Apto, casa..."
+                        />
+                      </div>
+                      <div>
+                        <label className="text-sm font-medium">Bairro</label>
+                        <Input
+                          value={newNeighborhood}
+                          onChange={(e) => setNewNeighborhood(e.target.value)}
+                          placeholder="Nome do bairro"
+                          required
+                        />
+                      </div>
+                      <div>
+                        <label className="text-sm font-medium">Cidade</label>
+                        <Input
+                          value={newCity}
+                          onChange={(e) => setNewCity(e.target.value)}
+                          placeholder="Nome da cidade"
+                          required
+                        />
+                      </div>
+                      <div>
+                        <label className="text-sm font-medium">CEP</label>
+                        <Input
+                          value={newZipCode}
+                          onChange={(e) => {
+                            let value = e.target.value.replace(/\D/g, '');
+                            if (value.length > 5) {
+                              value = value.replace(/(\d{5})(\d)/, '$1-$2');
+                            }
+                            setNewZipCode(value);
+                          }}
+                          placeholder="12345-678"
+                          maxLength={9}
+                          required
+                        />
+                      </div>
+                      <div>
+                        <label className="text-sm font-medium">Estado</label>
+                        <Select value={newState} onValueChange={setNewState}>
+                          <SelectTrigger>
+                            <SelectValue placeholder="UF" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="AC">AC</SelectItem>
+                            <SelectItem value="AL">AL</SelectItem>
+                            <SelectItem value="AP">AP</SelectItem>
+                            <SelectItem value="AM">AM</SelectItem>
+                            <SelectItem value="BA">BA</SelectItem>
+                            <SelectItem value="CE">CE</SelectItem>
+                            <SelectItem value="DF">DF</SelectItem>
+                            <SelectItem value="ES">ES</SelectItem>
+                            <SelectItem value="GO">GO</SelectItem>
+                            <SelectItem value="MA">MA</SelectItem>
+                            <SelectItem value="MT">MT</SelectItem>
+                            <SelectItem value="MS">MS</SelectItem>
+                            <SelectItem value="MG">MG</SelectItem>
+                            <SelectItem value="PA">PA</SelectItem>
+                            <SelectItem value="PB">PB</SelectItem>
+                            <SelectItem value="PR">PR</SelectItem>
+                            <SelectItem value="PE">PE</SelectItem>
+                            <SelectItem value="PI">PI</SelectItem>
+                            <SelectItem value="RJ">RJ</SelectItem>
+                            <SelectItem value="RN">RN</SelectItem>
+                            <SelectItem value="RS">RS</SelectItem>
+                            <SelectItem value="RO">RO</SelectItem>
+                            <SelectItem value="RR">RR</SelectItem>
+                            <SelectItem value="SC">SC</SelectItem>
+                            <SelectItem value="SP">SP</SelectItem>
+                            <SelectItem value="SE">SE</SelectItem>
+                            <SelectItem value="TO">TO</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div>
+                    <label className="text-sm font-medium">Aniversário</label>
+                    <Input
+                      value={newBirthday}
+                      onChange={(e) => setNewBirthday(e.target.value)}
+                      placeholder="DD/MM"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="text-sm font-medium text-gray-600">Data Especial</label>
+                    <Select value={specialDateType} onValueChange={setSpecialDateType}>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Selecione o tipo de data especial" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="casamento">Aniversário de Casamento</SelectItem>
+                        <SelectItem value="namoro">Aniversário de Namoro</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+
+                  {specialDateType && (
+                    <div>
+                      <Input
+                        value={specialDate}
+                        onChange={(e) => setSpecialDate(e.target.value)}
+                        placeholder="DD/MM"
+                      />
+                    </div>
+                  )}
+
+                  <DialogFooter>
+                    <Button type="submit" className="w-full">Atualizar Cliente</Button>
                   </DialogFooter>
                 </form>
               </DialogContent>
@@ -606,27 +1009,27 @@ export default function ClientsPage() {
                 return (
                   <div 
                     key={client.id} 
-                    className={`flex items-center justify-between p-4 border rounded-lg hover:bg-gray-50 transition-colors ${
+                    className={`flex items-center justify-between p-3 border rounded-lg hover:bg-gray-50 transition-colors ${
                       birthdayToday || specialDateToday ? 'border-pink-300 bg-pink-50' : 
                       hasSpecialEvent ? 'border-purple-200 bg-purple-50' : 'border-gray-200'
                     }`}
                   >
-                    <div className="flex items-center space-x-4">
+                    <div className="flex items-center space-x-3">
                       <div className="relative">
-                        <Avatar className="h-12 w-12">
+                        <Avatar className="h-10 w-10">
                           <AvatarFallback className={client.avatarColor + " text-white"}>
                             {client.avatar}
                           </AvatarFallback>
                         </Avatar>
                         {hasSpecialEvent && (
                           <div className="absolute -top-1 -right-1">
-                            <Gift className="h-5 w-5 text-pink-500 bg-white rounded-full p-1" />
+                            <Gift className="h-4 w-4 text-pink-500 bg-white rounded-full p-1" />
                           </div>
                         )}
                       </div>
-                      <div>
-                        <div className="flex items-center gap-2">
-                          <h3 className="font-semibold text-gray-900">{client.name}</h3>
+                      <div className="flex-1">
+                        <div className="flex items-center gap-2 mb-1">
+                          <h3 className="font-semibold text-gray-900 text-sm">{client.name}</h3>
                           {birthdayToday && (
                             <Badge variant="destructive" className="text-xs">
                               Aniversário Hoje!
@@ -643,23 +1046,31 @@ export default function ClientsPage() {
                             </Badge>
                           )}
                         </div>
-                        <Badge className={client.statusColor + " text-xs mb-1"}>{client.status}</Badge>
-                        <div className="flex items-center space-x-4 text-sm text-gray-600">
+                        <Badge className={client.statusColor + " text-xs mb-2"}>{client.status}</Badge>
+                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-1 text-xs text-gray-600">
                           <div className="flex items-center">
-                            <Mail className="h-4 w-4 mr-1" />
-                            {client.email}
+                            <Mail className="h-3 w-3 mr-1" />
+                            <span className="truncate">{client.email}</span>
                           </div>
                           <div className="flex items-center">
-                            <Phone className="h-4 w-4 mr-1" />
+                            <Phone className="h-3 w-3 mr-1" />
                             {client.phone}
                           </div>
+                          {client.address && (
+                            <div className="flex items-center col-span-1 lg:col-span-2">
+                              <MapPin className="h-3 w-3 mr-1 flex-shrink-0" />
+                              <span className="truncate">
+                                {client.address.street}, {client.address.number} - {client.address.neighborhood}, {client.address.city}/{client.address.state}
+                              </span>
+                            </div>
+                          )}
                         </div>
                       </div>
                     </div>
-                    <div className="text-right">
-                      <p className="font-semibold text-gray-900">{client.totalSpent}</p>
-                      <p className="text-sm text-gray-600">{client.lastPurchase}</p>
-                      <Button variant="ghost" size="sm" className="mt-2">
+                    <div className="text-right flex-shrink-0">
+                      <p className="font-semibold text-gray-900 text-sm">{client.totalSpent}</p>
+                      <p className="text-xs text-gray-600 mb-2">{client.lastPurchase}</p>
+                      <Button variant="ghost" size="sm" className="h-8 w-8 p-0" onClick={() => handleEditClient(client)}>
                         <MoreVertical className="h-4 w-4" />
                       </Button>
                     </div>

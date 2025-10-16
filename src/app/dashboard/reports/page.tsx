@@ -14,8 +14,14 @@ import {
   Target,
   Package,
   BarChart3,
-  ShoppingBag
+  ShoppingBag,
+  CreditCard,
+  Star,
+  Zap,
+  Banknote,
+  Smartphone
 } from 'lucide-react';
+import { CategoryMarginChart } from '@/components/ui/category-margin-chart';
 
 const monthlyData = [
   { month: 'Jan', revenue: 45000, expenses: 32000 },
@@ -160,58 +166,9 @@ export default function ReportsPage() {
           </Card>
 
           {/* Margem por Categoria */}
-          <Card>
-            <CardHeader className="p-0">
-              {/* Header com gradiente */}
-              <div className="bg-gradient-to-r from-gray-100 to-gray-200 p-4 rounded-t-lg">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <h3 className="text-lg font-semibold text-gray-700 flex items-center gap-2">
-                      <BarChart3 className="h-4 w-4" />
-                      Margem por Categoria
-                    </h3>
-                    <p className="text-gray-500 mt-1 text-sm">
-                      Análise de rentabilidade por categoria
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </CardHeader>
-            <CardContent className="pt-0">
-              <div className="space-y-4">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center">
-                    <div className="w-3 h-3 bg-green-500 rounded-full mr-3"></div>
-                    <span className="text-sm font-medium text-gray-900">Bouquês Premium</span>
-                  </div>
-                  <div className="text-right">
-                    <div className="font-bold text-green-600">68.5%</div>
-                    <div className="text-xs text-gray-500">+R$ 15.600,00</div>
-                  </div>
-                </div>
-                
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center">
-                    <div className="w-3 h-3 bg-blue-500 rounded-full mr-3"></div>
-                    <span className="text-sm font-medium text-gray-900">Arranjos Decorativos</span>
-                  </div>
-                  <div className="text-right">
-                    <div className="font-bold text-blue-600">45.2%</div>
-                    <div className="text-xs text-gray-500">+R$ 8.900,00</div>
-                  </div>
-                </div>
-                
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center">
-                    <div className="w-3 h-3 bg-purple-500 rounded-full mr-3"></div>
-                    <span className="text-sm font-medium text-gray-900">Plantas e Vasos</span>
-                  </div>
-                  <div className="text-right">
-                    <div className="font-bold text-purple-600">32.1%</div>
-                    <div className="text-xs text-gray-500">+R$ 6.700,00</div>
-                  </div>
-                </div>
-              </div>
+          <Card className="shadow-lg border-0">
+            <CardContent className="p-0">
+              <CategoryMarginChart />
             </CardContent>
           </Card>
         </div>
@@ -236,23 +193,86 @@ export default function ReportsPage() {
                 </div>
               </div>
             </CardHeader>
-            <CardContent className="pt-0">
-              <div className="grid grid-cols-2 gap-4">
-                <div className="text-center p-3 bg-green-50 rounded-lg">
-                  <div className="text-2xl font-bold text-green-600">23</div>
-                  <div className="text-sm text-gray-600">Novos Clientes</div>
+            <CardContent className="pt-0 p-4">
+              <div className="space-y-4">
+                {/* Novos Clientes */}
+                <div className="flex items-center justify-between p-4 bg-gradient-to-r from-green-50 to-emerald-50 rounded-xl border border-green-100 hover:shadow-md transition-all">
+                  <div className="flex items-center space-x-4">
+                    <div className="p-3 bg-green-500 rounded-full">
+                      <Users className="h-6 w-6 text-white" />
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-gray-900">Novos Clientes</h4>
+                      <p className="text-sm text-gray-600">Este mês</p>
+                    </div>
+                  </div>
+                  <div className="text-right">
+                    <div className="text-3xl font-bold text-green-600">23</div>
+                    <div className="text-sm text-green-500 flex items-center">
+                      <TrendingUp className="h-3 w-3 mr-1" />
+                      +12% vs anterior
+                    </div>
+                  </div>
                 </div>
-                <div className="text-center p-3 bg-blue-50 rounded-lg">
-                  <div className="text-2xl font-bold text-blue-600">R$ 187</div>
-                  <div className="text-sm text-gray-600">Pedido Médio</div>
+
+                {/* Pedido Médio */}
+                <div className="flex items-center justify-between p-4 bg-gradient-to-r from-blue-50 to-cyan-50 rounded-xl border border-blue-100 hover:shadow-md transition-all">
+                  <div className="flex items-center space-x-4">
+                    <div className="p-3 bg-blue-500 rounded-full">
+                      <DollarSign className="h-6 w-6 text-white" />
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-gray-900">Pedido Médio</h4>
+                      <p className="text-sm text-gray-600">Valor por transação</p>
+                    </div>
+                  </div>
+                  <div className="text-right">
+                    <div className="text-3xl font-bold text-blue-600">R$ 187</div>
+                    <div className="text-sm text-blue-500 flex items-center">
+                      <TrendingUp className="h-3 w-3 mr-1" />
+                      +8% vs anterior
+                    </div>
+                  </div>
                 </div>
-                <div className="text-center p-3 bg-purple-50 rounded-lg">
-                  <div className="text-2xl font-bold text-purple-600">R$ 2.031</div>
-                  <div className="text-sm text-gray-600">Receita por Cliente</div>
+
+                {/* Receita por Cliente */}
+                <div className="flex items-center justify-between p-4 bg-gradient-to-r from-purple-50 to-violet-50 rounded-xl border border-purple-100 hover:shadow-md transition-all">
+                  <div className="flex items-center space-x-4">
+                    <div className="p-3 bg-purple-500 rounded-full">
+                      <Target className="h-6 w-6 text-white" />
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-gray-900">Receita por Cliente</h4>
+                      <p className="text-sm text-gray-600">Lifetime value médio</p>
+                    </div>
+                  </div>
+                  <div className="text-right">
+                    <div className="text-3xl font-bold text-purple-600">R$ 2.031</div>
+                    <div className="text-sm text-purple-500 flex items-center">
+                      <TrendingUp className="h-3 w-3 mr-1" />
+                      +15% vs anterior
+                    </div>
+                  </div>
                 </div>
-                <div className="text-center p-3 bg-orange-50 rounded-lg">
-                  <div className="text-2xl font-bold text-orange-600">89%</div>
-                  <div className="text-sm text-gray-600">Taxa de Satisfação</div>
+
+                {/* Taxa de Satisfação */}
+                <div className="flex items-center justify-between p-4 bg-gradient-to-r from-orange-50 to-amber-50 rounded-xl border border-orange-100 hover:shadow-md transition-all">
+                  <div className="flex items-center space-x-4">
+                    <div className="p-3 bg-orange-500 rounded-full">
+                      <Star className="h-6 w-6 text-white" />
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-gray-900">Taxa de Satisfação</h4>
+                      <p className="text-sm text-gray-600">Avaliações positivas</p>
+                    </div>
+                  </div>
+                  <div className="text-right">
+                    <div className="text-3xl font-bold text-orange-600">89%</div>
+                    <div className="text-sm text-orange-500 flex items-center">
+                      <TrendingUp className="h-3 w-3 mr-1" />
+                      +3% vs anterior
+                    </div>
+                  </div>
                 </div>
               </div>
             </CardContent>
@@ -270,48 +290,98 @@ export default function ReportsPage() {
                       Formas de Pagamento
                     </h3>
                     <p className="text-gray-500 mt-1 text-sm">
-                      Distribuição por método
+                      Distribuição por método de pagamento
                     </p>
                   </div>
                 </div>
               </div>
             </CardHeader>
-            <CardContent className="pt-0">
-              <div className="grid grid-cols-2 gap-3">
-                <div className="flex flex-col items-center text-center p-3 bg-blue-50 rounded-lg">
-                  <div className="w-3 h-3 bg-blue-500 rounded-full mb-2"></div>
-                  <span className="text-sm font-medium text-gray-900">PIX</span>
-                  <div className="font-bold text-lg text-blue-600 mt-1">45%</div>
-                  <div className="text-xs text-gray-500">R$ 21.000</div>
-                </div>
-                
-                <div className="flex flex-col items-center text-center p-3 bg-green-50 rounded-lg">
-                  <div className="w-3 h-3 bg-green-500 rounded-full mb-2"></div>
-                  <span className="text-sm font-medium text-gray-900">Cartão Crédito</span>
-                  <div className="font-bold text-lg text-green-600 mt-1">25%</div>
-                  <div className="text-xs text-gray-500">R$ 11.675</div>
-                </div>
-                
-                <div className="flex flex-col items-center text-center p-3 bg-purple-50 rounded-lg">
-                  <div className="w-3 h-3 bg-purple-500 rounded-full mb-2"></div>
-                  <span className="text-sm font-medium text-gray-900">Cartão Débito</span>
-                  <div className="font-bold text-lg text-purple-600 mt-1">15%</div>
-                  <div className="text-xs text-gray-500">R$ 7.005</div>
-                </div>
-                
-                <div className="flex flex-col items-center text-center p-3 bg-yellow-50 rounded-lg">
-                  <div className="w-3 h-3 bg-yellow-500 rounded-full mb-2"></div>
-                  <span className="text-sm font-medium text-gray-900">Dinheiro</span>
-                  <div className="font-bold text-lg text-yellow-600 mt-1">10%</div>
-                  <div className="text-xs text-gray-500">R$ 4.670</div>
-                </div>
-                
-                <div className="flex flex-col items-center text-center p-3 bg-red-50 rounded-lg">
-                  <div className="w-3 h-3 bg-red-500 rounded-full mb-2"></div>
-                  <span className="text-sm font-medium text-gray-900">iFood</span>
-                  <div className="font-bold text-lg text-red-600 mt-1">5%</div>
-                  <div className="text-xs text-gray-500">R$ 2.335</div>
-                </div>
+            <CardContent className="pt-0 p-4">
+              <div className="space-y-4">
+                {/* PIX */}
+                 <div className="flex items-center justify-between p-4 bg-gradient-to-r from-green-50 to-emerald-50 rounded-xl border border-green-100 hover:shadow-md transition-all">
+                   <div className="flex items-center space-x-4">
+                     <div className="p-3 bg-green-500 rounded-full">
+                       <Zap className="h-6 w-6 text-white" />
+                     </div>
+                     <div>
+                       <h4 className="font-semibold text-gray-900">PIX</h4>
+                       <p className="text-sm text-gray-600">Pagamento instantâneo</p>
+                     </div>
+                   </div>
+                   <div className="text-right">
+                     <div className="text-2xl font-bold text-green-600">45%</div>
+                     <div className="text-sm text-gray-600">R$ 21.000</div>
+                   </div>
+                 </div>
+
+                 {/* Cartão de Crédito */}
+                 <div className="flex items-center justify-between p-4 bg-gradient-to-r from-blue-50 to-cyan-50 rounded-xl border border-blue-100 hover:shadow-md transition-all">
+                   <div className="flex items-center space-x-4">
+                     <div className="p-3 bg-blue-500 rounded-full">
+                       <CreditCard className="h-6 w-6 text-white" />
+                     </div>
+                     <div>
+                       <h4 className="font-semibold text-gray-900">Cartão Crédito</h4>
+                       <p className="text-sm text-gray-600">Parcelado e à vista</p>
+                     </div>
+                   </div>
+                   <div className="text-right">
+                     <div className="text-2xl font-bold text-blue-600">25%</div>
+                     <div className="text-sm text-gray-600">R$ 11.675</div>
+                   </div>
+                 </div>
+
+                 {/* Cartão de Débito */}
+                 <div className="flex items-center justify-between p-4 bg-gradient-to-r from-purple-50 to-violet-50 rounded-xl border border-purple-100 hover:shadow-md transition-all">
+                   <div className="flex items-center space-x-4">
+                     <div className="p-3 bg-purple-500 rounded-full">
+                       <CreditCard className="h-6 w-6 text-white" />
+                     </div>
+                     <div>
+                       <h4 className="font-semibold text-gray-900">Cartão Débito</h4>
+                       <p className="text-sm text-gray-600">Débito em conta</p>
+                     </div>
+                   </div>
+                   <div className="text-right">
+                     <div className="text-2xl font-bold text-purple-600">15%</div>
+                     <div className="text-sm text-gray-600">R$ 7.005</div>
+                   </div>
+                 </div>
+
+                 {/* Dinheiro */}
+                 <div className="flex items-center justify-between p-4 bg-gradient-to-r from-orange-50 to-amber-50 rounded-xl border border-orange-100 hover:shadow-md transition-all">
+                   <div className="flex items-center space-x-4">
+                     <div className="p-3 bg-orange-500 rounded-full">
+                       <Banknote className="h-6 w-6 text-white" />
+                     </div>
+                     <div>
+                       <h4 className="font-semibold text-gray-900">Dinheiro</h4>
+                       <p className="text-sm text-gray-600">Pagamento em espécie</p>
+                     </div>
+                   </div>
+                   <div className="text-right">
+                     <div className="text-2xl font-bold text-orange-600">10%</div>
+                     <div className="text-sm text-gray-600">R$ 4.670</div>
+                   </div>
+                 </div>
+
+                 {/* iFood */}
+                 <div className="flex items-center justify-between p-4 bg-gradient-to-r from-red-50 to-pink-50 rounded-xl border border-red-100 hover:shadow-md transition-all">
+                   <div className="flex items-center space-x-4">
+                     <div className="p-3 bg-red-500 rounded-full">
+                       <Smartphone className="h-6 w-6 text-white" />
+                     </div>
+                     <div>
+                       <h4 className="font-semibold text-gray-900">iFood</h4>
+                       <p className="text-sm text-gray-600">Plataforma de delivery</p>
+                     </div>
+                   </div>
+                   <div className="text-right">
+                     <div className="text-2xl font-bold text-red-600">5%</div>
+                     <div className="text-sm text-gray-600">R$ 2.335</div>
+                   </div>
+                 </div>
               </div>
             </CardContent>
           </Card>
