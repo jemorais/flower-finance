@@ -95,7 +95,7 @@ export default function DashboardPage() {
 
         {/* Cards de Métricas */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-          <Card className="border-l-4 border-l-green-400 bg-green-50/50">
+          <Card className="border-l-4 border-l-green-400 bg-green-50/50 transform hover:scale-105 transition-all duration-300">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-1">
               <CardTitle className="text-sm font-medium text-green-700">Receita Total</CardTitle>
               <DollarSign className="h-4 w-4 text-green-500" />
@@ -108,7 +108,7 @@ export default function DashboardPage() {
             </CardContent>
           </Card>
 
-          <Card className="border-l-4 border-l-green-400 bg-green-50/50">
+          <Card className="border-l-4 border-l-green-400 bg-green-50/50 transform hover:scale-105 transition-all duration-300">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-1">
               <CardTitle className="text-sm font-medium text-green-700">Lucro Total</CardTitle>
               <TrendingUp className="h-4 w-4 text-green-500" />
@@ -121,7 +121,7 @@ export default function DashboardPage() {
             </CardContent>
           </Card>
 
-          <Card className="border-l-4 border-l-green-400 bg-green-50/50">
+          <Card className="border-l-4 border-l-green-400 bg-green-50/50 transform hover:scale-105 transition-all duration-300">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-1">
               <CardTitle className="text-sm font-medium text-green-700">Vendas do Mês</CardTitle>
               <Package className="h-4 w-4 text-green-500" />
@@ -134,7 +134,7 @@ export default function DashboardPage() {
             </CardContent>
           </Card>
 
-          <Card className="border-l-4 border-l-yellow-400 bg-yellow-50/50">
+          <Card className="border-l-4 border-l-yellow-400 bg-yellow-50/50 transform hover:scale-105 transition-all duration-300">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-1">
               <CardTitle className="text-sm font-medium text-yellow-700">Clientes VIP</CardTitle>
               <Star className="h-4 w-4 text-yellow-500" />
@@ -151,7 +151,7 @@ export default function DashboardPage() {
         </div>
 
         {/* Pequeno gráfico de Formas de Pagamento */}
-        <Card className="mb-6 shadow-lg border-0">
+        <Card className="mb-6 shadow-lg border-0 transform hover:scale-105 transition-all duration-300">
           <CardHeader className="p-0">
             {/* Header com gradiente */}
             <div className="bg-gradient-to-r from-gray-100 to-gray-200 p-4 rounded-t-lg">
@@ -189,7 +189,7 @@ export default function DashboardPage() {
         {/* Seção principal com gráficos e transações */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8">
           {/* Gráfico de vendas */}
-          <Card className="lg:col-span-2 shadow-lg border-0">
+          <Card className="lg:col-span-2 shadow-lg border-0 transform hover:scale-105 transition-all duration-300">
             <CardHeader className="p-0">
               {/* Header com gradiente */}
               <div className="bg-gradient-to-r from-gray-100 to-gray-200 p-4 rounded-t-lg">
@@ -240,7 +240,7 @@ export default function DashboardPage() {
           </Card>
 
           {/* Top produtos */}
-          <Card className="shadow-lg border-0">
+          <Card className="shadow-lg border-0 transform hover:scale-105 transition-all duration-300">
             <CardHeader className="p-0">
               {/* Header com gradiente */}
               <div className="bg-gradient-to-r from-gray-100 to-gray-200 p-4 rounded-t-lg">
@@ -287,14 +287,14 @@ export default function DashboardPage() {
         {/* Seção de Gráficos Interativos */}
         <div className="grid grid-cols-1 xl:grid-cols-2 gap-8 mb-8">
           {/* Gráfico de Receitas vs Despesas */}
-          <Card className="shadow-lg border-0">
+          <Card className="shadow-lg border-0 transform hover:scale-105 transition-all duration-300">
             <CardContent className="p-0">
               <RevenueExpenseChart />
             </CardContent>
           </Card>
 
           {/* Gráfico de Distribuição por Categorias */}
-          <Card className="shadow-lg border-0">
+          <Card className="shadow-lg border-0 transform hover:scale-105 transition-all duration-300">
             <CardContent className="p-0">
               <CategoryPieChart />
             </CardContent>
@@ -302,7 +302,7 @@ export default function DashboardPage() {
         </div>
 
         {/* Transações Recentes */}
-        <Card className="mb-8 shadow-lg border-0">
+        <Card className="mb-8 shadow-lg border-0 transform hover:scale-105 transition-all duration-300">
           <CardContent className="p-0">
             {/* Header com gradiente */}
             <div className="bg-gradient-to-r from-gray-100 to-gray-200 p-4 rounded-t-lg">
@@ -357,7 +357,7 @@ export default function DashboardPage() {
               <div className="mt-4 pt-3 border-t">
                 <div className="grid grid-cols-2 gap-4">
                   <div className="text-center">
-                    <div className="text-2xl font-bold text-green-600">+R$ 1.580,00</div>
+                    <div className="text-2xl font-bold text-pink-600">+R$ 1.580,00</div>
                     <div className="text-sm text-gray-500">Total Receitas</div>
                   </div>
                   <div className="text-center">

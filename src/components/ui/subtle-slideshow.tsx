@@ -63,10 +63,10 @@ export function SubtleSlideshow({
             src={image}
             alt={`Flower background ${index + 1}`}
             fill
-            className="object-cover object-center sm:object-contain lg:object-cover"
+            className="object-cover object-center"
             priority={index === 0}
-            quality={75}
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            quality={85}
+            sizes="100vw"
           />
         </div>
       ))}

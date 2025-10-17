@@ -78,7 +78,7 @@ export default function ReportsPage() {
 
         {/* Main Metrics - Cards Superiores */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
-          <Card className="border-l-4 border-l-green-400 bg-green-50/50">
+          <Card className="border-l-4 border-l-green-400 bg-green-50/50 transform hover:scale-105 transition-all duration-300">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium text-green-700">Receita Total</CardTitle>
               <TrendingUp className="h-4 w-4 text-green-500" />
@@ -89,7 +89,7 @@ export default function ReportsPage() {
             </CardContent>
           </Card>
 
-          <Card className="border-l-4 border-l-red-400 bg-red-50/50">
+          <Card className="border-l-4 border-l-red-400 bg-red-50/50 transform hover:scale-105 transition-all duration-300">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium text-red-700">Despesas</CardTitle>
               <TrendingDown className="h-4 w-4 text-red-500" />
@@ -100,7 +100,7 @@ export default function ReportsPage() {
             </CardContent>
           </Card>
 
-          <Card className="border-l-4 border-l-blue-400 bg-blue-50/50">
+          <Card className="border-l-4 border-l-blue-400 bg-blue-50/50 transform hover:scale-105 transition-all duration-300">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium text-blue-700">Produtos Vendidos</CardTitle>
               <Package className="h-4 w-4 text-blue-500" />
@@ -111,7 +111,7 @@ export default function ReportsPage() {
             </CardContent>
           </Card>
 
-          <Card className="border-l-4 border-l-purple-400 bg-purple-50/50">
+          <Card className="border-l-4 border-l-purple-400 bg-purple-50/50 transform hover:scale-105 transition-all duration-300">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium text-purple-700">Margem de Lucro</CardTitle>
               <BarChart3 className="h-4 w-4 text-purple-500" />
@@ -126,7 +126,7 @@ export default function ReportsPage() {
         {/* Grade Principal - 2 Colunas */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
           {/* Produtos Mais Vendidos */}
-          <Card>
+          <Card className="transform hover:scale-105 transition-all duration-300">
             <CardHeader className="p-0">
               {/* Header com gradiente */}
               <div className="bg-gradient-to-r from-gray-100 to-gray-200 p-4 rounded-t-lg">
@@ -166,7 +166,7 @@ export default function ReportsPage() {
           </Card>
 
           {/* Margem por Categoria */}
-          <Card className="shadow-lg border-0">
+          <Card className="shadow-lg border-0 transform hover:scale-105 transition-all duration-300">
             <CardContent className="p-0">
               <CategoryMarginChart />
             </CardContent>
@@ -176,7 +176,7 @@ export default function ReportsPage() {
         {/* Segunda Linha - 2 Colunas */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
           {/* Performance Geral */}
-          <Card>
+          <Card className="transform hover:scale-105 transition-all duration-300">
             <CardHeader className="p-0">
               {/* Header com gradiente */}
               <div className="bg-gradient-to-r from-gray-100 to-gray-200 p-4 rounded-t-lg">
@@ -279,7 +279,7 @@ export default function ReportsPage() {
           </Card>
 
           {/* Formas de Pagamento */}
-          <Card>
+          <Card className="transform hover:scale-105 transition-all duration-300">
             <CardHeader className="p-0">
               {/* Header com gradiente */}
               <div className="bg-gradient-to-r from-gray-100 to-gray-200 p-4 rounded-t-lg">
@@ -388,7 +388,7 @@ export default function ReportsPage() {
         </div>
 
         {/* Canais de Venda - Linha Completa */}
-        <Card>
+        <Card className="transform hover:scale-105 transition-all duration-300">
           <CardHeader className="p-0">
             {/* Header com gradiente */}
             <div className="bg-gradient-to-r from-gray-100 to-gray-200 p-4 rounded-t-lg">

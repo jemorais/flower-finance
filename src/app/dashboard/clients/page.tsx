@@ -832,7 +832,7 @@ export default function ClientsPage() {
 
         {/* Cards de Métricas */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-          <Card className="border-l-4 border-l-blue-400 bg-blue-50/50">
+          <Card className="border-l-4 border-l-blue-400 bg-blue-50/50 transform hover:scale-105 transition-all duration-300">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-1">
               <CardTitle className="text-sm font-medium text-blue-700">Total de Clientes</CardTitle>
               <Users className="h-4 w-4 text-blue-500" />
@@ -845,7 +845,7 @@ export default function ClientsPage() {
             </CardContent>
           </Card>
 
-          <Card className="border-l-4 border-l-green-400 bg-green-50/50">
+          <Card className="border-l-4 border-l-green-400 bg-green-50/50 transform hover:scale-105 transition-all duration-300">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-1">
               <CardTitle className="text-sm font-medium text-green-700">Receita Total</CardTitle>
               <DollarSign className="h-4 w-4 text-green-500" />
@@ -858,7 +858,7 @@ export default function ClientsPage() {
             </CardContent>
           </Card>
 
-          <Card className="border-l-4 border-l-yellow-400 bg-yellow-50/50">
+          <Card className="border-l-4 border-l-yellow-400 bg-yellow-50/50 transform hover:scale-105 transition-all duration-300">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-1">
               <CardTitle className="text-sm font-medium text-yellow-700">Clientes VIP</CardTitle>
               <Star className="h-4 w-4 text-yellow-500" />
@@ -871,7 +871,7 @@ export default function ClientsPage() {
             </CardContent>
           </Card>
 
-          <Card className="border-l-4 border-l-purple-400 bg-purple-50/50">
+          <Card className="border-l-4 border-l-purple-400 bg-purple-50/50 transform hover:scale-105 transition-all duration-300">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-1">
               <CardTitle className="text-sm font-medium text-purple-700">Aniversários</CardTitle>
               <Calendar className="h-4 w-4 text-purple-500" />
@@ -887,7 +887,7 @@ export default function ClientsPage() {
 
         {/* Seção de Aniversários Próximos */}
         {upcomingBirthdays.length > 0 && (
-          <Card className="mb-6 border-pink-200 bg-pink-50">
+          <Card className="mb-6 border-pink-200 bg-pink-50 transform hover:scale-105 transition-all duration-300">
             <CardHeader>
               <CardTitle className="flex items-center gap-2 text-pink-700">
                 <Gift className="h-5 w-5" />

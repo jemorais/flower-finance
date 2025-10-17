@@ -378,7 +378,7 @@ export default function TransactionsPage() {
       {/* Metric Cards */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
         {/* Saldo Líquido */}
-        <Card className="border-l-4 border-l-green-400 bg-green-50/50">
+        <Card className="border-l-4 border-l-green-400 bg-green-50/50 transform hover:scale-105 transition-all duration-300">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-1">
             <CardTitle className="text-sm font-medium text-green-700">Saldo Líquido</CardTitle>
             <DollarSign className="h-4 w-4 text-green-500" />
@@ -392,7 +392,7 @@ export default function TransactionsPage() {
         </Card>
 
         {/* Despesas do Mês */}
-        <Card className="border-l-4 border-l-red-400 bg-red-50/50">
+        <Card className="border-l-4 border-l-red-400 bg-red-50/50 transform hover:scale-105 transition-all duration-300">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-1">
             <CardTitle className="text-sm font-medium text-red-700">Despesas do Mês</CardTitle>
             <TrendingDown className="h-4 w-4 text-red-500" />
@@ -406,7 +406,7 @@ export default function TransactionsPage() {
         </Card>
 
         {/* Receita do Mês */}
-        <Card className="border-l-4 border-l-green-400 bg-green-50/50">
+        <Card className="border-l-4 border-l-green-400 bg-green-50/50 transform hover:scale-105 transition-all duration-300">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-1">
             <CardTitle className="text-sm font-medium text-green-700">Receita do Mês</CardTitle>
             <TrendingUp className="h-4 w-4 text-green-500" />
@@ -421,7 +421,7 @@ export default function TransactionsPage() {
       </div>
 
       {/* Filters */}
-      <Card className="mb-8">
+      <Card className="mb-8 transform hover:scale-105 transition-all duration-300">
         <CardHeader className="pb-2">
           <CardTitle className="text-lg font-semibold text-gray-900">Filtros</CardTitle>
         </CardHeader>

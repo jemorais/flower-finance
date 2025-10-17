@@ -212,7 +212,7 @@ export default function ProductsPage() {
 
       {/* Stats Cards */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-        <Card className="border-l-4 border-l-blue-400 bg-blue-50/50">
+        <Card className="border-l-4 border-l-blue-400 bg-blue-50/50 transform hover:scale-105 transition-all duration-300">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-1">
             <CardTitle className="text-sm font-medium text-blue-700">Total de Produtos</CardTitle>
             <Package2 className="h-4 w-4 text-blue-500" />
@@ -225,7 +225,7 @@ export default function ProductsPage() {
           </CardContent>
         </Card>
         
-        <Card className="border-l-4 border-l-purple-400 bg-purple-50/50">
+        <Card className="border-l-4 border-l-purple-400 bg-purple-50/50 transform hover:scale-105 transition-all duration-300">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-1">
             <CardTitle className="text-sm font-medium text-purple-700">Valor do Estoque</CardTitle>
             <DollarSign className="h-4 w-4 text-purple-500" />
@@ -240,7 +240,7 @@ export default function ProductsPage() {
           </CardContent>
         </Card>
         
-        <Card className="border-l-4 border-l-green-400 bg-green-50/50">
+        <Card className="border-l-4 border-l-green-400 bg-green-50/50 transform hover:scale-105 transition-all duration-300">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-1">
             <CardTitle className="text-sm font-medium text-green-700">Categorias</CardTitle>
             <Tag className="h-4 w-4 text-green-500" />
@@ -305,7 +305,7 @@ export default function ProductsPage() {
       {viewMode === 'grid' ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredProducts.map((product) => (
-            <Card key={product.id} className="hover:shadow-md transition-shadow">
+            <Card key={product.id} className="transform hover:scale-105 transition-all duration-300">
               <CardHeader className="pb-2">
                 <div className="flex justify-between items-start">
                   <div>

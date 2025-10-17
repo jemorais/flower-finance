@@ -216,7 +216,7 @@ export default function CategoriesPage() {
 
       {/* Stats Cards */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-        <Card className="border-l-4 border-l-blue-400 bg-blue-50/50">
+        <Card className="border-l-4 border-l-blue-400 bg-blue-50/50 transform hover:scale-105 transition-all duration-300">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-1">
             <CardTitle className="text-sm font-medium text-blue-700">Total de Categorias</CardTitle>
             <Tag className="h-4 w-4 text-blue-500" />
@@ -229,7 +229,7 @@ export default function CategoriesPage() {
           </CardContent>
         </Card>
         
-        <Card className="border-l-4 border-l-purple-400 bg-purple-50/50">
+        <Card className="border-l-4 border-l-purple-400 bg-purple-50/50 transform hover:scale-105 transition-all duration-300">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-1">
             <CardTitle className="text-sm font-medium text-purple-700">Produtos Categorizados</CardTitle>
             <Package className="h-4 w-4 text-purple-500" />
@@ -242,7 +242,7 @@ export default function CategoriesPage() {
           </CardContent>
         </Card>
         
-        <Card className="border-l-4 border-l-green-400 bg-green-50/50">
+        <Card className="border-l-4 border-l-green-400 bg-green-50/50 transform hover:scale-105 transition-all duration-300">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-1">
             <CardTitle className="text-sm font-medium text-green-700">Média por Categoria</CardTitle>
             <Flower2 className="h-4 w-4 text-green-500" />
@@ -321,7 +321,7 @@ export default function CategoriesPage() {
         : "space-y-4"
       }>
         {filteredCategories.map((category) => (
-          <Card key={category.id} className={`hover:shadow-md transition-shadow ${
+          <Card key={category.id} className={`transform hover:scale-105 transition-all duration-300 ${
             viewMode === 'list' ? 'flex flex-row items-center' : ''
           }`}>
             {viewMode === 'grid' ? (
@@ -366,7 +366,6 @@ export default function CategoriesPage() {
                           className="w-3 h-3 rounded-full border"
                           style={{ backgroundColor: category.color }}
                         />
-                        <span className="text-sm">{category.color}</span>
                       </div>
                     </div>
                   </div>
@@ -426,7 +425,6 @@ export default function CategoriesPage() {
                         className="w-4 h-4 rounded-full border"
                         style={{ backgroundColor: category.color }}
                       />
-                      <span className="text-muted-foreground">{category.color}</span>
                     </div>
                   </div>
                   <div className="flex gap-2 ml-4">

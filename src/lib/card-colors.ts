@@ -55,13 +55,45 @@ export function getCardColors(
  * Esquemas de cores pré-definidos para casos especiais
  */
 export const CARD_COLORS = {
-  GREEN: {
-    border: "border-l-green-400",
-    background: "bg-green-50/50",
-    title: "text-green-700",
-    icon: "text-green-500",
-    value: "text-green-800",
-    text: "text-green-600"
+  PINK: {
+    border: "border-l-pink-400",
+    background: "bg-pink-50/50",
+    title: "text-pink-700",
+    icon: "text-pink-500",
+    value: "text-pink-800",
+    text: "text-pink-600"
+  },
+  PURPLE: {
+    border: "border-l-purple-400",
+    background: "bg-purple-50/50",
+    title: "text-purple-700",
+    icon: "text-purple-500",
+    value: "text-purple-800",
+    text: "text-purple-600"
+  },
+  MAGENTA: {
+    border: "border-l-fuchsia-400",
+    background: "bg-fuchsia-50/50",
+    title: "text-fuchsia-700",
+    icon: "text-fuchsia-500",
+    value: "text-fuchsia-800",
+    text: "text-fuchsia-600"
+  },
+  ROSE: {
+    border: "border-l-rose-400",
+    background: "bg-rose-50/50",
+    title: "text-rose-700",
+    icon: "text-rose-500",
+    value: "text-rose-800",
+    text: "text-rose-600"
+  },
+  PINK_ALT: {
+    border: "border-l-pink-400",
+    background: "bg-pink-50/50",
+    title: "text-pink-700",
+    icon: "text-pink-500",
+    value: "text-pink-800",
+    text: "text-pink-600"
   },
   RED: {
     border: "border-l-red-400",
@@ -71,20 +103,28 @@ export const CARD_COLORS = {
     value: "text-red-800",
     text: "text-red-600"
   },
-  BLUE: {
-    border: "border-l-blue-400",
-    background: "bg-blue-50/50",
-    title: "text-blue-700",
-    icon: "text-blue-500",
-    value: "text-blue-800",
-    text: "text-blue-600"
+  ORANGE: {
+    border: "border-l-orange-400",
+    background: "bg-orange-50/50",
+    title: "text-orange-700",
+    icon: "text-orange-500",
+    value: "text-orange-800",
+    text: "text-orange-600"
   },
-  PURPLE: {
-    border: "border-l-purple-400",
-    background: "bg-purple-50/50",
-    title: "text-purple-700",
-    icon: "text-purple-500",
-    value: "text-purple-800",
-    text: "text-purple-600"
+  YELLOW: {
+    border: "border-l-yellow-400",
+    background: "bg-yellow-50/50",
+    title: "text-yellow-700",
+    icon: "text-yellow-500",
+    value: "text-yellow-800",
+    text: "text-yellow-600"
+  },
+  PINK_VARIANT: {
+    border: "border-l-pink-400",
+    background: "bg-pink-50/50",
+    title: "text-pink-700",
+    icon: "text-pink-500",
+    value: "text-pink-800",
+    text: "text-pink-600"
   }
 } as const;
