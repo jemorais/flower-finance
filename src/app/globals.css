@@ -30,9 +30,24 @@
   animation: scroll-infinite 30s linear infinite;
 }
 
+.animate-scroll-testimonials {
+  animation: scroll-testimonials 40s linear infinite;
+}
+
 .animate-scroll-infinite:hover,
+.animate-scroll-testimonials:hover,
 .hover\:pause-animation:hover {
   animation-play-state: paused;
+}
+
+/* Testimonials Scroll Animation */
+@keyframes scroll-testimonials {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
 }
 
 /* Smooth Section Transitions */
