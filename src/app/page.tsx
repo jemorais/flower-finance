@@ -4,72 +4,60 @@ import { useState, useEffect, useRef } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Heart, Flower, Gift, Star, Phone, Mail, MapPin, Clock, ArrowRight, CheckCircle, Instagram, MessageCircle, User, MessageSquare, Shield } from 'lucide-react';
+import { ScrollReveal, ScrollStagger } from '@/components/ui/scroll-reveal';
 import Link from 'next/link';
+
+// Componente customizado do ícone do WhatsApp
+const WhatsAppIcon = ({ className = "w-5 h-5", ...props }) => (
+  <svg
+    className={className}
+    viewBox="0 0 24 24"
+    fill="currentColor"
+    {...props}
+  >
+    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.465 3.488"/>
+  </svg>
+);
 
 export default function HomePage() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
-  
-  // Intersection Observer para animações escalonadas
+  const [isMounted, setIsMounted] = useState(false)
+
   useEffect(() => {
-    const observerOptions = {
-      threshold: 0.1,
-      rootMargin: '0px 0px -50px 0px'
-    }
-
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          const target = entry.target as HTMLElement
-          
-          // Adiciona classe de animação baseada no tipo de elemento
-          if (target.classList.contains('stagger-item')) {
-            const delay = parseInt(target.dataset.delay || '0')
-            // Delay mais suave e progressivo
-            setTimeout(() => {
-              target.classList.add('animate-fade-in-up')
-            }, delay * 1.5) // Multiplica por 1.5 para delays mais espaçados
-          }
-          
-          // Remove o observer após a animação
-          observer.unobserve(target)
-        }
-      })
-    }, observerOptions)
-
-    // Observa todos os elementos com classe stagger-item
-    const staggerItems = document.querySelectorAll('.stagger-item')
-    staggerItems.forEach((item) => observer.observe(item))
-
-    return () => observer.disconnect()
+    setIsMounted(true)
   }, [])
+
+  if (!isMounted) {
+    return null
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-pink-50 via-rose-50 to-purple-50">
       <style jsx>{`
-        .animate-slide-continuous {
-          animation: slide-continuous 30s linear infinite;
-        }
-        
-        @keyframes slide-continuous {
-          0% {
-            transform: translateX(0);
+          .animate-slide-continuous {
+            animation: slide-continuous 30s linear infinite;
           }
-          100% {
-            transform: translateX(-200%);
+          
+          @keyframes slide-continuous {
+            0% {
+              transform: translateX(0);
+            }
+            100% {
+              transform: translateX(-50%);
+            }
           }
-        }
-        
-        .testimonials-slider-continuous:hover .animate-slide-continuous {
-          animation-play-state: paused;
-        }
+          
+          .testimonials-slider-continuous:hover .animate-slide-continuous {
+            animation-play-state: paused;
+          }
 
-        /* Animações escalonadas para scroll - versão ultra suave */
-        .stagger-item {
-          opacity: 0;
-          transform: translateY(10px);
-          transition: opacity 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94), 
-                      transform 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-        }
+          /* Animações escalonadas para scroll - versão ultra suave */
+          .stagger-item {
+            opacity: 0;
+            transform: translateY(10px);
+            transition: opacity 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94), 
+                        transform 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+          }
 
         .animate-fade-in-up {
           opacity: 1 !important;
@@ -83,37 +71,51 @@ export default function HomePage() {
         .animate-stagger-5 { transition-delay: 0.75s; }
         .animate-stagger-6 { transition-delay: 0.9s; }
 
-        @keyframes slideUp {
-          from {
-            opacity: 0;
-            transform: translateY(30px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
+        /* Animações de entrada suaves */
+        .animate-fade-in-right {
+          animation: fadeInRight 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
         }
 
-        @keyframes fadeInUp {
-          from {
-            opacity: 0;
-            transform: translateY(40px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
+        .animate-fade-in-left {
+          animation: fadeInLeft 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
         }
 
         @keyframes fadeInRight {
           from {
             opacity: 0;
-            transform: translateX(40px);
+            transform: translateX(30px);
           }
           to {
             opacity: 1;
             transform: translateX(0);
           }
+        }
+
+        @keyframes fadeInLeft {
+          from {
+            opacity: 0;
+            transform: translateX(-30px);
+          }
+          to {
+            opacity: 1;
+            transform: translateX(0);
+          }
+        }
+
+        /* Animações de hover suaves */
+        .hover-lift {
+          transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), 
+                      box-shadow 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .hover-lift:hover {
+          transform: translateY(-8px);
+          box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Animação de float suave */
+        .animate-float {
+          animation: float 6s ease-in-out infinite;
         }
 
         @keyframes float {
@@ -125,139 +127,227 @@ export default function HomePage() {
           }
         }
 
-        @keyframes gradientX {
+        /* Gradiente animado */
+        .animate-gradient-x {
+          background-size: 200% 200%;
+          animation: gradient-x 3s ease infinite;
+        }
+
+        @keyframes gradient-x {
           0%, 100% {
-            background-size: 200% 200%;
-            background-position: left center;
+            background-position: 0% 50%;
           }
           50% {
-            background-size: 200% 200%;
-            background-position: right center;
+            background-position: 100% 50%;
           }
         }
 
-        @keyframes bounceSubtle {
-          0%, 100% {
+        /* Animações de slide com delay */
+        .animate-slide-up-delay-1 {
+          animation: slideUpDelay 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.2s both;
+        }
+
+        .animate-slide-up-delay-2 {
+          animation: slideUpDelay 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.4s both;
+        }
+
+        .animate-slide-up-delay-3 {
+          animation: slideUpDelay 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.6s both;
+        }
+
+        @keyframes slideUpDelay {
+          from {
+            opacity: 0;
+            transform: translateY(30px);
+          }
+          to {
+            opacity: 1;
             transform: translateY(0);
           }
-          50% {
-            transform: translateY(-2px);
-          }
+        }
+
+        /* Animação de pulse sutil */
+        .animate-pulse-subtle {
+          animation: pulseSubtle 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
         }
 
         @keyframes pulseSubtle {
           0%, 100% {
-            box-shadow: 0 0 0 0 rgba(236, 72, 153, 0.4);
+            opacity: 1;
           }
           50% {
-            box-shadow: 0 0 0 8px rgba(236, 72, 153, 0);
+            opacity: 0.95;
           }
         }
 
-        .animate-fade-in-up {
-          animation: fadeInUp 0.8s ease-out forwards;
-        }
-
-        .animate-fade-in-right {
-          animation: fadeInRight 0.8s ease-out 0.3s forwards;
-          opacity: 0;
-        }
-
-        .animate-slide-up-delay-1 {
-          animation: slideUp 0.6s ease-out 0.2s forwards;
-          opacity: 0;
-        }
-
-        .animate-slide-up-delay-2 {
-          animation: slideUp 0.6s ease-out 0.4s forwards;
-          opacity: 0;
-        }
-
-        .animate-slide-up-delay-3 {
-          animation: slideUp 0.6s ease-out 0.6s forwards;
-          opacity: 0;
-        }
-
-        .animate-float {
-          animation: float 6s ease-in-out infinite;
-        }
-
-        .animate-gradient-x {
-          animation: gradientX 3s ease infinite;
-        }
-
+        /* Animação de bounce sutil */
         .animate-bounce-subtle {
-          animation: bounceSubtle 2s ease-in-out infinite;
+          animation: bounceSubtle 2s infinite;
         }
 
-        .animate-pulse-subtle {
-          animation: pulseSubtle 2s ease-in-out infinite;
+        @keyframes bounceSubtle {
+          0%, 20%, 53%, 80%, 100% {
+            animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+            transform: translate3d(0, 0, 0);
+          }
+          40%, 43% {
+            animation-timing-function: cubic-bezier(0.755, 0.05, 0.855, 0.06);
+            transform: translate3d(0, -5px, 0);
+          }
+          70% {
+            animation-timing-function: cubic-bezier(0.755, 0.05, 0.855, 0.06);
+            transform: translate3d(0, -3px, 0);
+          }
+          90% {
+            transform: translate3d(0, -1px, 0);
+          }
+        }
+
+        /* Efeito ripple para botões */
+        .ripple-button {
+          position: relative;
+          overflow: hidden;
+        }
+
+        .ripple-button::before {
+          content: '';
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          width: 0;
+          height: 0;
+          border-radius: 50%;
+          background: rgba(255, 255, 255, 0.3);
+          transform: translate(-50%, -50%);
+          transition: width 0.6s, height 0.6s;
+        }
+
+        .ripple-button:hover::before {
+          width: 300px;
+          height: 300px;
+        }
+
+        /* Background hero com overlay */
+        .hero-background {
+          position: relative;
+        }
+
+        .hero-background::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.7) 100%);
+          z-index: 1;
+        }
+
+        .hero-background > * {
+          position: relative;
+          z-index: 2;
+        }
+
+        /* Animação de loading suave */
+        .loading-shimmer {
+          background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+          background-size: 200% 100%;
+          animation: shimmer 2s infinite;
+        }
+
+        @keyframes shimmer {
+          0% {
+            background-position: -200% 0;
+          }
+          100% {
+            background-position: 200% 0;
+          }
+        }
+
+        /* Scroll suave para toda a página */
+        html {
+          scroll-behavior: smooth;
+        }
+
+        /* Customização da scrollbar */
+        ::-webkit-scrollbar {
+          width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+          background: #f1f1f1;
+        }
+
+        ::-webkit-scrollbar-thumb {
+          background: linear-gradient(135deg, #ec4899, #8b5cf6);
+          border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+          background: linear-gradient(135deg, #db2777, #7c3aed);
         }
       `}</style>
+
       {/* Header */}
       <header className="bg-white/80 backdrop-blur-sm shadow-sm sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-6 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-3">
-              <div className="w-10 h-10 bg-gradient-to-br from-pink-500 to-purple-600 rounded-lg flex items-center justify-center">
-                <Flower className="w-6 h-6 text-white" />
+              <div className="bg-gradient-to-br from-pink-500 to-rose-500 p-2 rounded-xl shadow-lg">
+                <Flower className="w-8 h-8 text-white" />
               </div>
               <div>
-                <h1 className="text-xl font-bold text-gray-900">Yasmin Flores</h1>
-                <p className="text-gray-600 text-sm">Flores que falam por você</p>
+                <h1 className="text-2xl font-bold text-gray-900">Yasmin Flores</h1>
+                <p className="text-sm text-gray-600">Flores & Arranjos</p>
               </div>
             </div>
-            <nav className="hidden md:flex items-center space-x-6">
-              <a href="#services" className="text-gray-700 hover:text-pink-600 transition-colors">Serviços</a>
-              <a href="#about" className="text-gray-700 hover:text-pink-600 transition-colors">Sobre</a>
-              <a href="#testimonials" className="text-gray-700 hover:text-pink-600 transition-colors">Depoimentos</a>
-              <a href="#contact" className="text-gray-700 hover:text-pink-600 transition-colors">Contato</a>
-              <Link href="/dashboard">
-                <Button className="bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white">
-                  Área Administrativa
-                </Button>
-              </Link>
+            
+            <nav className="hidden md:flex items-center space-x-8">
+              <a href="#services" className="text-gray-700 hover:text-pink-600 transition-colors font-medium">Serviços</a>
+              <a href="#gallery" className="text-gray-700 hover:text-pink-600 transition-colors font-medium">Galeria</a>
+              <a href="#testimonials" className="text-gray-700 hover:text-pink-600 transition-colors font-medium">Depoimentos</a>
+              <a href="#contact" className="text-gray-700 hover:text-pink-600 transition-colors font-medium">Faça seu Pedido</a>
+              <Button className="bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 text-white" onClick={() => window.location.href = '/dashboard'}>
+                Área Administrativa
+              </Button>
             </nav>
           </div>
         </div>
       </header>
 
       {/* Hero Section */}
-      <section className="py-20 px-6">
+      <section className="py-12 px-6 hero-background" style={{ backgroundImage: 'url(/images/flowers/hero-background.jpg)', backgroundSize: 'cover' }}>
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div className="animate-fade-in-up">
               <h2 className="text-5xl font-bold text-gray-900 mb-6 leading-tight animate-slide-up-delay-1">
-                Flores que <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-purple-600 animate-gradient-x">encantam</span> e <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-pink-600 animate-gradient-x">emocionam</span>
+                Flores que <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-rose-500 animate-gradient-x">encantam</span> e <span className="text-transparent bg-clip-text bg-gradient-to-r from-rose-500 to-pink-500 animate-gradient-x">emocionam</span>
               </h2>
               <p className="text-xl text-gray-600 mb-8 leading-relaxed animate-slide-up-delay-2">
                 Há mais de 15 anos criando momentos especiais com as mais belas flores e arranjos personalizados. 
                 Cada bouquet conta uma história única de amor e carinho.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 animate-slide-up-delay-3">
-                <Button size="lg" className="bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white px-8 py-3 hover:scale-105 hover:shadow-lg transition-all duration-300 animate-pulse-subtle">
-                  <Heart className="w-5 h-5 mr-2 animate-bounce-subtle" />
+                <Button size="lg" className="ripple-button bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 text-white px-8 py-3 hover:scale-105 hover:shadow-lg transition-all duration-300 animate-pulse-subtle">
+                  <Phone className="w-5 h-5 mr-2 animate-bounce-subtle" />
                   Fazer Pedido
-                </Button>
-                <Button size="lg" variant="outline" className="border-pink-300 text-pink-600 hover:bg-pink-50 px-8 py-3 hover:scale-105 hover:shadow-md transition-all duration-300">
-                  Ver Catálogo
                 </Button>
               </div>
             </div>
             <div className="relative animate-fade-in-right">
-              <div className="bg-gradient-to-br from-pink-200 to-purple-200 rounded-3xl p-8 transform rotate-3 shadow-xl animate-float hover:rotate-6 transition-transform duration-500">
+              <div className="bg-gradient-to-br from-pink-200 to-rose-200 rounded-3xl p-8 transform rotate-3 shadow-xl animate-float hover:rotate-6 transition-transform duration-500">
                 <div className="bg-white rounded-2xl p-6 transform -rotate-6 shadow-lg hover:-rotate-3 transition-transform duration-500">
                   <div className="grid grid-cols-2 gap-4">
                     <div className="bg-gradient-to-br from-pink-100 to-rose-100 rounded-xl p-4 flex items-center justify-center hover:scale-110 hover:shadow-lg transition-all duration-300 group">
                       <Flower className="w-12 h-12 text-pink-500 group-hover:scale-125 group-hover:rotate-12 transition-all duration-300" />
                     </div>
-                    <div className="bg-gradient-to-br from-purple-100 to-pink-100 rounded-xl p-4 flex items-center justify-center hover:scale-110 hover:shadow-lg transition-all duration-300 group">
-                      <Gift className="w-12 h-12 text-purple-500 group-hover:scale-125 group-hover:rotate-12 transition-all duration-300" />
+                    <div className="bg-gradient-to-br from-rose-100 to-pink-100 rounded-xl p-4 flex items-center justify-center hover:scale-110 hover:shadow-lg transition-all duration-300 group">
+                      <Gift className="w-12 h-12 text-rose-500 group-hover:scale-125 group-hover:rotate-12 transition-all duration-300" />
                     </div>
                     <div className="bg-gradient-to-br from-rose-100 to-pink-100 rounded-xl p-4 flex items-center justify-center hover:scale-110 hover:shadow-lg transition-all duration-300 group">
                       <Heart className="w-12 h-12 text-rose-500 group-hover:scale-125 group-hover:animate-pulse transition-all duration-300" />
                     </div>
-                    <div className="bg-gradient-to-br from-pink-100 to-purple-100 rounded-xl p-4 flex items-center justify-center hover:scale-110 hover:shadow-lg transition-all duration-300 group">
+                    <div className="bg-gradient-to-br from-pink-100 to-rose-100 rounded-xl p-4 flex items-center justify-center hover:scale-110 hover:shadow-lg transition-all duration-300 group">
                       <Star className="w-12 h-12 text-pink-500 group-hover:scale-125 group-hover:rotate-12 transition-all duration-300" />
                     </div>
                   </div>
@@ -268,783 +358,684 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* Experiência Única Section */}
+      <ScrollReveal delay={200}>
+        <section className="py-16 px-6 bg-gradient-to-br from-gray-50 to-pink-50">
+          <div className="max-w-6xl mx-auto">
+            <div className="text-center mb-12">
+              <div className="bg-gradient-to-br from-pink-500 to-rose-500 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
+                <Heart className="w-8 h-8 text-white" />
+              </div>
+              <h3 className="text-3xl font-bold text-gray-900 mb-3">
+                Experiência <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-rose-500">Única</span>
+              </h3>
+              <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+                Cada arranjo é uma obra de arte criada especialmente para você
+              </p>
+            </div>
+
+            <ScrollStagger className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+              <ScrollReveal delay={400}>
+                <div className="bg-white rounded-xl p-6 text-center hover:shadow-lg transition-all duration-300 border border-gray-100 shadow-sm">
+                  <div className="bg-gradient-to-br from-pink-500 to-rose-500 w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-4 shadow-md">
+                    <Flower className="w-6 h-6 text-white" />
+                  </div>
+                  <h4 className="text-lg font-bold text-gray-900 mb-3">Flores Frescas</h4>
+                  <p className="text-gray-600 text-sm">
+                    Selecionamos as melhores flores diariamente para garantir máxima qualidade
+                  </p>
+                </div>
+              </ScrollReveal>
+
+              <ScrollReveal delay={500}>
+                <div className="bg-white rounded-xl p-6 text-center hover:shadow-lg transition-all duration-300 border border-gray-100 shadow-sm">
+                  <div className="bg-gradient-to-br from-pink-500 to-rose-500 w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-4 shadow-md">
+                    <Clock className="w-6 h-6 text-white" />
+                  </div>
+                  <h4 className="text-lg font-bold text-gray-900 mb-3">Entrega Rápida</h4>
+                  <p className="text-gray-600 text-sm">
+                    Entregamos em até 2 horas na região metropolitana com todo cuidado
+                  </p>
+                </div>
+              </ScrollReveal>
+
+              <ScrollReveal delay={600}>
+                <div className="bg-white rounded-xl p-6 text-center hover:shadow-lg transition-all duration-300 border border-gray-100 shadow-sm">
+                  <div className="bg-gradient-to-br from-pink-500 to-rose-500 w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-4 shadow-md">
+                    <Heart className="w-6 h-6 text-white" />
+                  </div>
+                  <h4 className="text-lg font-bold text-gray-900 mb-3">Feito com Amor</h4>
+                  <p className="text-gray-600 text-sm">
+                    Cada arranjo é criado com dedicação pelos nossos floristas especializados
+                  </p>
+                </div>
+              </ScrollReveal>
+
+              <ScrollReveal delay={700}>
+                <div className="bg-white rounded-xl p-6 text-center hover:shadow-lg transition-all duration-300 border border-gray-100 shadow-sm">
+                  <div className="bg-gradient-to-br from-pink-500 to-rose-500 w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-4 shadow-md">
+                    <Star className="w-6 h-6 text-white" />
+                  </div>
+                  <h4 className="text-lg font-bold text-gray-900 mb-3">Qualidade Premium</h4>
+                  <p className="text-gray-600 text-sm">
+                    Trabalhamos apenas com fornecedores reconhecidos e flores de primeira
+                  </p>
+                </div>
+              </ScrollReveal>
+
+              <ScrollReveal delay={800}>
+                <div className="bg-white rounded-xl p-6 text-center hover:shadow-lg transition-all duration-300 border border-gray-100 shadow-sm">
+                  <div className="bg-gradient-to-br from-pink-500 to-rose-500 w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-4 shadow-md">
+                    <Gift className="w-6 h-6 text-white" />
+                  </div>
+                  <h4 className="text-lg font-bold text-gray-900 mb-3">Personalização</h4>
+                  <p className="text-gray-600 text-sm">
+                    Criamos arranjos únicos e personalizados para cada ocasião especial
+                  </p>
+                </div>
+              </ScrollReveal>
+
+              <ScrollReveal delay={900}>
+                <div className="bg-white rounded-xl p-6 text-center hover:shadow-lg transition-all duration-300 border border-gray-100 shadow-sm">
+                  <div className="bg-gradient-to-br from-pink-500 to-rose-500 w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-4 shadow-md">
+                    <Phone className="w-6 h-6 text-white" />
+                  </div>
+                  <h4 className="text-lg font-bold text-gray-900 mb-3">Suporte 24h</h4>
+                  <p className="text-gray-600 text-sm">
+                    Atendimento especializado disponível 24 horas para suas necessidades
+                  </p>
+                </div>
+              </ScrollReveal>
+            </ScrollStagger>
+          </div>
+        </section>
+      </ScrollReveal>
+
       {/* Services & Creations Unified Section */}
-      <section id="services" className="py-20 px-6 bg-white/50">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16">
-            <h3 className="text-4xl font-bold text-gray-900 mb-4 stagger-item" data-delay="0">Nossos Serviços</h3>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto stagger-item" data-delay="100">
-              Conheça nossos serviços florais e veja alguns dos nossos arranjos mais especiais
-            </p>
-          </div>
-          
-          {/* Buquês Românticos */}
-          <div className="mb-16">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-              <Card className="group hover:shadow-xl transition-all duration-300 border-0 bg-gradient-to-br from-pink-50 to-rose-50 stagger-item" data-delay="200">
-                <CardHeader>
-                  <div className="w-16 h-16 bg-gradient-to-br from-pink-500 to-rose-500 rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                    <Heart className="w-8 h-8 text-white" />
-                  </div>
-                  <CardTitle className="text-2xl text-gray-900">Buquês Românticos</CardTitle>
-                  <CardDescription className="text-gray-600">
-                    Arranjos especiais para declarações de amor e momentos íntimos
-                  </CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <ul className="space-y-2 text-sm text-gray-600">
-                    <li className="flex items-center"><CheckCircle className="w-4 h-4 text-pink-500 mr-2" />Rosas premium</li>
-                    <li className="flex items-center"><CheckCircle className="w-4 h-4 text-pink-500 mr-2" />Embalagem especial</li>
-                    <li className="flex items-center"><CheckCircle className="w-4 h-4 text-pink-500 mr-2" />Cartão personalizado</li>
-                  </ul>
-                </CardContent>
-              </Card>
-              
-              <div className="grid grid-cols-2 gap-4 stagger-item" data-delay="300">
-                <div className="group relative overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl hover:shadow-pink-500/25 transition-all duration-500">
-                  <div className="aspect-square relative">
-                    <img 
-                      src="/images/flowers/arranjos/Arranhos-premium.png" 
-                      alt="Buquê Romântico - Rosas vermelhas premium"
-                      className="w-full h-full object-cover group-hover:scale-110 group-hover:saturate-110 transition-all duration-500 filter brightness-105"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-pink-600/40 via-transparent to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-300"></div>
-                  </div>
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300">
-                    <div className="absolute bottom-3 left-3 right-3 text-white transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
-                      <h4 className="font-semibold text-sm mb-1 drop-shadow-lg">Buquê Romântico</h4>
-                      <p className="text-xs opacity-90 drop-shadow-md">Rosas vermelhas</p>
-                    </div>
-                  </div>
-                </div>
-                <div className="group relative overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl hover:shadow-rose-500/25 transition-all duration-500">
-                  <div className="aspect-square relative">
-                    <img 
-                      src="/images/flowers/arranjos/Diversos.png" 
-                      alt="Buquê Delicado - Arranjos diversos"
-                      className="w-full h-full object-cover group-hover:scale-110 group-hover:saturate-110 transition-all duration-500 filter brightness-105"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-rose-600/40 via-transparent to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-300"></div>
-                  </div>
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300">
-                    <div className="absolute bottom-3 left-3 right-3 text-white transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
-                      <h4 className="font-semibold text-sm mb-1 drop-shadow-lg">Buquê Delicado</h4>
-                      <p className="text-xs opacity-90 drop-shadow-md">Rosas rosadas</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Eventos Especiais */}
-          <div className="mb-16">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-              <div className="grid grid-cols-2 gap-4 lg:order-1 stagger-item" data-delay="400">
-                <div className="group relative overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl hover:shadow-purple-500/25 transition-all duration-500">
-                  <div className="aspect-square relative">
-                    <img 
-                      src="/images/flowers/arranjos/Flores-e-chocolates.png" 
-                      alt="Casamento - Decoração completa"
-                      className="w-full h-full object-cover group-hover:scale-110 group-hover:saturate-110 transition-all duration-500 filter brightness-105"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-purple-600/40 via-transparent to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-300"></div>
-                  </div>
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300">
-                    <div className="absolute bottom-3 left-3 right-3 text-white transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
-                      <h4 className="font-semibold text-sm mb-1 drop-shadow-lg">Casamento</h4>
-                      <p className="text-xs opacity-90 drop-shadow-md">Decoração completa</p>
-                    </div>
-                  </div>
-                </div>
-                <div className="group relative overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl hover:shadow-pink-500/25 transition-all duration-500">
-                  <div className="aspect-square relative">
-                    <img 
-                      src="/images/flowers/arranjos/Personalizados.png" 
-                      alt="Aniversário - Arranjos festivos personalizados"
-                      className="w-full h-full object-cover group-hover:scale-110 group-hover:saturate-110 transition-all duration-500 filter brightness-105"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-pink-600/40 via-transparent to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-300"></div>
-                  </div>
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300">
-                    <div className="absolute bottom-3 left-3 right-3 text-white transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
-                      <h4 className="font-semibold text-sm mb-1 drop-shadow-lg">Aniversário</h4>
-                      <p className="text-xs opacity-90 drop-shadow-md">Arranjos festivos</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              
-              <Card className="group hover:shadow-xl transition-all duration-300 border-0 bg-gradient-to-br from-purple-50 to-pink-50 lg:order-2 stagger-item" data-delay="500">
-                <CardHeader>
-                  <div className="w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-500 rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                    <Gift className="w-8 h-8 text-white" />
-                  </div>
-                  <CardTitle className="text-2xl text-gray-900">Eventos Especiais</CardTitle>
-                  <CardDescription className="text-gray-600">
-                    Decoração floral completa para casamentos, aniversários e celebrações
-                  </CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <ul className="space-y-2 text-sm text-gray-600">
-                    <li className="flex items-center"><CheckCircle className="w-4 h-4 text-purple-500 mr-2" />Consultoria gratuita</li>
-                    <li className="flex items-center"><CheckCircle className="w-4 h-4 text-purple-500 mr-2" />Montagem no local</li>
-                    <li className="flex items-center"><CheckCircle className="w-4 h-4 text-purple-500 mr-2" />Flores frescas</li>
-                  </ul>
-                </CardContent>
-              </Card>
-            </div>
-          </div>
-
-          {/* Plantas Ornamentais */}
-          <div>
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-              <Card className="group hover:shadow-xl transition-all duration-300 border-0 bg-gradient-to-br from-rose-50 to-purple-50 stagger-item" data-delay="600">
-                <CardHeader>
-                  <div className="w-16 h-16 bg-gradient-to-br from-rose-500 to-purple-500 rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                    <Flower className="w-8 h-8 text-white" />
-                  </div>
-                  <CardTitle className="text-2xl text-gray-900">Plantas Ornamentais</CardTitle>
-                  <CardDescription className="text-gray-600">
-                    Plantas e arranjos para decorar sua casa ou escritório
-                  </CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <ul className="space-y-2 text-sm text-gray-600">
-                    <li className="flex items-center"><CheckCircle className="w-4 h-4 text-rose-500 mr-2" />Vasos decorativos</li>
-                    <li className="flex items-center"><CheckCircle className="w-4 h-4 text-rose-500 mr-2" />Manutenção inclusa</li>
-                    <li className="flex items-center"><CheckCircle className="w-4 h-4 text-rose-500 mr-2" />Entrega grátis</li>
-                  </ul>
-                </CardContent>
-              </Card>
-              
-              <div className="grid grid-cols-2 gap-4 stagger-item" data-delay="700">
-                <div className="group relative overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl hover:shadow-emerald-500/25 transition-all duration-500">
-                  <div className="aspect-square relative">
-                    <img 
-                      src="/images/flowers/arranjos/Flores-diversas.png" 
-                      alt="Plantas Verdes - Para ambientes"
-                      className="w-full h-full object-cover group-hover:scale-110 group-hover:saturate-110 transition-all duration-500 filter brightness-105"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-emerald-600/40 via-transparent to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-300"></div>
-                  </div>
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300">
-                    <div className="absolute bottom-3 left-3 right-3 text-white transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
-                      <h4 className="font-semibold text-sm mb-1 drop-shadow-lg">Plantas Verdes</h4>
-                      <p className="text-xs opacity-90 drop-shadow-md">Para ambientes</p>
-                    </div>
-                  </div>
-                </div>
-                <div className="group relative overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl hover:shadow-rose-500/25 transition-all duration-500">
-                  <div className="aspect-square relative">
-                    <img 
-                      src="/images/flowers/arranjos/Vasos-de-vidro.png" 
-                      alt="Arranjos Florais - Vasos decorativos"
-                      className="w-full h-full object-cover group-hover:scale-110 group-hover:saturate-110 transition-all duration-500 filter brightness-105"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-rose-600/40 via-transparent to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-300"></div>
-                  </div>
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300">
-                    <div className="absolute bottom-3 left-3 right-3 text-white transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
-                      <h4 className="font-semibold text-sm mb-1 drop-shadow-lg">Arranjos Florais</h4>
-                      <p className="text-xs opacity-90 drop-shadow-md">Vasos decorativos</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* About Section */}
-      <section id="about" className="py-20 px-6 bg-white/50">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div>
-              <h3 className="text-4xl font-bold text-gray-900 mb-6 stagger-item" data-delay="100">Nossa História</h3>
-              <p className="text-lg text-gray-600 mb-6 leading-relaxed stagger-item" data-delay="200">
-                Fundada em 2008, a Flower Finance nasceu do sonho de levar beleza e emoção através das flores. 
-                Começamos como uma pequena floricultura familiar e hoje somos referência em arranjos personalizados.
+      <ScrollReveal delay={200}>
+        <section id="services" className="py-12 px-6 bg-white/50">
+          <div className="max-w-7xl mx-auto">
+            <div className="text-center mb-12">
+              <h3 className="text-4xl font-bold text-gray-900 mb-4">
+                Nossas <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-rose-500">Especialidades</span>
+              </h3>
+              <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+                Cada arranjo é uma obra de arte única, criada com amor e dedicação para tornar seus momentos ainda mais especiais
               </p>
-              <p className="text-lg text-gray-600 mb-8 leading-relaxed stagger-item" data-delay="300">
-                Nossa missão é transformar momentos especiais em memórias inesquecíveis, sempre com o carinho 
-                e a dedicação que nossos clientes merecem.
-              </p>
+            </div>
+
+            <ScrollStagger className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <ScrollReveal delay={400}>
+                <Card className="hover-lift bg-gradient-to-br from-pink-50 to-rose-50 border-pink-200 shadow-lg hover:shadow-xl transition-all duration-500 group cursor-pointer transform hover:-translate-y-2 hover:rotate-1">
+                  <CardContent className="p-6 text-center relative overflow-hidden">
+                    <div className="absolute inset-0 bg-gradient-to-br from-pink-100/20 to-rose-100/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    <div className="relative z-10">
+                      <h3 className="text-lg font-bold text-gray-900 mb-2 group-hover:text-pink-700 transition-colors duration-300">Bouquets Românticos</h3>
+                      <p className="text-gray-600 text-sm mb-4 group-hover:text-gray-700 transition-colors duration-300">
+                        Arranjos apaixonantes com rosas, lírios e flores especiais
+                      </p>
+                      <div className="flex justify-center gap-1 mb-4">
+                        <span className="bg-pink-100 text-pink-800 px-2 py-1 rounded-full text-xs group-hover:bg-pink-200 transition-colors duration-300">Rosas</span>
+                        <span className="bg-rose-100 text-rose-800 px-2 py-1 rounded-full text-xs group-hover:bg-rose-200 transition-colors duration-300">Lírios</span>
+                        <span className="bg-rose-100 text-rose-800 px-2 py-1 rounded-full text-xs group-hover:bg-rose-200 transition-colors duration-300">Orquídeas</span>
+                      </div>
+                      <p className="text-xl font-bold text-pink-600 mb-3 group-hover:text-pink-700 transition-colors duration-300">A partir de R$ 89</p>
+                    </div>
+                  </CardContent>
+                </Card>
+              </ScrollReveal>
+
+              <ScrollReveal delay={500}>
+                <Card className="hover-lift bg-gradient-to-br from-rose-50 to-pink-50 border-rose-200 shadow-lg hover:shadow-xl transition-all duration-500 group cursor-pointer transform hover:-translate-y-2 hover:-rotate-1">
+                  <CardContent className="p-6 text-center relative overflow-hidden">
+                    <div className="absolute inset-0 bg-gradient-to-br from-rose-100/20 to-pink-100/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    <div className="relative z-10">
+                      <h3 className="text-lg font-bold text-gray-900 mb-2 group-hover:text-rose-700 transition-colors duration-300">Cestas Especiais</h3>
+                      <p className="text-gray-600 text-sm mb-4 group-hover:text-gray-700 transition-colors duration-300">
+                        Cestas personalizadas com flores, chocolates e mimos especiais
+                      </p>
+                      <div className="flex justify-center gap-1 mb-4">
+                        <span className="bg-rose-100 text-rose-800 px-2 py-1 rounded-full text-xs group-hover:bg-rose-200 transition-colors duration-300">Flores Mistas</span>
+                        <span className="bg-pink-100 text-pink-800 px-2 py-1 rounded-full text-xs group-hover:bg-pink-200 transition-colors duration-300">Chocolates</span>
+                        <span className="bg-rose-100 text-rose-800 px-2 py-1 rounded-full text-xs group-hover:bg-rose-200 transition-colors duration-300">Cartão</span>
+                      </div>
+                      <p className="text-xl font-bold text-rose-600 mb-3 group-hover:text-rose-700 transition-colors duration-300">A partir de R$ 129</p>
+                    </div>
+                  </CardContent>
+                </Card>
+              </ScrollReveal>
+
+              <ScrollReveal delay={600}>
+                <Card className="hover-lift bg-gradient-to-br from-rose-50 to-pink-50 border-rose-200 shadow-lg hover:shadow-xl transition-all duration-500 group cursor-pointer transform hover:-translate-y-2 hover:rotate-1">
+                  <CardContent className="p-6 text-center relative overflow-hidden">
+                    <div className="absolute inset-0 bg-gradient-to-br from-rose-100/20 to-pink-100/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    <div className="relative z-10">
+                      <h3 className="text-lg font-bold text-gray-900 mb-2 group-hover:text-rose-700 transition-colors duration-300">Arranjos Corporativos</h3>
+                      <p className="text-gray-600 text-sm mb-4 group-hover:text-gray-700 transition-colors duration-300">
+                        Arranjos elegantes e sofisticados para escritórios e eventos
+                      </p>
+                      <div className="flex justify-center gap-1 mb-4">
+                        <span className="bg-rose-100 text-rose-800 px-2 py-1 rounded-full text-xs group-hover:bg-rose-200 transition-colors duration-300">Arranjos Grandes</span>
+                        <span className="bg-pink-100 text-pink-800 px-2 py-1 rounded-full text-xs group-hover:bg-pink-200 transition-colors duration-300">Flores Nobres</span>
+                        <span className="bg-rose-100 text-rose-800 px-2 py-1 rounded-full text-xs group-hover:bg-rose-200 transition-colors duration-300">Entrega Expressa</span>
+                      </div>
+                      <p className="text-xl font-bold text-rose-600 mb-3 group-hover:text-rose-700 transition-colors duration-300">A partir de R$ 199</p>
+                    </div>
+                  </CardContent>
+                </Card>
+              </ScrollReveal>
+            </ScrollStagger>
+          </div>
+        </section>
+      </ScrollReveal>
+
+      {/* Nossa História Section */}
+      <ScrollReveal delay={300}>
+        <section className="py-12 px-6 bg-white">
+          <div className="max-w-7xl mx-auto">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+              <div>
+                <ScrollReveal delay={100}>
+                  <h3 className="text-4xl font-bold text-gray-900 mb-6">
+                    Nossa <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-rose-500">História</span>
+                  </h3>
+                </ScrollReveal>
+                <ScrollReveal delay={200}>
+                  <p className="text-lg text-gray-600 mb-6 leading-relaxed">
+                    Fundada em 2008 pela florista Maria Silva, a Flower Finance nasceu do sonho de espalhar beleza e alegria através das flores. Com mais de 15 anos de experiência, nos tornamos referência em qualidade e atendimento personalizado.
+                  </p>
+                </ScrollReveal>
+                <ScrollReveal delay={300}>
+                  <p className="text-lg text-gray-600 mb-8 leading-relaxed">
+                    Cada arranjo é cuidadosamente criado com flores frescas selecionadas diariamente, garantindo que nossos clientes recebam sempre o melhor em qualidade e durabilidade.
+                  </p>
+                </ScrollReveal>
+                
+                <ScrollReveal delay={400}>
+                  <div className="grid grid-cols-2 gap-6">
+                    <div className="text-center">
+                      <div className="text-3xl font-bold text-pink-600 mb-2">15+</div>
+                      <div className="text-gray-600">Anos de Experiência</div>
+                    </div>
+                    <div className="text-center">
+                      <div className="text-3xl font-bold text-rose-600 mb-2">5000+</div>
+                      <div className="text-gray-600">Clientes Satisfeitos</div>
+                    </div>
+                  </div>
+                </ScrollReveal>
+              </div>
               
-              <div className="grid grid-cols-2 gap-6 stagger-item" data-delay="400">
-                <div className="text-center">
-                  <div className="text-3xl font-bold text-pink-600 mb-2">15+</div>
-                  <div className="text-gray-600">Anos de experiência</div>
-                </div>
-                <div className="text-center">
-                  <div className="text-3xl font-bold text-purple-600 mb-2">5000+</div>
-                  <div className="text-gray-600">Clientes satisfeitos</div>
-                </div>
-                <div className="text-center">
-                  <div className="text-3xl font-bold text-rose-600 mb-2">50+</div>
-                  <div className="text-gray-600">Tipos de flores</div>
-                </div>
-                <div className="text-center">
-                  <div className="text-3xl font-bold text-pink-600 mb-2">24h</div>
-                  <div className="text-gray-600">Atendimento</div>
-                </div>
-              </div>
-            </div>
-            
-            <div className="relative stagger-item" data-delay="500">
-              <div className="bg-gradient-to-br from-pink-100 to-purple-100 rounded-3xl p-8">
-                <div className="grid grid-cols-2 gap-4">
-                  <div className="bg-white rounded-2xl p-6 shadow-lg">
-                    <Star className="w-8 h-8 text-yellow-500 mb-3" />
-                    <h4 className="font-semibold text-gray-900 mb-2">Qualidade Premium</h4>
-                    <p className="text-sm text-gray-600">Flores frescas selecionadas diariamente</p>
-                  </div>
-                  <div className="bg-white rounded-2xl p-6 shadow-lg">
-                    <Clock className="w-8 h-8 text-blue-500 mb-3" />
-                    <h4 className="font-semibold text-gray-900 mb-2">Entrega Rápida</h4>
-                    <p className="text-sm text-gray-600">Entregamos no mesmo dia em toda a cidade</p>
-                  </div>
-                  <div className="bg-white rounded-2xl p-6 shadow-lg">
-                    <Heart className="w-8 h-8 text-pink-500 mb-3" />
-                    <h4 className="font-semibold text-gray-900 mb-2">Feito com Amor</h4>
-                    <p className="text-sm text-gray-600">Cada arranjo é único e personalizado</p>
-                  </div>
-                  <div className="bg-white rounded-2xl p-6 shadow-lg">
-                    <CheckCircle className="w-8 h-8 text-green-500 mb-3" />
-                    <h4 className="font-semibold text-gray-900 mb-2">Garantia Total</h4>
-                    <p className="text-sm text-gray-600">Satisfação garantida ou seu dinheiro de volta</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Testimonials Section */}
-      <section id="testimonials" className="py-20 px-6">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16">
-            <h3 className="text-4xl font-bold text-gray-900 mb-4 stagger-item" data-delay="100">O que nossos clientes dizem</h3>
-            <p className="text-xl text-gray-600 stagger-item" data-delay="200">Depoimentos reais de quem confia em nosso trabalho</p>
-          </div>
-          
-          {/* Carousel Container */}
-          <div className="relative overflow-hidden stagger-item" data-delay="300">
-            <div className="testimonials-slider-continuous">
-              {/* Continuous sliding testimonials */}
-              <div className="flex animate-slide-continuous">
-                {/* First set of testimonials */}
-                <div className="flex-shrink-0 w-full">
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-8 px-4">
-                    <Card className="border-0 shadow-lg bg-gradient-to-br from-pink-50 to-white hover:shadow-xl transition-all duration-300">
-                      <CardContent className="p-6">
-                        <div className="flex items-center mb-4">
-                          {[1, 2, 3, 4, 5].map((star) => (
-                            <Star key={star} className="w-5 h-5 text-yellow-400 fill-current" />
-                          ))}
+              <ScrollReveal delay={500}>
+                <div className="relative">
+                  <div className="bg-gradient-to-br from-pink-100 to-rose-100 rounded-3xl p-8">
+                    <h4 className="text-2xl font-bold text-gray-900 mb-6 text-center">Por que nos escolher?</h4>
+                    <div className="space-y-4">
+                      <div className="flex items-center space-x-4 bg-white rounded-2xl p-4 shadow-sm">
+                        <div className="bg-pink-500 rounded-full p-2">
+                          <Flower className="w-6 h-6 text-white" />
                         </div>
-                        <p className="text-gray-600 mb-4 italic">
-                          "Simplesmente perfeito! O buquê que encomendei para minha esposa ficou lindo demais. 
-                          Ela ficou emocionada e eu super satisfeito com o atendimento."
-                        </p>
-                        <div className="flex items-center">
-                          <div className="w-10 h-10 bg-gradient-to-br from-pink-400 to-purple-500 rounded-full flex items-center justify-center text-white font-semibold">
-                            M
-                          </div>
-                          <div className="ml-3">
-                            <div className="font-semibold text-gray-900">Marcos Silva</div>
-                            <div className="text-sm text-gray-500">Cliente desde 2020</div>
-                          </div>
+                        <div>
+                          <h5 className="font-semibold text-gray-900">Flores Sempre Frescas</h5>
+                          <p className="text-sm text-gray-600">Recebemos flores diariamente de produtores locais</p>
                         </div>
-                      </CardContent>
-                    </Card>
-
-                    <Card className="border-0 shadow-lg bg-gradient-to-br from-purple-50 to-white hover:shadow-xl transition-all duration-300">
-                      <CardContent className="p-6">
-                        <div className="flex items-center mb-4">
-                          {[1, 2, 3, 4, 5].map((star) => (
-                            <Star key={star} className="w-5 h-5 text-yellow-400 fill-current" />
-                          ))}
-                        </div>
-                        <p className="text-gray-600 mb-4 italic">
-                          "Fiz a decoração do meu casamento com eles e foi um sonho realizado! 
-                          Tudo impecável, flores lindas e um atendimento excepcional."
-                        </p>
-                        <div className="flex items-center">
-                          <div className="w-10 h-10 bg-gradient-to-br from-purple-400 to-pink-500 rounded-full flex items-center justify-center text-white font-semibold">
-                            A
-                          </div>
-                          <div className="ml-3">
-                            <div className="font-semibold text-gray-900">Ana Costa</div>
-                            <div className="text-sm text-gray-500">Noiva 2023</div>
-                          </div>
-                        </div>
-                      </CardContent>
-                    </Card>
-
-                    <Card className="border-0 shadow-lg bg-gradient-to-br from-rose-50 to-white hover:shadow-xl transition-all duration-300">
-                      <CardContent className="p-6">
-                        <div className="flex items-center mb-4">
-                          {[1, 2, 3, 4, 5].map((star) => (
-                            <Star key={star} className="w-5 h-5 text-yellow-400 fill-current" />
-                          ))}
-                        </div>
-                        <p className="text-gray-600 mb-4 italic">
-                          "Sempre que preciso de flores para eventos da empresa, recorro à Yasmin Flores. 
-                          Nunca me decepcionaram, sempre superando as expectativas!"
-                        </p>
-                        <div className="flex items-center">
-                          <div className="w-10 h-10 bg-gradient-to-br from-rose-400 to-purple-500 rounded-full flex items-center justify-center text-white font-semibold">
-                            R
-                          </div>
-                          <div className="ml-3">
-                            <div className="font-semibold text-gray-900">Roberto Lima</div>
-                            <div className="text-sm text-gray-500">Empresário</div>
-                          </div>
-                        </div>
-                      </CardContent>
-                    </Card>
-                  </div>
-                </div>
-
-                {/* Second set of testimonials */}
-                <div className="flex-shrink-0 w-full">
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-8 px-4">
-                    <Card className="border-0 shadow-lg bg-gradient-to-br from-emerald-50 to-white hover:shadow-xl transition-all duration-300">
-                      <CardContent className="p-6">
-                        <div className="flex items-center mb-4">
-                          {[1, 2, 3, 4, 5].map((star) => (
-                            <Star key={star} className="w-5 h-5 text-yellow-400 fill-current" />
-                          ))}
-                        </div>
-                        <p className="text-gray-600 mb-4 italic">
-                          "Comprei plantas para decorar meu apartamento e o resultado ficou incrível! 
-                          Atendimento personalizado e plantas de excelente qualidade."
-                        </p>
-                        <div className="flex items-center">
-                          <div className="w-10 h-10 bg-gradient-to-br from-emerald-400 to-teal-500 rounded-full flex items-center justify-center text-white font-semibold">
-                            C
-                          </div>
-                          <div className="ml-3">
-                            <div className="font-semibold text-gray-900">Carla Mendes</div>
-                            <div className="text-sm text-gray-500">Arquiteta</div>
-                          </div>
-                        </div>
-                      </CardContent>
-                    </Card>
-
-                    <Card className="border-0 shadow-lg bg-gradient-to-br from-blue-50 to-white hover:shadow-xl transition-all duration-300">
-                      <CardContent className="p-6">
-                        <div className="flex items-center mb-4">
-                          {[1, 2, 3, 4, 5].map((star) => (
-                            <Star key={star} className="w-5 h-5 text-yellow-400 fill-current" />
-                          ))}
-                        </div>
-                        <p className="text-gray-600 mb-4 italic">
-                          "Presenteei minha mãe com um arranjo no Dia das Mães e ela ficou emocionada! 
-                          Flores frescas, embalagem linda e entrega pontual."
-                        </p>
-                        <div className="flex items-center">
-                          <div className="w-10 h-10 bg-gradient-to-br from-blue-400 to-indigo-500 rounded-full flex items-center justify-center text-white font-semibold">
-                            F
-                          </div>
-                          <div className="ml-3">
-                            <div className="font-semibold text-gray-900">Fernando Santos</div>
-                            <div className="text-sm text-gray-500">Professor</div>
-                          </div>
-                        </div>
-                      </CardContent>
-                    </Card>
-
-                    <Card className="border-0 shadow-lg bg-gradient-to-br from-amber-50 to-white hover:shadow-xl transition-all duration-300">
-                      <CardContent className="p-6">
-                        <div className="flex items-center mb-4">
-                          {[1, 2, 3, 4, 5].map((star) => (
-                            <Star key={star} className="w-5 h-5 text-yellow-400 fill-current" />
-                          ))}
-                        </div>
-                        <p className="text-gray-600 mb-4 italic">
-                          "Serviço impecável! Fizeram a decoração floral da minha formatura e todos elogiaram. 
-                          Recomendo de olhos fechados!"
-                        </p>
-                        <div className="flex items-center">
-                          <div className="w-10 h-10 bg-gradient-to-br from-amber-400 to-orange-500 rounded-full flex items-center justify-center text-white font-semibold">
-                            J
-                          </div>
-                          <div className="ml-3">
-                            <div className="font-semibold text-gray-900">Juliana Alves</div>
-                            <div className="text-sm text-gray-500">Formanda 2024</div>
-                          </div>
-                        </div>
-                      </CardContent>
-                    </Card>
-                  </div>
-                </div>
-
-                {/* Duplicate first set for seamless loop */}
-                <div className="flex-shrink-0 w-full">
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-8 px-4">
-                    <Card className="border-0 shadow-lg bg-gradient-to-br from-pink-50 to-white hover:shadow-xl transition-all duration-300">
-                      <CardContent className="p-6">
-                        <div className="flex items-center mb-4">
-                          {[1, 2, 3, 4, 5].map((star) => (
-                            <Star key={star} className="w-5 h-5 text-yellow-400 fill-current" />
-                          ))}
-                        </div>
-                        <p className="text-gray-600 mb-4 italic">
-                          "Simplesmente perfeito! O buquê que encomendei para minha esposa ficou lindo demais. 
-                          Ela ficou emocionada e eu super satisfeito com o atendimento."
-                        </p>
-                        <div className="flex items-center">
-                          <div className="w-10 h-10 bg-gradient-to-br from-pink-400 to-purple-500 rounded-full flex items-center justify-center text-white font-semibold">
-                            M
-                          </div>
-                          <div className="ml-3">
-                            <div className="font-semibold text-gray-900">Marcos Silva</div>
-                            <div className="text-sm text-gray-500">Cliente desde 2020</div>
-                          </div>
-                        </div>
-                      </CardContent>
-                    </Card>
-
-                    <Card className="border-0 shadow-lg bg-gradient-to-br from-purple-50 to-white hover:shadow-xl transition-all duration-300">
-                      <CardContent className="p-6">
-                        <div className="flex items-center mb-4">
-                          {[1, 2, 3, 4, 5].map((star) => (
-                            <Star key={star} className="w-5 h-5 text-yellow-400 fill-current" />
-                          ))}
-                        </div>
-                        <p className="text-gray-600 mb-4 italic">
-                          "Fiz a decoração do meu casamento com eles e foi um sonho realizado! 
-                          Tudo impecável, flores lindas e um atendimento excepcional."
-                        </p>
-                        <div className="flex items-center">
-                          <div className="w-10 h-10 bg-gradient-to-br from-purple-400 to-pink-500 rounded-full flex items-center justify-center text-white font-semibold">
-                            A
-                          </div>
-                          <div className="ml-3">
-                            <div className="font-semibold text-gray-900">Ana Costa</div>
-                            <div className="text-sm text-gray-500">Noiva 2023</div>
-                          </div>
-                        </div>
-                      </CardContent>
-                    </Card>
-
-                    <Card className="border-0 shadow-lg bg-gradient-to-br from-rose-50 to-white hover:shadow-xl transition-all duration-300">
-                      <CardContent className="p-6">
-                        <div className="flex items-center mb-4">
-                          {[1, 2, 3, 4, 5].map((star) => (
-                            <Star key={star} className="w-5 h-5 text-yellow-400 fill-current" />
-                          ))}
-                        </div>
-                        <p className="text-gray-600 mb-4 italic">
-                          "Sempre que preciso de flores para eventos da empresa, recorro à Yasmin Flores. 
-                          Nunca me decepcionaram, sempre superando as expectativas!"
-                        </p>
-                        <div className="flex items-center">
-                          <div className="w-10 h-10 bg-gradient-to-br from-rose-400 to-purple-500 rounded-full flex items-center justify-center text-white font-semibold">
-                            R
-                          </div>
-                          <div className="ml-3">
-                            <div className="font-semibold text-gray-900">Roberto Lima</div>
-                            <div className="text-sm text-gray-500">Empresário</div>
-                          </div>
-                        </div>
-                      </CardContent>
-                    </Card>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-
-      </section>
-
-      {/* Contact Section */}
-      <section id="contact" className="py-20 px-4 sm:px-6 lg:px-8 bg-white/50">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16">
-            <h3 className="text-4xl font-bold text-gray-900 mb-4 stagger-item" data-delay="100">Faça Seu Pedido</h3>
-            <p className="text-xl text-gray-600 stagger-item" data-delay="200">Preencha o formulário e receba um orçamento personalizado via WhatsApp!</p>
-          </div>
-          
-          {/* Layout responsivo com duas colunas em telas grandes */}
-          <div className="grid grid-cols-1 xl:grid-cols-3 gap-8 lg:gap-12">
-            
-            {/* Formulário Principal - ocupa 2/3 do espaço em telas grandes */}
-            <div className="xl:col-span-2 stagger-item" data-delay="300">
-              <div className="bg-white rounded-2xl shadow-xl p-6 sm:p-8 lg:p-10">
-                <form className="space-y-6">
-                  {/* Dados Pessoais */}
-                  <div className="border-b border-gray-200 pb-6">
-                    <h4 className="text-lg font-semibold text-gray-900 mb-4 flex items-center">
-                      <User className="w-5 h-5 text-pink-500 mr-2" />
-                      Seus Dados
-                    </h4>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                      <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-2">Nome Completo</label>
-                        <input 
-                          type="text" 
-                          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent transition-colors"
-                          placeholder="Seu nome completo"
-                        />
                       </div>
-                      <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-2">WhatsApp</label>
-                        <input 
-                          type="tel" 
-                          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent transition-colors"
-                          placeholder="(11) 99999-9999"
-                        />
+                      <div className="flex items-center space-x-4 bg-white rounded-2xl p-4 shadow-sm">
+                        <div className="bg-rose-500 rounded-full p-2">
+                          <Clock className="w-6 h-6 text-white" />
+                        </div>
+                        <div>
+                          <h5 className="font-semibold text-gray-900">Entrega Rápida</h5>
+                          <p className="text-sm text-gray-600">Entregamos em até 2 horas na região metropolitana</p>
+                        </div>
+                      </div>
+                      <div className="flex items-center space-x-4 bg-white rounded-2xl p-4 shadow-sm">
+                        <div className="bg-rose-500 rounded-full p-2">
+                          <Heart className="w-6 h-6 text-white" />
+                        </div>
+                        <div>
+                          <h5 className="font-semibold text-gray-900">Atendimento Personalizado</h5>
+                          <p className="text-sm text-gray-600">Cada cliente é único e merece atenção especial</p>
+                        </div>
                       </div>
                     </div>
                   </div>
+                </div>
+              </ScrollReveal>
+            </div>
+          </div>
+        </section>
+      </ScrollReveal>
 
-                  {/* Detalhes do Pedido */}
-                  <div className="border-b border-gray-200 pb-6">
-                    <h4 className="text-lg font-semibold text-gray-900 mb-4 flex items-center">
-                      <Flower className="w-5 h-5 text-pink-500 mr-2" />
-                      Detalhes do Arranjo
-                    </h4>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                      <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-2">Tipo de Arranjo</label>
-                        <select className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent transition-colors">
-                          <option>Buquê Romântico</option>
-                          <option>Arranjo de Mesa</option>
-                          <option>Coroa de Flores</option>
-                          <option>Decoração de Evento</option>
-                          <option>Personalizado</option>
-                        </select>
-                      </div>
-                      <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-2">Orçamento Desejado</label>
-                        <select className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent transition-colors">
-                          <option>Até R$ 50</option>
-                          <option>R$ 50 - R$ 100</option>
-                          <option>R$ 100 - R$ 200</option>
-                          <option>R$ 200 - R$ 500</option>
-                          <option>Acima de R$ 500</option>
-                        </select>
-                      </div>
-                      <div className="sm:col-span-2 lg:col-span-1">
-                        <label className="block text-sm font-medium text-gray-700 mb-2">Ocasião/Evento</label>
-                        <input 
-                          type="text" 
-                          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent transition-colors"
-                          placeholder="Ex: Aniversário, Casamento..."
-                        />
-                      </div>
-                    </div>
-                  </div>
+      {/* Gallery Section */}
+      <ScrollReveal delay={700}>
+        <section id="gallery" className="py-12 px-6 bg-gradient-to-br from-pink-50 to-rose-50">
+          <div className="max-w-7xl mx-auto">
+            <div className="text-center mb-12">
+              <h3 className="text-4xl font-bold text-gray-900 mb-4">
+                Nossa <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-rose-500">Galeria</span>
+              </h3>
+              <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+                Confira alguns dos nossos trabalhos mais especiais e se inspire para seu próximo pedido
+              </p>
+            </div>
 
-                  {/* Entrega */}
-                  <div className="border-b border-gray-200 pb-6">
-                    <h4 className="text-lg font-semibold text-gray-900 mb-4 flex items-center">
-                      <MapPin className="w-5 h-5 text-pink-500 mr-2" />
-                      Entrega
-                    </h4>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
-                      <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-2">Data de Entrega</label>
-                        <input 
-                          type="date" 
-                          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent transition-colors"
-                          min={new Date().toISOString().split('T')[0]}
-                        />
-                      </div>
-                      <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-2">Horário Preferido</label>
-                        <select className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent transition-colors">
-                          <option>Manhã (8h - 12h)</option>
-                          <option>Tarde (12h - 18h)</option>
-                          <option>Noite (18h - 22h)</option>
-                          <option>Horário comercial</option>
-                        </select>
-                      </div>
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">Endereço de Entrega</label>
-                      <input 
-                        type="text" 
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent transition-colors"
-                        placeholder="Rua, número, bairro e cidade"
+            <ScrollStagger className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {[
+                {
+                  id: 1,
+                  image: "/images/flowers/arranjos/Arranhos-premium.png",
+                  title: "Arranjos Premium",
+                  description: "Arranjos sofisticados com flores nobres e acabamento premium"
+                },
+                {
+                  id: 2,
+                  image: "/images/flowers/arranjos/Flores-diversas.png",
+                  title: "Flores Diversas",
+                  description: "Variedade de flores frescas em composições únicas"
+                },
+                {
+                  id: 3,
+                  image: "/images/flowers/arranjos/Flores-e-chocolates.png",
+                  title: "Flores e Chocolates",
+                  description: "Combinação perfeita de flores e chocolates especiais"
+                },
+                {
+                  id: 4,
+                  image: "/images/flowers/arranjos/Personalizados.png",
+                  title: "Arranjos Personalizados",
+                  description: "Criações exclusivas feitas sob medida para você"
+                },
+                {
+                  id: 5,
+                  image: "/images/flowers/arranjos/Vasos-de-vidro.png",
+                  title: "Vasos de Vidro",
+                  description: "Elegantes arranjos em vasos de vidro artesanais"
+                },
+                {
+                  id: 6,
+                  image: "/images/flowers/arranjos/Diversos.png",
+                  title: "Arranjos Diversos",
+                  description: "Variedade de estilos para todas as ocasiões"
+                }
+              ].map((item) => (
+                <ScrollReveal key={item.id}>
+                  <div className="group relative overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 hover-lift transform hover:rotate-2 hover:scale-105 gallery-card-tilt">
+                    <div className="aspect-square relative">
+                      <img 
+                        src={item.image} 
+                        alt={item.title}
+                        className="w-full h-full object-cover group-hover:scale-125 group-hover:rotate-3 transition-all duration-700 ease-out"
                       />
                     </div>
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                      <div className="absolute bottom-4 left-4 right-4 text-white">
+                        <h4 className="font-bold text-lg mb-2">{item.title}</h4>
+                        <p className="text-sm opacity-90">{item.description}</p>
+                      </div>
+                    </div>
                   </div>
+                </ScrollReveal>
+              ))}
+            </ScrollStagger>
 
-                  {/* Observações */}
-                  <div>
-                    <h4 className="text-lg font-semibold text-gray-900 mb-4 flex items-center">
-                      <MessageSquare className="w-5 h-5 text-pink-500 mr-2" />
-                      Observações Especiais
-                    </h4>
-                    <textarea 
-                      rows={4}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent resize-none transition-colors"
-                      placeholder="Cores preferidas, mensagem do cartão, instruções especiais..."
-                    ></textarea>
-                  </div>
-                  
-                  <Button 
-                    type="submit" 
-                    className="w-full bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white py-4 text-lg font-semibold transition-all duration-300 transform hover:scale-[1.02]"
-                  >
-                    <MessageCircle className="w-5 h-5 mr-2" />
-                    Enviar Pedido via WhatsApp
-                    <ArrowRight className="w-5 h-5 ml-2" />
-                  </Button>
-                </form>
-              </div>
+            <div className="text-center mt-12">
+              <Button size="lg" variant="outline" className="border-pink-300 text-pink-600 hover:bg-pink-50 px-8 py-3" onClick={() => window.open('https://instagram.com/yasmin_flores', '_blank')}>
+                <Instagram className="w-5 h-5 mr-2" />
+                Ver Mais no Instagram
+              </Button>
+            </div>
+          </div>
+        </section>
+      </ScrollReveal>
+
+      {/* Testimonials Section */}
+      <ScrollReveal delay={500}>
+        <section id="testimonials" className="py-12 px-6 bg-white/50">
+          <div className="max-w-7xl mx-auto">
+            <div className="text-center mb-12">
+              <h3 className="text-4xl font-bold text-gray-900 mb-4">
+                O que nossos <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-rose-500">clientes</span> dizem
+              </h3>
+              <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+                Mais de 15 anos espalhando alegria e amor através das flores
+              </p>
             </div>
 
-            {/* Sidebar Informativa - ocupa 1/3 do espaço em telas grandes */}
-            <div className="xl:col-span-1 space-y-6 stagger-item" data-delay="400">
-              
-              {/* Como Funciona */}
-              <div className="bg-gradient-to-br from-pink-50 to-purple-50 rounded-2xl p-6 border border-pink-200 shadow-lg">
-                <h5 className="font-semibold text-gray-900 mb-4 flex items-center text-lg">
-                  <CheckCircle className="w-6 h-6 text-green-500 mr-2" />
-                  Como Funciona
-                </h5>
-                <ul className="text-sm text-gray-600 space-y-3">
-                  <li className="flex items-start">
-                    <span className="flex-shrink-0 w-6 h-6 bg-pink-500 text-white rounded-full flex items-center justify-center text-xs font-bold mr-3 mt-0.5">1</span>
-                    <span>Preencha o formulário com seus dados e preferências</span>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="flex-shrink-0 w-6 h-6 bg-pink-500 text-white rounded-full flex items-center justify-center text-xs font-bold mr-3 mt-0.5">2</span>
-                    <span>Entraremos em contato via WhatsApp para confirmar detalhes</span>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="flex-shrink-0 w-6 h-6 bg-pink-500 text-white rounded-full flex items-center justify-center text-xs font-bold mr-3 mt-0.5">3</span>
-                    <span>Preparamos seu arranjo com flores frescas selecionadas</span>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="flex-shrink-0 w-6 h-6 bg-pink-500 text-white rounded-full flex items-center justify-center text-xs font-bold mr-3 mt-0.5">4</span>
-                    <span>Entregamos no horário combinado com cartão personalizado</span>
-                  </li>
-                </ul>
-              </div>
-
-              {/* Garantias */}
-              <div className="bg-white rounded-2xl p-6 shadow-lg border border-gray-200">
-                <h5 className="font-semibold text-gray-900 mb-4 flex items-center text-lg">
-                  <Shield className="w-6 h-6 text-green-500 mr-2" />
-                  Nossas Garantias
-                </h5>
-                <ul className="text-sm text-gray-600 space-y-2">
-                  <li className="flex items-center">
-                    <CheckCircle className="w-4 h-4 text-green-500 mr-2 flex-shrink-0" />
-                    Flores sempre frescas
-                  </li>
-                  <li className="flex items-center">
-                    <CheckCircle className="w-4 h-4 text-green-500 mr-2 flex-shrink-0" />
-                    Entrega pontual
-                  </li>
-                  <li className="flex items-center">
-                    <CheckCircle className="w-4 h-4 text-green-500 mr-2 flex-shrink-0" />
-                    Cartão personalizado grátis
-                  </li>
-                  <li className="flex items-center">
-                    <CheckCircle className="w-4 h-4 text-green-500 mr-2 flex-shrink-0" />
-                    Atendimento especializado
-                  </li>
-                  <li className="flex items-center">
-                    <CheckCircle className="w-4 h-4 text-green-500 mr-2 flex-shrink-0" />
-                    Satisfação garantida
-                  </li>
-                </ul>
-              </div>
-
-              {/* Contato Direto */}
-              <div className="bg-gradient-to-br from-green-50 to-emerald-50 rounded-2xl p-6 border border-green-200 shadow-lg">
-                <h5 className="font-semibold text-gray-900 mb-4 flex items-center text-lg">
-                  <Phone className="w-6 h-6 text-green-500 mr-2" />
-                  Contato Direto
-                </h5>
-                <p className="text-sm text-gray-600 mb-4">
-                  Prefere falar conosco diretamente? Entre em contato via WhatsApp!
-                </p>
-                <Button 
-                  className="w-full bg-green-500 hover:bg-green-600 text-white transition-colors"
-                  onClick={() => window.open('https://wa.me/5511984327691', '_blank')}
-                >
-                  <MessageCircle className="w-4 h-4 mr-2" />
-                  WhatsApp Direto
-                </Button>
+            <div className="testimonials-slider-continuous overflow-hidden">
+              <div className="flex animate-slide-continuous">
+                {/* Primeiro conjunto de depoimentos */}
+                {[...Array(6)].map((_, index) => (
+                  <Card key={`first-${index}`} className="flex-shrink-0 w-80 mx-4 bg-gradient-to-br from-pink-50 to-rose-50 border-pink-200 shadow-lg">
+                    <CardContent className="p-6">
+                      <div className="flex items-center mb-4">
+                        <div className="bg-gradient-to-br from-pink-500 to-rose-500 w-12 h-12 rounded-full flex items-center justify-center mr-4">
+                          <Heart className="w-6 h-6 text-white" />
+                        </div>
+                        <div>
+                          <h4 className="font-bold text-gray-900">Cliente {index + 1}</h4>
+                          <div className="flex text-yellow-400">
+                            {[...Array(5)].map((_, i) => (
+                              <Star key={i} className="w-4 h-4 fill-current" />
+                            ))}
+                          </div>
+                        </div>
+                      </div>
+                      <p className="text-gray-600 italic">
+                        "Arranjos simplesmente perfeitos! A Yasmin tem um talento único para criar bouquets que emocionam. Recomendo de olhos fechados!"
+                      </p>
+                    </CardContent>
+                  </Card>
+                ))}
+                {/* Segundo conjunto de depoimentos (duplicado para loop contínuo) */}
+                {[...Array(6)].map((_, index) => (
+                  <Card key={`second-${index}`} className="flex-shrink-0 w-80 mx-4 bg-gradient-to-br from-pink-50 to-rose-50 border-pink-200 shadow-lg">
+                    <CardContent className="p-6">
+                      <div className="flex items-center mb-4">
+                        <div className="bg-gradient-to-br from-pink-500 to-rose-500 w-12 h-12 rounded-full flex items-center justify-center mr-4">
+                          <Heart className="w-6 h-6 text-white" />
+                        </div>
+                        <div>
+                          <h4 className="font-bold text-gray-900">Cliente {index + 1}</h4>
+                          <div className="flex text-yellow-400">
+                            {[...Array(5)].map((_, i) => (
+                              <Star key={i} className="w-4 h-4 fill-current" />
+                            ))}
+                          </div>
+                        </div>
+                      </div>
+                      <p className="text-gray-600 italic">
+                        "Arranjos simplesmente perfeitos! A Yasmin tem um talento único para criar bouquets que emocionam. Recomendo de olhos fechados!"
+                      </p>
+                    </CardContent>
+                  </Card>
+                ))}
               </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
+      </ScrollReveal>
 
-      {/* Footer */}
-      <footer className="bg-gray-900 text-white py-16 px-6">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
-            <div>
-              <div className="flex items-center space-x-3 mb-4">
-                <div className="w-10 h-10 bg-gradient-to-br from-pink-500 to-purple-600 rounded-lg flex items-center justify-center">
-                  <Flower className="w-6 h-6 text-white" />
-                </div>
-                <div>
-                  <h4 className="text-xl font-bold">Yasmin Flores</h4>
-                  <p className="text-gray-400 text-sm">Flores que falam por você</p>
-                </div>
-              </div>
-              <p className="text-gray-400 text-sm leading-relaxed">
-                Há mais de 15 anos criando momentos especiais com as mais belas flores e arranjos personalizados.
+      {/* Contact Section */}
+      <ScrollReveal delay={300}>
+        <section id="contact" className="py-12 px-6 bg-gradient-to-br from-pink-50 to-rose-50">
+          <div className="max-w-7xl mx-auto">
+            <div className="text-center mb-12">
+              <h3 className="text-4xl font-bold text-gray-900 mb-4">
+                Faça Seu <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-rose-500">Pedido</span>
+              </h3>
+              <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+                Entre em contato conosco e crie momentos inesquecíveis com nossas flores especiais
               </p>
             </div>
-            
-            <div>
-              <h5 className="font-semibold mb-4">Serviços</h5>
-              <ul className="space-y-2 text-sm text-gray-400">
-                <li>Buquês Românticos</li>
-                <li>Eventos Especiais</li>
-                <li>Plantas Ornamentais</li>
-                <li>Decoração Floral</li>
-              </ul>
+
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+              <div className="lg:col-span-2">
+                <Card className="shadow-xl">
+                  <CardContent className="p-8">
+                    <form className="space-y-6">
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                          <label className="block text-sm font-medium text-gray-700 mb-2">Nome Completo</label>
+                          <input 
+                            type="text" 
+                            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent transition-all duration-200"
+                            placeholder="Seu nome completo"
+                          />
+                        </div>
+                        <div>
+                          <label className="block text-sm font-medium text-gray-700 mb-2">WhatsApp</label>
+                          <input 
+                            type="tel" 
+                            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent transition-all duration-200"
+                            placeholder="(11) 99999-9999"
+                          />
+                        </div>
+                      </div>
+                      
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                          <label className="block text-sm font-medium text-gray-700 mb-2">Tipo de Arranjo</label>
+                          <select className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent transition-all duration-200">
+                            <option>Bouquet Romântico</option>
+                            <option>Cesta Especial</option>
+                            <option>Arranjo Corporativo</option>
+                            <option>Personalizado</option>
+                          </select>
+                        </div>
+                        <div>
+                          <label className="block text-sm font-medium text-gray-700 mb-2">Orçamento Desejado</label>
+                          <select className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent transition-all duration-200">
+                            <option>Até R$ 50</option>
+                            <option>R$ 50 - R$ 100</option>
+                            <option>R$ 100 - R$ 200</option>
+                            <option>R$ 200 - R$ 300</option>
+                            <option>Acima de R$ 300</option>
+                          </select>
+                        </div>
+                      </div>
+
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                          <label className="block text-sm font-medium text-gray-700 mb-2">Data de Entrega</label>
+                          <input 
+                            type="date" 
+                            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent transition-all duration-200"
+                          />
+                        </div>
+                        <div>
+                          <label className="block text-sm font-medium text-gray-700 mb-2">Horário Preferido</label>
+                          <select className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent transition-all duration-200">
+                            <option>Manhã (8h - 12h)</option>
+                            <option>Tarde (12h - 18h)</option>
+                            <option>Noite (18h - 20h)</option>
+                            <option>Horário comercial</option>
+                          </select>
+                        </div>
+                      </div>
+
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                          <label className="block text-sm font-medium text-gray-700 mb-2">Endereço de Entrega</label>
+                          <input 
+                            type="text" 
+                            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent transition-all duration-200"
+                            placeholder="Rua, número, bairro, cidade"
+                          />
+                        </div>
+                        <div>
+                          <label className="block text-sm font-medium text-gray-700 mb-2">Ocasião</label>
+                          <select className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent transition-all duration-200">
+                            <option>Aniversário</option>
+                            <option>Casamento</option>
+                            <option>Namoro/Romance</option>
+                            <option>Luto/Pêsames</option>
+                            <option>Nascimento</option>
+                            <option>Formatura</option>
+                            <option>Corporativo</option>
+                            <option>Outros</option>
+                          </select>
+                        </div>
+                      </div>
+
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">Observações Importantes</label>
+                        <textarea 
+                          rows={4}
+                          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent transition-all duration-200"
+                          placeholder="Cores preferidas, mensagem do cartão, instruções especiais, alergias..."
+                        ></textarea>
+                      </div>
+
+                      <Button className="w-full bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 text-white py-3 text-lg" onClick={(e) => {
+                        e.preventDefault();
+                        const form = (e.target as HTMLElement).closest('form');
+                        if (!form) return;
+                        
+                        const formData = new FormData(form);
+                        const nome = formData.get('nome');
+                        const whatsapp = formData.get('whatsapp');
+                        const tipoArranjo = formData.get('tipoArranjo');
+                        const orcamento = formData.get('orcamento');
+                        const dataEntrega = formData.get('dataEntrega');
+                        const horario = formData.get('horario');
+                        const endereco = formData.get('endereco');
+                        const ocasiao = formData.get('ocasiao');
+                        const observacoes = formData.get('observacoes');
+                        
+                        const mensagem = `Olá! Gostaria de fazer um pedido:
+                        
+*Nome:* ${nome}
+*WhatsApp:* ${whatsapp}
+*Tipo de Arranjo:* ${tipoArranjo}
+*Orçamento:* ${orcamento}
+*Data de Entrega:* ${dataEntrega}
+*Horário:* ${horario}
+*Endereço:* ${endereco}
+*Ocasião:* ${ocasiao}
+*Observações:* ${observacoes}`;
+                        
+                        const whatsappUrl = `https://wa.me/5511984327691?text=${encodeURIComponent(mensagem)}`;
+                        window.open(whatsappUrl, '_blank');
+                      }}>
+                        <svg className="w-5 h-5 mr-2" viewBox="0 0 24 24" fill="currentColor">
+                          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.890-5.335 11.893-11.893A11.821 11.821 0 0020.465 3.488"/>
+                        </svg>
+                        Enviar Pedido
+                      </Button>
+                    </form>
+                  </CardContent>
+                </Card>
+              </div>
+
+              <div className="space-y-6">
+                <Card className="shadow-lg">
+                  <CardContent className="p-6">
+                    <h4 className="font-bold text-gray-900 mb-4 flex items-center">
+                      <Phone className="w-5 h-5 text-green-500 mr-2" />
+                      WhatsApp Direto
+                    </h4>
+                    <div className="space-y-3">
+                      <div className="flex items-center">
+                        <MessageCircle className="w-4 h-4 text-green-500 mr-3" />
+                        <span className="text-gray-600">(11) 98432-7691</span>
+                      </div>
+                      <div className="flex items-center">
+                        <Mail className="w-4 h-4 text-blue-500 mr-3" />
+                        <span className="text-gray-600">yasmin@flores.com</span>
+                      </div>
+                      <div className="flex items-center">
+                        <Instagram className="w-4 h-4 text-pink-500 mr-3" />
+                        <span className="text-gray-600">@yasminflores</span>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+
+                <Card className="shadow-lg">
+                  <CardContent className="p-6">
+                    <h4 className="font-bold text-gray-900 mb-4 flex items-center">
+                      <Clock className="w-5 h-5 text-rose-500 mr-2" />
+                      Horário de Atendimento
+                    </h4>
+                    <div className="space-y-2 text-gray-600">
+                      <div className="flex justify-between">
+                        <span>Segunda - Sexta</span>
+                        <span>8h às 18h</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span>Sábado</span>
+                        <span>8h às 16h</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span>Domingo</span>
+                        <span>Fechado</span>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+
+                <Card className="shadow-lg bg-gradient-to-br from-green-50 to-emerald-50 border-green-200">
+                  <CardContent className="p-6">
+                    <h4 className="font-bold text-gray-900 mb-4 flex items-center">
+                      <Shield className="w-5 h-5 text-green-500 mr-2" />
+                      Garantias
+                    </h4>
+                    <ul className="space-y-2 text-sm text-gray-600">
+                      <li className="flex items-center">
+                        <CheckCircle className="w-4 h-4 text-green-500 mr-2" />
+                        Flores sempre frescas
+                      </li>
+                      <li className="flex items-center">
+                        <CheckCircle className="w-4 h-4 text-green-500 mr-2" />
+                        Entrega no prazo
+                      </li>
+                      <li className="flex items-center">
+                        <CheckCircle className="w-4 h-4 text-green-500 mr-2" />
+                        Satisfação garantida
+                      </li>
+                    </ul>
+                  </CardContent>
+                </Card>
+              </div>
             </div>
-            
-            <div>
-              <h5 className="font-semibold mb-4">Contato</h5>
-              <ul className="space-y-2 text-sm text-gray-400">
-                <li>(11) 98432-7691</li>
-                <li>contato@yasminflores.com.br</li>
-                <li>Av. Dom Pedro Primeiro, 450</li>
-                <li>Vila Osasco, Osasco - SP, 06083-005</li>
-              </ul>
-            </div>
-            
-            <div>
-              <h5 className="font-semibold mb-4">Redes Sociais</h5>
-              <div className="space-y-3">
-                <a 
-                  href="https://wa.me/5511984327691" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="flex items-center space-x-2 text-sm text-gray-400 hover:text-green-400 transition-colors"
-                >
-                  <MessageCircle className="w-4 h-4" />
-                  <span>WhatsApp</span>
+          </div>
+        </section>
+      </ScrollReveal>
+
+      {/* Footer */}
+      <footer className="bg-gray-900 text-white py-12 px-6">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+            <div className="md:col-span-2">
+              <div className="flex items-center space-x-3 mb-6">
+                <div className="bg-gradient-to-br from-pink-500 to-rose-500 p-2 rounded-xl">
+                  <Flower className="w-8 h-8 text-white" />
+                </div>
+                <div>
+                  <h3 className="text-2xl font-bold">Yasmin Flores</h3>
+                  <p className="text-gray-400">Flores & Arranjos</p>
+                </div>
+              </div>
+              <p className="text-gray-300 mb-6 max-w-md">
+                Há mais de 15 anos criando momentos especiais com as mais belas flores e arranjos personalizados. 
+                Cada bouquet é uma obra de arte única.
+              </p>
+              <div className="flex space-x-4">
+                <a href="https://instagram.com/yasmin_flores" target="_blank" rel="noopener noreferrer" className="text-pink-400 hover:text-pink-300 transition-colors">
+                  <Instagram className="w-5 h-5" />
                 </a>
-                <a 
-                  href="https://instagram.com/yasmin_flores" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="flex items-center space-x-2 text-sm text-gray-400 hover:text-pink-400 transition-colors"
-                >
-                  <Instagram className="w-4 h-4" />
-                  <span>@yasmin_flores</span>
+                <a href="https://wa.me/5511984327691" target="_blank" rel="noopener noreferrer" className="text-green-400 hover:text-green-300 transition-colors">
+                  <WhatsAppIcon className="w-5 h-5" />
                 </a>
               </div>
+            </div>
+
+            <div>
+              <h4 className="font-bold text-lg mb-4">Serviços</h4>
+              <ul className="space-y-2 text-gray-300">
+                <li><a href="#" className="hover:text-pink-400 transition-colors">Bouquets Românticos</a></li>
+                <li><a href="#" className="hover:text-pink-400 transition-colors">Cestas Especiais</a></li>
+                <li><a href="#" className="hover:text-pink-400 transition-colors">Arranjos Corporativos</a></li>
+                <li><a href="#" className="hover:text-pink-400 transition-colors">Eventos</a></li>
+              </ul>
+            </div>
+
+            <div>
+              <h4 className="font-bold text-lg mb-4">Contato</h4>
+              <ul className="space-y-2 text-gray-300">
+                <li className="flex items-center">
+                  <WhatsAppIcon className="w-4 h-4 mr-2 text-green-400" />
+                  (11) 98432-7691
+                </li>
+                <li className="flex items-center">
+                  <Mail className="w-4 h-4 mr-2 text-pink-400" />
+                  yasmin@flores.com
+                </li>
+                <li className="flex items-center">
+                  <MapPin className="w-4 h-4 mr-2 text-pink-400" />
+                  São Paulo, SP
+                </li>
+              </ul>
             </div>
           </div>
           

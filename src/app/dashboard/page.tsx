@@ -54,14 +54,14 @@ export default function DashboardPage() {
     <div className="min-h-screen bg-gradient-to-b from-pink-100 via-rose-50 to-pink-25">
       <div className="max-w-7xl mx-auto p-6 lg:p-8">
         {/* Header aprimorado */}
-        <div className="bg-gradient-to-r from-pink-500 to-purple-600 rounded-2xl p-6 mb-8 shadow-xl">
+        <div className="bg-gradient-to-r from-pink-500 to-rose-500 rounded-2xl p-6 mb-8 shadow-xl">
           <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4">
             <div className="flex items-center gap-4">
               <div className="bg-white/20 p-3 rounded-xl backdrop-blur-sm">
                 <Flower className="w-8 h-8 text-white" />
               </div>
               <div>
-                <h1 className="text-3xl font-bold text-white">Dashboard Flower Finance</h1>
+                <h1 className="text-3xl font-bold text-white">Dashboard Yasmin Flores</h1>
                 <p className="text-white/90 mt-1">Visão completa do seu negócio de floricultura</p>
                 <div className="flex items-center gap-2 mt-2 text-white/80 text-sm">
                   <Calendar className="w-4 h-4" />
@@ -172,7 +172,7 @@ export default function DashboardPage() {
             <div className="flex items-end gap-1 h-10">
               <div className="flex-1 bg-blue-500 rounded-t" style={{ height: '45%' }} title="PIX - 45%"></div>
               <div className="flex-1 bg-green-500 rounded-t" style={{ height: '25%' }} title="Cartão Crédito - 25%"></div>
-              <div className="flex-1 bg-purple-500 rounded-t" style={{ height: '15%' }} title="Cartão Débito - 15%"></div>
+              <div className="flex-1 bg-rose-500 rounded-t" style={{ height: '15%' }} title="Cartão Débito - 15%"></div>
               <div className="flex-1 bg-yellow-500 rounded-t" style={{ height: '10%' }} title="Dinheiro - 10%"></div>
               <div className="flex-1 bg-red-500 rounded-t" style={{ height: '5%' }} title="iFood - 5%"></div>
             </div>
@@ -220,7 +220,7 @@ export default function DashboardPage() {
                   <div key={index} className="flex flex-col items-center flex-1 group">
                     <div className="relative w-full max-w-12 mb-2">
                       <div 
-                        className="bg-gradient-to-t from-indigo-500 to-purple-500 rounded-t-lg transition-all duration-300 group-hover:from-indigo-600 group-hover:to-purple-600 cursor-pointer"
+                        className="bg-gradient-to-t from-indigo-500 to-rose-500 rounded-t-lg transition-all duration-300 group-hover:from-indigo-600 group-hover:to-rose-600 cursor-pointer"
                         style={{ height: `${item.value * 1.8}px` }}
                       ></div>
                       <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 bg-gray-800 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">

@@ -120,7 +120,7 @@ export default function CategoriesPage() {
     <div className="min-h-screen bg-gradient-to-b from-pink-100 via-rose-50 to-pink-25 p-8">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
-        <div className="flex justify-between items-center mb-6 bg-gradient-to-r from-pink-500 to-purple-600 p-4 rounded-lg">
+        <div className="flex justify-between items-center mb-6 bg-gradient-to-r from-pink-500 to-rose-500 p-4 rounded-lg">
           <div>
             <h1 className="text-2xl font-bold text-white">Categorias</h1>
             <p className="text-white/80 mt-1 text-sm">Organize seus produtos por categorias</p>
@@ -229,14 +229,14 @@ export default function CategoriesPage() {
           </CardContent>
         </Card>
         
-        <Card className="border-l-4 border-l-purple-400 bg-purple-50/50 transform hover:scale-105 transition-all duration-300">
+        <Card className="border-l-4 border-l-rose-400 bg-rose-50/50 transform hover:scale-105 transition-all duration-300">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-1">
-            <CardTitle className="text-sm font-medium text-purple-700">Produtos Categorizados</CardTitle>
-            <Package className="h-4 w-4 text-purple-500" />
+            <CardTitle className="text-sm font-medium text-rose-700">Produtos Categorizados</CardTitle>
+            <Package className="h-4 w-4 text-rose-500" />
           </CardHeader>
           <CardContent className="pt-1">
-            <div className="text-2xl font-bold text-purple-800">{totalProducts}</div>
-            <p className="text-xs text-purple-600">
+            <div className="text-2xl font-bold text-rose-800">{totalProducts}</div>
+            <p className="text-xs text-rose-600">
               Total de produtos
             </p>
           </CardContent>

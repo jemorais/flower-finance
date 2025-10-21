@@ -59,7 +59,7 @@ export default function ReportsPage() {
     <div className="min-h-screen bg-gradient-to-b from-pink-100 via-rose-50 to-pink-25 p-8">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
-        <div className="flex items-center justify-between mb-6 bg-gradient-to-r from-pink-500 to-purple-600 p-4 rounded-lg">
+        <div className="flex items-center justify-between mb-6 bg-gradient-to-r from-pink-500 to-rose-500 p-4 rounded-lg">
           <div>
             <h1 className="text-2xl font-bold text-white">Relatórios Gerenciais</h1>
             <p className="text-white/80 mt-1 text-sm">Análise detalhada do seu negócio e performance</p>
@@ -111,14 +111,14 @@ export default function ReportsPage() {
             </CardContent>
           </Card>
 
-          <Card className="border-l-4 border-l-purple-400 bg-purple-50/50 transform hover:scale-105 transition-all duration-300">
+          <Card className="border-l-4 border-l-rose-400 bg-rose-50/50 transform hover:scale-105 transition-all duration-300">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium text-purple-700">Margem de Lucro</CardTitle>
-              <BarChart3 className="h-4 w-4 text-purple-500" />
+              <CardTitle className="text-sm font-medium text-rose-700">Margem de Lucro</CardTitle>
+              <BarChart3 className="h-4 w-4 text-rose-500" />
             </CardHeader>
             <CardContent className="pt-0">
-              <div className="text-2xl font-bold text-purple-800">52.7%</div>
-              <p className="text-xs text-purple-600">+2.1% vs mês anterior</p>
+              <div className="text-2xl font-bold text-rose-800">52.7%</div>
+              <p className="text-xs text-rose-600">+2.1% vs mês anterior</p>
             </CardContent>
           </Card>
         </div>
@@ -236,9 +236,9 @@ export default function ReportsPage() {
                 </div>
 
                 {/* Receita por Cliente */}
-                <div className="flex items-center justify-between p-4 bg-gradient-to-r from-purple-50 to-violet-50 rounded-xl border border-purple-100 hover:shadow-md transition-all">
+                <div className="flex items-center justify-between p-4 bg-gradient-to-r from-rose-50 to-pink-50 rounded-xl border border-rose-100 hover:shadow-md transition-all">
                   <div className="flex items-center space-x-4">
-                    <div className="p-3 bg-purple-500 rounded-full">
+                    <div className="p-3 bg-rose-500 rounded-full">
                       <Target className="h-6 w-6 text-white" />
                     </div>
                     <div>
@@ -247,8 +247,8 @@ export default function ReportsPage() {
                     </div>
                   </div>
                   <div className="text-right">
-                    <div className="text-3xl font-bold text-purple-600">R$ 2.031</div>
-                    <div className="text-sm text-purple-500 flex items-center">
+                    <div className="text-3xl font-bold text-rose-600">R$ 2.031</div>
+                    <div className="text-sm text-rose-500 flex items-center">
                       <TrendingUp className="h-3 w-3 mr-1" />
                       +15% vs anterior
                     </div>
@@ -333,9 +333,9 @@ export default function ReportsPage() {
                  </div>
 
                  {/* Cartão de Débito */}
-                 <div className="flex items-center justify-between p-4 bg-gradient-to-r from-purple-50 to-violet-50 rounded-xl border border-purple-100 hover:shadow-md transition-all">
+                 <div className="flex items-center justify-between p-4 bg-gradient-to-r from-rose-50 to-pink-50 rounded-xl border border-rose-100 hover:shadow-md transition-all">
                    <div className="flex items-center space-x-4">
-                     <div className="p-3 bg-purple-500 rounded-full">
+                     <div className="p-3 bg-rose-500 rounded-full">
                        <CreditCard className="h-6 w-6 text-white" />
                      </div>
                      <div>
@@ -344,7 +344,7 @@ export default function ReportsPage() {
                      </div>
                    </div>
                    <div className="text-right">
-                     <div className="text-2xl font-bold text-purple-600">15%</div>
+                     <div className="text-2xl font-bold text-rose-600">15%</div>
                      <div className="text-sm text-gray-600">R$ 7.005</div>
                    </div>
                  </div>

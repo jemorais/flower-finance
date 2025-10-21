@@ -264,7 +264,7 @@ export default function TransactionsPage() {
     <div className="min-h-screen bg-gradient-to-b from-pink-100 via-rose-50 to-pink-25 p-8">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
-        <div className="flex items-center justify-between mb-6 bg-gradient-to-r from-pink-500 to-purple-600 p-4 rounded-lg">
+        <div className="flex items-center justify-between mb-6 bg-gradient-to-r from-pink-500 to-rose-500 p-4 rounded-lg">
         <div>
           <h1 className="text-2xl font-bold text-white mb-1">Transações</h1>
           <p className="text-white/80 text-sm">Gerencie todas as movimentações financeiras da floricultura</p>

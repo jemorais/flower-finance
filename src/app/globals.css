@@ -40,6 +40,20 @@
   animation-play-state: paused;
 }
 
+/* Slide Continuous Animation */
+@keyframes slide-continuous {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-200%);
+  }
+}
+
+.animate-slide-continuous {
+  animation: slide-continuous 30s linear infinite;
+}
+
 /* Testimonials Scroll Animation */
 @keyframes scroll-testimonials {
   0% {
@@ -249,6 +263,58 @@ html {
   animation: gradientFlow 22s ease infinite;
 }
 
+/* Ripple Effect for Buttons */
+.ripple-button {
+  position: relative;
+  overflow: hidden;
+}
+
+.ripple-button::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 5px;
+  height: 5px;
+  background: rgba(255, 255, 255, 0.5);
+  opacity: 0;
+  border-radius: 100%;
+  transform: scale(1, 1) translate(-50%);
+  transform-origin: 50% 50%;
+}
+
+@keyframes ripple {
+  0% {
+    transform: scale(0, 0);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(40, 40);
+    opacity: 0;
+  }
+}
+
+.ripple-button:active::after {
+  animation: ripple 0.6s ease-out;
+}
+
+/* Parallax para Hero */
+.hero-background {
+  background-attachment: fixed;
+  background-position: center;
+  transition: background-position 0.3s ease;
+}
+
+/* Transições de hover para Cards de Serviços */
+.service-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.service-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 20px rgba(236, 72, 153, 0.2);
+}
+
 .section-cta-advanced {
   background: linear-gradient(-45deg,
     #db2777, #9333ea, #4338ca, #1d4ed8,
@@ -414,3 +480,23 @@ html {
 .sidebar-container * {
   background-color: transparent !important;
 }
+
+/* Gallery Card Tilt Effect */
+.gallery-card-tilt {
+  transform: rotate(-1deg);
+  transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.gallery-card-tilt:hover {
+  transform: rotate(0deg) scale(1.02);
+}
+
+.gallery-card-tilt:nth-child(even) {
+  transform: rotate(1deg);
+}
+
+.gallery-card-tilt:nth-child(3n) {
+  transform: rotate(-0.5deg);
+}
+
+

@@ -106,7 +106,7 @@ export default function ProductsPage() {
     <div className="min-h-screen bg-gradient-to-b from-pink-100 via-rose-50 to-pink-25 p-8">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
-        <div className="flex justify-between items-center mb-6 bg-gradient-to-r from-pink-500 to-purple-600 p-4 rounded-lg">
+        <div className="flex justify-between items-center mb-6 bg-gradient-to-r from-pink-500 to-rose-500 p-4 rounded-lg">
           <div>
             <h1 className="text-2xl font-bold text-white">Produtos</h1>
             <p className="text-white/80 mt-1 text-sm">Gerencie seu catálogo de flores e arranjos</p>
@@ -225,16 +225,16 @@ export default function ProductsPage() {
           </CardContent>
         </Card>
         
-        <Card className="border-l-4 border-l-purple-400 bg-purple-50/50 transform hover:scale-105 transition-all duration-300">
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-1">
-            <CardTitle className="text-sm font-medium text-purple-700">Valor do Estoque</CardTitle>
-            <DollarSign className="h-4 w-4 text-purple-500" />
+        <Card className="border-l-4 border-l-rose-400 bg-rose-50/50 transform hover:scale-105 transition-all duration-300">
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium text-rose-700">Valor do Estoque</CardTitle>
+            <DollarSign className="h-4 w-4 text-rose-500" />
           </CardHeader>
-          <CardContent className="pt-1">
-            <div className="text-2xl font-bold text-purple-800">
+          <CardContent>
+            <div className="text-2xl font-bold text-rose-800">
               {totalValue.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}
             </div>
-            <p className="text-xs text-purple-600">
+            <p className="text-xs text-rose-600">
               Valor total em estoque
             </p>
           </CardContent>

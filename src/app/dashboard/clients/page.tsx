@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -48,12 +48,10 @@ interface Client {
   totalSpent: string;
   lastPurchase: string;
   status: string;
-  statusColor: string;
-  avatar: string;
   avatarColor: string;
   birthday: string | null;
-  specialDateType: string | null;
-  specialDate: string | null;
+  specialDateType?: string | null;
+  specialDate?: string | null;
 }
 
 interface ClientWithEvent extends Client {
@@ -71,6 +69,7 @@ const topClients = [
 ];
 
 export default function ClientsPage() {
+  const [isMounted, setIsMounted] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
   const [isOpen, setIsOpen] = useState(false);
   const [newName, setNewName] = useState('');
@@ -92,6 +91,14 @@ export default function ClientsPage() {
   const [editingClient, setEditingClient] = useState<Client | null>(null);
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
 
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  if (!isMounted) {
+    return null;
+  }
+
   const [clients, setClients] = useState<Client[]>([
     {
       id: 1,
@@ -101,8 +108,6 @@ export default function ClientsPage() {
       totalSpent: 'R$ 2.450,00',
       lastPurchase: '5 dias atrás',
       status: 'VIP',
-      statusColor: 'bg-yellow-100 text-yellow-800',
-      avatar: 'JS',
       avatarColor: 'bg-pink-500',
       birthday: '15/03/1985',
       specialDateType: 'casamento',
@@ -125,9 +130,7 @@ export default function ClientsPage() {
       totalSpent: 'R$ 1.890,00',
       lastPurchase: '2 dias atrás',
       status: 'Ativo',
-      statusColor: 'bg-green-100 text-green-800',
-      avatar: 'MS',
-      avatarColor: 'bg-purple-500',
+      avatarColor: 'bg-rose-500',
       birthday: '25/12/1990',
       specialDateType: null,
       specialDate: null,
@@ -149,8 +152,6 @@ export default function ClientsPage() {
       totalSpent: 'R$ 1.230,00',
       lastPurchase: '1 semana atrás',
       status: 'Ativo',
-      statusColor: 'bg-green-100 text-green-800',
-      avatar: 'AC',
       avatarColor: 'bg-blue-500',
       birthday: '10/07/1988',
       specialDateType: 'namoro',
@@ -164,10 +165,13 @@ export default function ClientsPage() {
         zipCode: '01305-000',
         state: 'SP'
       }
-    }
+    },
+    { id: 5, name: 'Pedro Santos', email: 'pedro@email.com', phone: '(11) 99999-9999', totalSpent: '320.00', lastPurchase: '2024-01-10', status: 'active', avatarColor: 'bg-rose-500', birthday: '1985-03-15' },
   ]);
 
   const getUpcomingBirthdays = (): ClientWithEvent[] => {
+    if (!isMounted) return [];
+    
     const today = new Date();
     const reminderDaysFromNow = new Date(today.getTime() + reminderDays * 24 * 60 * 60 * 1000);
     
@@ -361,10 +365,10 @@ export default function ClientsPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-pink-100 via-rose-50 to-pink-25 p-8">
+    <div className="min-h-screen bg-gradient-to-b from-pink-100 via-rose-500 to-pink-25 p-8">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
-        <div className="flex items-center justify-between mb-6 bg-gradient-to-r from-pink-500 to-purple-600 p-4 rounded-lg">
+        <div className="flex items-center justify-between mb-6 bg-gradient-to-r from-pink-500 to-rose-500 p-4 rounded-lg">
           <div>
             <h1 className="text-2xl font-bold text-white mb-1">Gestão de Clientes</h1>
             <p className="text-white/80 text-sm">Gerencie seus clientes e relacionamentos</p>
@@ -420,7 +424,7 @@ export default function ClientsPage() {
                         <div className="flex items-center gap-3">
                           <Avatar className="h-10 w-10">
                             <AvatarFallback className={client.avatarColor}>
-                              {client.avatar}
+                              {client.name.split(' ').map(n => n[0]).join('').toUpperCase()}
                             </AvatarFallback>
                           </Avatar>
                           <div>
@@ -871,14 +875,14 @@ export default function ClientsPage() {
             </CardContent>
           </Card>
 
-          <Card className="border-l-4 border-l-purple-400 bg-purple-50/50 transform hover:scale-105 transition-all duration-300">
+          <Card className="border-l-4 border-l-rose-400 bg-rose-50/50 transform hover:scale-105 transition-all duration-300">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-1">
-              <CardTitle className="text-sm font-medium text-purple-700">Aniversários</CardTitle>
-              <Calendar className="h-4 w-4 text-purple-500" />
+              <CardTitle className="text-sm font-medium text-rose-700">Aniversários</CardTitle>
+              <Calendar className="h-4 w-4 text-rose-500" />
             </CardHeader>
             <CardContent className="pt-1">
-              <div className="text-2xl font-bold text-purple-800">{upcomingBirthdays.length}</div>
-              <p className="text-xs text-purple-600">
+              <div className="text-2xl font-bold text-rose-800">{upcomingBirthdays.length}</div>
+              <p className="text-xs text-rose-600">
                 Este mês
               </p>
             </CardContent>
@@ -900,7 +904,7 @@ export default function ClientsPage() {
                   <div key={client.id} className="flex items-center space-x-3 p-3 bg-white rounded-lg border border-pink-200">
                     <Avatar className="h-10 w-10">
                       <AvatarFallback className={client.avatarColor + " text-white"}>
-                        {client.avatar}
+                        {client.name.split(' ').map(n => n[0]).join('').toUpperCase()}
                       </AvatarFallback>
                     </Avatar>
                     <div className="flex-1">
@@ -919,9 +923,9 @@ export default function ClientsPage() {
 
         {/* Seção de Datas Especiais Próximas */}
         {upcomingSpecialDates.length > 0 && (
-          <Card className="mb-6 border-purple-200 bg-purple-50">
+          <Card className="mb-6 border-rose-200 bg-rose-50">
             <CardHeader>
-              <CardTitle className="flex items-center gap-2 text-purple-700">
+              <CardTitle className="flex items-center gap-2 text-rose-700">
                 <Calendar className="h-5 w-5" />
                 Datas Especiais Próximas
               </CardTitle>
@@ -929,10 +933,10 @@ export default function ClientsPage() {
             <CardContent>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 {upcomingSpecialDates.slice(0, 3).map((client) => (
-                  <div key={client.id} className="flex items-center space-x-3 p-3 bg-white rounded-lg border border-purple-200">
+                  <div key={client.id} className="flex items-center space-x-3 p-3 bg-white rounded-lg border border-rose-200">
                     <Avatar className="h-10 w-10">
                       <AvatarFallback className={client.avatarColor + " text-white"}>
-                        {client.avatar}
+                        {client.name.split(' ').map(n => n[0]).join('').toUpperCase()}
                       </AvatarFallback>
                     </Avatar>
                     <div className="flex-1">
@@ -1011,14 +1015,14 @@ export default function ClientsPage() {
                     key={client.id} 
                     className={`flex items-center justify-between p-3 border rounded-lg hover:bg-gray-50 transition-colors ${
                       birthdayToday || specialDateToday ? 'border-pink-300 bg-pink-50' : 
-                      hasSpecialEvent ? 'border-purple-200 bg-purple-50' : 'border-gray-200'
+                      hasSpecialEvent ? 'border-rose-200 bg-rose-50' : 'border-gray-200'
                     }`}
                   >
                     <div className="flex items-center space-x-3">
                       <div className="relative">
                         <Avatar className="h-10 w-10">
                           <AvatarFallback className={client.avatarColor + " text-white"}>
-                            {client.avatar}
+                            {client.name.split(' ').map(n => n[0]).join('').toUpperCase()}
                           </AvatarFallback>
                         </Avatar>
                         {hasSpecialEvent && (
@@ -1046,7 +1050,7 @@ export default function ClientsPage() {
                             </Badge>
                           )}
                         </div>
-                        <Badge className={client.statusColor + " text-xs mb-2"}>{client.status}</Badge>
+                        <Badge className={`${client.status === 'Ativo' ? 'bg-green-100 text-green-800' : client.status === 'Inativo' ? 'bg-red-100 text-red-800' : 'bg-gray-100 text-gray-800'} text-xs mb-2`}>{client.status}</Badge>
                         <div className="grid grid-cols-1 lg:grid-cols-2 gap-1 text-xs text-gray-600">
                           <div className="flex items-center">
                             <Mail className="h-3 w-3 mr-1" />
