@@ -357,7 +357,7 @@ export default function DashboardPage() {
               <div className="mt-4 pt-3 border-t">
                 <div className="grid grid-cols-2 gap-4">
                   <div className="text-center">
-                    <div className="text-2xl font-bold text-pink-600">+R$ 1.580,00</div>
+                    <div className="text-2xl font-bold text-green-600">+R$ 1.580,00</div>
                     <div className="text-sm text-gray-500">Total Receitas</div>
                   </div>
                   <div className="text-center">

@@ -91,14 +91,6 @@ export default function ClientsPage() {
   const [editingClient, setEditingClient] = useState<Client | null>(null);
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
 
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
-
-  if (!isMounted) {
-    return null;
-  }
-
   const [clients, setClients] = useState<Client[]>([
     {
       id: 1,
@@ -168,6 +160,10 @@ export default function ClientsPage() {
     },
     { id: 5, name: 'Pedro Santos', email: 'pedro@email.com', phone: '(11) 99999-9999', totalSpent: '320.00', lastPurchase: '2024-01-10', status: 'active', avatarColor: 'bg-rose-500', birthday: '1985-03-15' },
   ]);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   const getUpcomingBirthdays = (): ClientWithEvent[] => {
     if (!isMounted) return [];
@@ -364,14 +360,18 @@ export default function ClientsPage() {
     setIsEditDialogOpen(false);
   };
 
+  if (!isMounted) {
+    return null;
+  }
+
   return (
-    <div className="min-h-screen bg-gradient-to-b from-pink-100 via-rose-500 to-pink-25 p-8">
+    <div className="min-h-screen bg-gradient-to-b from-pink-100 via-rose-50 to-pink-25 p-8">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
-        <div className="flex items-center justify-between mb-6 bg-gradient-to-r from-pink-500 to-rose-500 p-4 rounded-lg">
+        <div className="flex items-center justify-between mb-6 bg-white/80 backdrop-blur-sm border border-gray-200 p-4 rounded-lg shadow-sm">
           <div>
-            <h1 className="text-2xl font-bold text-white mb-1">Gestão de Clientes</h1>
-            <p className="text-white/80 text-sm">Gerencie seus clientes e relacionamentos</p>
+            <h1 className="text-2xl font-bold text-gray-800 mb-1">Gestão de Clientes</h1>
+              <p className="text-gray-600">Gerencie seus clientes e relacionamentos</p>
           </div>
           <div className="flex items-center gap-3">
             {/* Botão de Alertas */}
@@ -972,7 +972,7 @@ export default function ClientsPage() {
         <Card>
           <CardHeader className="p-0">
             {/* Header com gradiente */}
-            <div className="bg-gradient-to-r from-gray-100 to-gray-200 p-4 rounded-t-lg">
+            <div className="bg-gray-50 border-b p-4 rounded-t-lg">
               <div className="flex items-center justify-between">
                 <div>
                   <h3 className="text-lg font-semibold text-gray-700 flex items-center gap-2">

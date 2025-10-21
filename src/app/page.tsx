@@ -33,261 +33,6 @@ export default function HomePage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-pink-50 via-rose-50 to-purple-50">
-      <style jsx>{`
-          .animate-slide-continuous {
-            animation: slide-continuous 30s linear infinite;
-          }
-          
-          @keyframes slide-continuous {
-            0% {
-              transform: translateX(0);
-            }
-            100% {
-              transform: translateX(-50%);
-            }
-          }
-          
-          .testimonials-slider-continuous:hover .animate-slide-continuous {
-            animation-play-state: paused;
-          }
-
-          /* Animações escalonadas para scroll - versão ultra suave */
-          .stagger-item {
-            opacity: 0;
-            transform: translateY(10px);
-            transition: opacity 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94), 
-                        transform 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-          }
-
-        .animate-fade-in-up {
-          opacity: 1 !important;
-          transform: translateY(0) !important;
-        }
-
-        .animate-stagger-1 { transition-delay: 0.15s; }
-        .animate-stagger-2 { transition-delay: 0.3s; }
-        .animate-stagger-3 { transition-delay: 0.45s; }
-        .animate-stagger-4 { transition-delay: 0.6s; }
-        .animate-stagger-5 { transition-delay: 0.75s; }
-        .animate-stagger-6 { transition-delay: 0.9s; }
-
-        /* Animações de entrada suaves */
-        .animate-fade-in-right {
-          animation: fadeInRight 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
-        }
-
-        .animate-fade-in-left {
-          animation: fadeInLeft 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
-        }
-
-        @keyframes fadeInRight {
-          from {
-            opacity: 0;
-            transform: translateX(30px);
-          }
-          to {
-            opacity: 1;
-            transform: translateX(0);
-          }
-        }
-
-        @keyframes fadeInLeft {
-          from {
-            opacity: 0;
-            transform: translateX(-30px);
-          }
-          to {
-            opacity: 1;
-            transform: translateX(0);
-          }
-        }
-
-        /* Animações de hover suaves */
-        .hover-lift {
-          transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), 
-                      box-shadow 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-        }
-
-        .hover-lift:hover {
-          transform: translateY(-8px);
-          box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-        }
-
-        /* Animação de float suave */
-        .animate-float {
-          animation: float 6s ease-in-out infinite;
-        }
-
-        @keyframes float {
-          0%, 100% {
-            transform: translateY(0px) rotate(3deg);
-          }
-          50% {
-            transform: translateY(-10px) rotate(3deg);
-          }
-        }
-
-        /* Gradiente animado */
-        .animate-gradient-x {
-          background-size: 200% 200%;
-          animation: gradient-x 3s ease infinite;
-        }
-
-        @keyframes gradient-x {
-          0%, 100% {
-            background-position: 0% 50%;
-          }
-          50% {
-            background-position: 100% 50%;
-          }
-        }
-
-        /* Animações de slide com delay */
-        .animate-slide-up-delay-1 {
-          animation: slideUpDelay 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.2s both;
-        }
-
-        .animate-slide-up-delay-2 {
-          animation: slideUpDelay 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.4s both;
-        }
-
-        .animate-slide-up-delay-3 {
-          animation: slideUpDelay 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.6s both;
-        }
-
-        @keyframes slideUpDelay {
-          from {
-            opacity: 0;
-            transform: translateY(30px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-
-        /* Animação de pulse sutil */
-        .animate-pulse-subtle {
-          animation: pulseSubtle 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-        }
-
-        @keyframes pulseSubtle {
-          0%, 100% {
-            opacity: 1;
-          }
-          50% {
-            opacity: 0.95;
-          }
-        }
-
-        /* Animação de bounce sutil */
-        .animate-bounce-subtle {
-          animation: bounceSubtle 2s infinite;
-        }
-
-        @keyframes bounceSubtle {
-          0%, 20%, 53%, 80%, 100% {
-            animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
-            transform: translate3d(0, 0, 0);
-          }
-          40%, 43% {
-            animation-timing-function: cubic-bezier(0.755, 0.05, 0.855, 0.06);
-            transform: translate3d(0, -5px, 0);
-          }
-          70% {
-            animation-timing-function: cubic-bezier(0.755, 0.05, 0.855, 0.06);
-            transform: translate3d(0, -3px, 0);
-          }
-          90% {
-            transform: translate3d(0, -1px, 0);
-          }
-        }
-
-        /* Efeito ripple para botões */
-        .ripple-button {
-          position: relative;
-          overflow: hidden;
-        }
-
-        .ripple-button::before {
-          content: '';
-          position: absolute;
-          top: 50%;
-          left: 50%;
-          width: 0;
-          height: 0;
-          border-radius: 50%;
-          background: rgba(255, 255, 255, 0.3);
-          transform: translate(-50%, -50%);
-          transition: width 0.6s, height 0.6s;
-        }
-
-        .ripple-button:hover::before {
-          width: 300px;
-          height: 300px;
-        }
-
-        /* Background hero com overlay */
-        .hero-background {
-          position: relative;
-        }
-
-        .hero-background::before {
-          content: '';
-          position: absolute;
-          top: 0;
-          left: 0;
-          right: 0;
-          bottom: 0;
-          background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.7) 100%);
-          z-index: 1;
-        }
-
-        .hero-background > * {
-          position: relative;
-          z-index: 2;
-        }
-
-        /* Animação de loading suave */
-        .loading-shimmer {
-          background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
-          background-size: 200% 100%;
-          animation: shimmer 2s infinite;
-        }
-
-        @keyframes shimmer {
-          0% {
-            background-position: -200% 0;
-          }
-          100% {
-            background-position: 200% 0;
-          }
-        }
-
-        /* Scroll suave para toda a página */
-        html {
-          scroll-behavior: smooth;
-        }
-
-        /* Customização da scrollbar */
-        ::-webkit-scrollbar {
-          width: 8px;
-        }
-
-        ::-webkit-scrollbar-track {
-          background: #f1f1f1;
-        }
-
-        ::-webkit-scrollbar-thumb {
-          background: linear-gradient(135deg, #ec4899, #8b5cf6);
-          border-radius: 4px;
-        }
-
-        ::-webkit-scrollbar-thumb:hover {
-          background: linear-gradient(135deg, #db2777, #7c3aed);
-        }
-      `}</style>
-
       {/* Header */}
       <header className="bg-white/80 backdrop-blur-sm shadow-sm sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-6 py-4">
@@ -316,47 +61,123 @@ export default function HomePage() {
       </header>
 
       {/* Hero Section */}
-      <section className="py-12 px-6 hero-background" style={{ backgroundImage: 'url(/images/flowers/hero-background.jpg)', backgroundSize: 'cover' }}>
-        <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div className="animate-fade-in-up">
-              <h2 className="text-5xl font-bold text-gray-900 mb-6 leading-tight animate-slide-up-delay-1">
+      <section className="relative py-12 px-6 overflow-hidden min-h-[600px] flex items-center">
+        {/* Background Slideshow */}
+        <div className="absolute inset-0 z-0">
+          <div className="hero-slideshow">
+            <div className="slide" style={{ backgroundImage: 'url("/images/flowers/hero/Yasmin-Flores.jpg.jpg")' }}></div>
+            <div className="slide" style={{ backgroundImage: 'url("/images/flowers/hero/Yasmin-Flores3.jpg.jpg")' }}></div>
+          </div>
+          <div className="absolute inset-0 bg-black/10 z-10"></div>
+        </div>
+        <div className="max-w-7xl mx-auto relative z-20 w-full">
+          <div className="grid grid-cols-1 xl:grid-cols-2 gap-8 lg:gap-12 items-start xl:items-center">
+            <div className="animate-fade-in-up text-left">
+              <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6 leading-tight animate-slide-up-delay-1 drop-shadow-sm">
                 Flores que <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-rose-500 animate-gradient-x">encantam</span> e <span className="text-transparent bg-clip-text bg-gradient-to-r from-rose-500 to-pink-500 animate-gradient-x">emocionam</span>
               </h2>
-              <p className="text-xl text-gray-600 mb-8 leading-relaxed animate-slide-up-delay-2">
+              <p className="text-lg lg:text-xl text-gray-700 mb-8 leading-relaxed animate-slide-up-delay-2 drop-shadow-sm max-w-lg">
                 Há mais de 15 anos criando momentos especiais com as mais belas flores e arranjos personalizados. 
                 Cada bouquet conta uma história única de amor e carinho.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 animate-slide-up-delay-3">
-                <Button size="lg" className="ripple-button bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 text-white px-8 py-3 hover:scale-105 hover:shadow-lg transition-all duration-300 animate-pulse-subtle">
-                  <Phone className="w-5 h-5 mr-2 animate-bounce-subtle" />
+                <Button size="lg" className="ripple-button bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 text-white px-8 py-3 hover:scale-105 hover:shadow-lg transition-all duration-300 animate-pulse-subtle w-fit">
+                  <MessageCircle className="w-5 h-5 mr-2 animate-bounce-subtle" />
                   Fazer Pedido
                 </Button>
               </div>
             </div>
-            <div className="relative animate-fade-in-right">
-              <div className="bg-gradient-to-br from-pink-200 to-rose-200 rounded-3xl p-8 transform rotate-3 shadow-xl animate-float hover:rotate-6 transition-transform duration-500">
-                <div className="bg-white rounded-2xl p-6 transform -rotate-6 shadow-lg hover:-rotate-3 transition-transform duration-500">
-                  <div className="grid grid-cols-2 gap-4">
-                    <div className="bg-gradient-to-br from-pink-100 to-rose-100 rounded-xl p-4 flex items-center justify-center hover:scale-110 hover:shadow-lg transition-all duration-300 group">
-                      <Flower className="w-12 h-12 text-pink-500 group-hover:scale-125 group-hover:rotate-12 transition-all duration-300" />
-                    </div>
-                    <div className="bg-gradient-to-br from-rose-100 to-pink-100 rounded-xl p-4 flex items-center justify-center hover:scale-110 hover:shadow-lg transition-all duration-300 group">
-                      <Gift className="w-12 h-12 text-rose-500 group-hover:scale-125 group-hover:rotate-12 transition-all duration-300" />
-                    </div>
-                    <div className="bg-gradient-to-br from-rose-100 to-pink-100 rounded-xl p-4 flex items-center justify-center hover:scale-110 hover:shadow-lg transition-all duration-300 group">
-                      <Heart className="w-12 h-12 text-rose-500 group-hover:scale-125 group-hover:animate-pulse transition-all duration-300" />
-                    </div>
-                    <div className="bg-gradient-to-br from-pink-100 to-rose-100 rounded-xl p-4 flex items-center justify-center hover:scale-110 hover:shadow-lg transition-all duration-300 group">
-                      <Star className="w-12 h-12 text-pink-500 group-hover:scale-125 group-hover:rotate-12 transition-all duration-300" />
+            
+            {/* 3 Cards Layout */}
+            <div className="relative animate-fade-in-right xl:justify-self-end">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-2 2xl:grid-cols-3 gap-4 lg:gap-6 max-w-2xl mx-auto xl:max-w-none">
+                
+                {/* Card 1 - Floricultura */}
+                <div className="relative sm:col-span-2 lg:col-span-1 xl:col-span-2 2xl:col-span-1">
+                  <div className="bg-gradient-to-br from-pink-200 to-rose-200 rounded-2xl lg:rounded-3xl p-2 lg:p-3 transform rotate-3 shadow-xl animate-float hover:rotate-6 transition-transform duration-500 card-flip-hover">
+                    <div className="bg-white rounded-xl lg:rounded-2xl p-2 lg:p-3 transform -rotate-6 shadow-lg hover:-rotate-3 transition-transform duration-500 overflow-hidden card-flip-content">
+                      <div className="relative group">
+                        <img 
+                          src="/images/floricultura/floricultura.jpg.png" 
+                          alt="Yasmin Flores - Floricultura" 
+                          className="w-full h-48 lg:h-56 object-cover rounded-lg lg:rounded-xl hover:scale-105 transition-transform duration-500 group-hover:brightness-110"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-pink-500/20 to-transparent rounded-lg lg:rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                        <div className="absolute bottom-2 left-2 right-2 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                          <p className="text-xs lg:text-sm font-semibold drop-shadow-lg">Yasmin Flores</p>
+                          <p className="text-xs drop-shadow-lg">Nossa Floricultura</p>
+                        </div>
+                      </div>
+                      <div className="card-flip-back">
+                        <div className="text-center">
+                          <h3 className="text-lg font-bold mb-2">Yasmin Flores</h3>
+                          <p className="text-sm opacity-90">Mais de 15 anos criando momentos especiais com flores</p>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
+
+                {/* Card 2 - Arranjos */}
+                <div className="relative">
+                  <div className="bg-gradient-to-br from-rose-200 to-pink-200 rounded-2xl lg:rounded-3xl p-2 lg:p-3 transform -rotate-2 shadow-xl animate-float hover:-rotate-5 transition-transform duration-500 card-flip-hover" style={{animationDelay: '0.5s'}}>
+                    <div className="bg-white rounded-xl lg:rounded-2xl p-2 lg:p-3 transform rotate-4 shadow-lg hover:rotate-7 transition-transform duration-500 overflow-hidden card-flip-content">
+                      <div className="relative group">
+                        <img 
+                          src="/images/floricultura/Arranjo.jpg.png" 
+                          alt="Yasmin Flores - Arranjos Especiais" 
+                          className="w-full h-48 lg:h-56 object-cover rounded-lg lg:rounded-xl hover:scale-105 transition-transform duration-500 group-hover:brightness-110"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-rose-500/20 to-transparent rounded-lg lg:rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                        <div className="absolute bottom-2 left-2 right-2 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                          <p className="text-xs lg:text-sm font-semibold drop-shadow-lg">Arranjos</p>
+                          <p className="text-xs drop-shadow-lg">Especiais</p>
+                        </div>
+                      </div>
+                      <div className="card-flip-back">
+                        <div className="text-center">
+                          <h3 className="text-lg font-bold mb-2">Arranjos Especiais</h3>
+                          <p className="text-sm opacity-90">Criamos arranjos únicos para cada ocasião especial</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Card 3 - Flores Diversas */}
+                <div className="relative">
+                  <div className="bg-gradient-to-br from-pink-200 to-rose-200 rounded-2xl lg:rounded-3xl p-2 lg:p-3 transform rotate-4 shadow-xl animate-float hover:rotate-7 transition-transform duration-500 card-flip-hover" style={{animationDelay: '1s'}}>
+                    <div className="bg-white rounded-xl lg:rounded-2xl p-2 lg:p-3 transform -rotate-5 shadow-lg hover:-rotate-8 transition-transform duration-500 overflow-hidden card-flip-content">
+                      <div className="relative group">
+                        <img 
+                          src="/images/floricultura/Flores.jpg.png" 
+                          alt="Yasmin Flores - Flores Diversas" 
+                          className="w-full h-48 lg:h-56 object-cover rounded-lg lg:rounded-xl hover:scale-105 transition-transform duration-500 group-hover:brightness-110"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-pink-500/20 to-transparent rounded-lg lg:rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                        <div className="absolute bottom-2 left-2 right-2 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                          <p className="text-xs lg:text-sm font-semibold drop-shadow-lg">Flores</p>
+                          <p className="text-xs drop-shadow-lg">Diversas</p>
+                        </div>
+                      </div>
+                      <div className="card-flip-back">
+                        <div className="text-center">
+                          <h3 className="text-lg font-bold mb-2">Flores Diversas</h3>
+                          <p className="text-sm opacity-90">Variedade completa de flores frescas e coloridas</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
               </div>
             </div>
           </div>
         </div>
       </section>
+
+      {/* Separador 1 */}
+      <div className="section-separator-wave"></div>
 
       {/* Experiência Única Section */}
       <ScrollReveal delay={200}>
@@ -369,7 +190,7 @@ export default function HomePage() {
               <h3 className="text-3xl font-bold text-gray-900 mb-3">
                 Experiência <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-rose-500">Única</span>
               </h3>
-              <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+              <p className="text-lg text-gray-600 mx-auto max-w-2xl">
                 Cada arranjo é uma obra de arte criada especialmente para você
               </p>
             </div>
@@ -450,6 +271,9 @@ export default function HomePage() {
           </div>
         </section>
       </ScrollReveal>
+
+      {/* Separador 2 */}
+      <div className="section-separator-wave"></div>
 
       {/* Services & Creations Unified Section */}
       <ScrollReveal delay={200}>
@@ -606,6 +430,9 @@ export default function HomePage() {
         </section>
       </ScrollReveal>
 
+      {/* Separador 3 */}
+      <div className="section-separator-wave"></div>
+
       {/* Gallery Section */}
       <ScrollReveal delay={700}>
         <section id="gallery" className="py-12 px-6 bg-gradient-to-br from-pink-50 to-rose-50">
@@ -693,10 +520,10 @@ export default function HomePage() {
         <section id="testimonials" className="py-12 px-6 bg-white/50">
           <div className="max-w-7xl mx-auto">
             <div className="text-center mb-12">
-              <h3 className="text-4xl font-bold text-gray-900 mb-4">
+              <h3 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
                 O que nossos <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-rose-500">clientes</span> dizem
               </h3>
-              <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              <p className="text-lg text-gray-600 mx-auto max-w-2xl">
                 Mais de 15 anos espalhando alegria e amor através das flores
               </p>
             </div>
@@ -755,15 +582,18 @@ export default function HomePage() {
         </section>
       </ScrollReveal>
 
+      {/* Separador 4 */}
+      <div className="section-separator-wave"></div>
+
       {/* Contact Section */}
       <ScrollReveal delay={300}>
         <section id="contact" className="py-12 px-6 bg-gradient-to-br from-pink-50 to-rose-50">
           <div className="max-w-7xl mx-auto">
             <div className="text-center mb-12">
-              <h3 className="text-4xl font-bold text-gray-900 mb-4">
+              <h3 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
                 Faça Seu <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-rose-500">Pedido</span>
               </h3>
-              <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              <p className="text-lg text-gray-600 mx-auto max-w-2xl">
                 Entre em contato conosco e crie momentos inesquecíveis com nossas flores especiais
               </p>
             </div>
@@ -771,9 +601,9 @@ export default function HomePage() {
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
               <div className="lg:col-span-2">
                 <Card className="shadow-xl">
-                  <CardContent className="p-8">
-                    <form className="space-y-6">
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <CardContent className="p-10">
+                    <form className="space-y-8">
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                         <div>
                           <label className="block text-sm font-medium text-gray-700 mb-2">Nome Completo</label>
                           <input 
@@ -792,7 +622,7 @@ export default function HomePage() {
                         </div>
                       </div>
                       
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                         <div>
                           <label className="block text-sm font-medium text-gray-700 mb-2">Tipo de Arranjo</label>
                           <select className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent transition-all duration-200">
@@ -814,7 +644,7 @@ export default function HomePage() {
                         </div>
                       </div>
 
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                         <div>
                           <label className="block text-sm font-medium text-gray-700 mb-2">Data de Entrega</label>
                           <input 
@@ -833,7 +663,7 @@ export default function HomePage() {
                         </div>
                       </div>
 
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                         <div>
                           <label className="block text-sm font-medium text-gray-700 mb-2">Endereço de Entrega</label>
                           <input 
@@ -860,7 +690,7 @@ export default function HomePage() {
                       <div>
                         <label className="block text-sm font-medium text-gray-700 mb-2">Observações Importantes</label>
                         <textarea 
-                          rows={4}
+                          rows={6}
                           className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent transition-all duration-200"
                           placeholder="Cores preferidas, mensagem do cartão, instruções especiais, alergias..."
                         ></textarea>
@@ -974,6 +804,33 @@ export default function HomePage() {
                         Satisfação garantida
                       </li>
                     </ul>
+                  </CardContent>
+                </Card>
+
+
+
+                <Card className="shadow-lg bg-gradient-to-br from-amber-50 to-orange-50 border-amber-200">
+                  <CardContent className="p-6">
+                    <h4 className="font-bold text-gray-900 mb-4 flex items-center">
+                      <svg className="w-5 h-5 text-amber-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                      </svg>
+                      Avaliações
+                    </h4>
+                    <div className="text-center">
+                      <div className="flex justify-center items-center mb-2">
+                        <div className="flex text-yellow-400 mr-2">
+                          {[...Array(5)].map((_, i) => (
+                            <svg key={i} className="w-5 h-5 fill-current" viewBox="0 0 20 20">
+                              <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                            </svg>
+                          ))}
+                        </div>
+                        <span className="font-bold text-gray-900">4.9</span>
+                      </div>
+                      <p className="text-sm text-gray-600">Baseado em 150+ avaliações</p>
+                      <p className="text-xs text-gray-500 mt-2">Google • Instagram • WhatsApp</p>
+                    </div>
                   </CardContent>
                 </Card>
               </div>
