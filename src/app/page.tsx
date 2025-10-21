@@ -47,6 +47,7 @@ export default function HomePage() {
               </div>
             </div>
             
+            {/* Desktop Navigation */}
             <nav className="hidden md:flex items-center space-x-8">
               <a href="#services" className="text-gray-700 hover:text-pink-600 transition-colors font-medium">Serviços</a>
               <a href="#gallery" className="text-gray-700 hover:text-pink-600 transition-colors font-medium">Galeria</a>
@@ -56,9 +57,37 @@ export default function HomePage() {
                 Área Administrativa
               </Button>
             </nav>
+
+            {/* Mobile Menu Button */}
+            <button 
+              className="md:hidden p-2 rounded-lg hover:bg-gray-100 transition-colors"
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+            >
+              <svg className="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+              </svg>
+            </button>
           </div>
         </div>
       </header>
+
+      {/* Mobile Menu Dropdown */}
+      {isMenuOpen && (
+        <div className="md:hidden bg-white shadow-lg border-t border-gray-200 sticky top-[88px] z-40">
+          <div className="max-w-7xl mx-auto px-6 py-4 space-y-4">
+            <a href="#services" className="block text-gray-700 hover:text-pink-600 transition-colors font-medium py-2">Serviços</a>
+            <a href="#gallery" className="block text-gray-700 hover:text-pink-600 transition-colors font-medium py-2">Galeria</a>
+            <a href="#testimonials" className="block text-gray-700 hover:text-pink-600 transition-colors font-medium py-2">Depoimentos</a>
+            <a href="#contact" className="block text-gray-700 hover:text-pink-600 transition-colors font-medium py-2">Faça seu Pedido</a>
+            <Button 
+              className="w-full bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 text-white mt-4" 
+              onClick={() => window.location.href = '/dashboard'}
+            >
+              Área Administrativa
+            </Button>
+          </div>
+        </div>
+      )}
 
       {/* Hero Section */}
       <section className="relative py-12 px-6 overflow-hidden min-h-[600px] flex items-center">
@@ -81,7 +110,11 @@ export default function HomePage() {
                 Cada bouquet conta uma história única de amor e carinho.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 animate-slide-up-delay-3">
-                <Button size="lg" className="ripple-button bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 text-white px-8 py-3 hover:scale-105 hover:shadow-lg transition-all duration-300 animate-pulse-subtle w-fit">
+                <Button 
+                  size="lg" 
+                  className="ripple-button bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 text-white px-8 py-3 hover:scale-105 hover:shadow-lg transition-all duration-300 animate-pulse-subtle w-fit"
+                  onClick={() => window.open('https://wa.me/5511984327691?text=Olá! Gostaria de fazer um pedido de flores. Pode me ajudar?', '_blank')}
+                >
                   <MessageCircle className="w-5 h-5 mr-2 animate-bounce-subtle" />
                   Fazer Pedido
                 </Button>
@@ -506,7 +539,7 @@ export default function HomePage() {
             </ScrollStagger>
 
             <div className="text-center mt-12">
-              <Button size="lg" variant="outline" className="border-pink-300 text-pink-600 hover:bg-pink-50 px-8 py-3" onClick={() => window.open('https://instagram.com/yasmin_flores', '_blank')}>
+              <Button size="lg" variant="outline" className="border-pink-300 text-pink-600 hover:bg-pink-50 px-8 py-3" onClick={() => window.open('https://instagram.com/yasminflores.oficial', '_blank')}>
                 <Instagram className="w-5 h-5 mr-2" />
                 Ver Mais no Instagram
               </Button>
@@ -608,6 +641,7 @@ export default function HomePage() {
                           <label className="block text-sm font-medium text-gray-700 mb-2">Nome Completo</label>
                           <input 
                             type="text" 
+                            name="nome"
                             className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent transition-all duration-200"
                             placeholder="Seu nome completo"
                           />
@@ -616,6 +650,7 @@ export default function HomePage() {
                           <label className="block text-sm font-medium text-gray-700 mb-2">WhatsApp</label>
                           <input 
                             type="tel" 
+                            name="whatsapp"
                             className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent transition-all duration-200"
                             placeholder="(11) 99999-9999"
                           />
@@ -625,7 +660,7 @@ export default function HomePage() {
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                         <div>
                           <label className="block text-sm font-medium text-gray-700 mb-2">Tipo de Arranjo</label>
-                          <select className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent transition-all duration-200">
+                          <select name="tipoArranjo" className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent transition-all duration-200">
                             <option>Bouquet Romântico</option>
                             <option>Cesta Especial</option>
                             <option>Arranjo Corporativo</option>
@@ -634,7 +669,7 @@ export default function HomePage() {
                         </div>
                         <div>
                           <label className="block text-sm font-medium text-gray-700 mb-2">Orçamento Desejado</label>
-                          <select className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent transition-all duration-200">
+                          <select name="orcamento" className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent transition-all duration-200">
                             <option>Até R$ 50</option>
                             <option>R$ 50 - R$ 100</option>
                             <option>R$ 100 - R$ 200</option>
@@ -649,12 +684,13 @@ export default function HomePage() {
                           <label className="block text-sm font-medium text-gray-700 mb-2">Data de Entrega</label>
                           <input 
                             type="date" 
+                            name="dataEntrega"
                             className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent transition-all duration-200"
                           />
                         </div>
                         <div>
                           <label className="block text-sm font-medium text-gray-700 mb-2">Horário Preferido</label>
-                          <select className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent transition-all duration-200">
+                          <select name="horario" className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent transition-all duration-200">
                             <option>Manhã (8h - 12h)</option>
                             <option>Tarde (12h - 18h)</option>
                             <option>Noite (18h - 20h)</option>
@@ -668,13 +704,14 @@ export default function HomePage() {
                           <label className="block text-sm font-medium text-gray-700 mb-2">Endereço de Entrega</label>
                           <input 
                             type="text" 
+                            name="endereco"
                             className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent transition-all duration-200"
                             placeholder="Rua, número, bairro, cidade"
                           />
                         </div>
                         <div>
                           <label className="block text-sm font-medium text-gray-700 mb-2">Ocasião</label>
-                          <select className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent transition-all duration-200">
+                          <select name="ocasiao" className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent transition-all duration-200">
                             <option>Aniversário</option>
                             <option>Casamento</option>
                             <option>Namoro/Romance</option>
@@ -691,6 +728,7 @@ export default function HomePage() {
                         <label className="block text-sm font-medium text-gray-700 mb-2">Observações Importantes</label>
                         <textarea 
                           rows={6}
+                          name="observacoes"
                           className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent transition-all duration-200"
                           placeholder="Cores preferidas, mensagem do cartão, instruções especiais, alergias..."
                         ></textarea>
@@ -755,7 +793,7 @@ export default function HomePage() {
                       </div>
                       <div className="flex items-center">
                         <Instagram className="w-4 h-4 text-pink-500 mr-3" />
-                        <span className="text-gray-600">@yasminflores</span>
+                        <span className="text-gray-600">@yasminflores.oficial</span>
                       </div>
                     </div>
                   </CardContent>
@@ -858,7 +896,7 @@ export default function HomePage() {
                 Cada bouquet é uma obra de arte única.
               </p>
               <div className="flex space-x-4">
-                <a href="https://instagram.com/yasmin_flores" target="_blank" rel="noopener noreferrer" className="text-pink-400 hover:text-pink-300 transition-colors">
+                <a href="https://instagram.com/yasminflores.oficial" target="_blank" rel="noopener noreferrer" className="text-pink-400 hover:text-pink-300 transition-colors">
                   <Instagram className="w-5 h-5" />
                 </a>
                 <a href="https://wa.me/5511984327691" target="_blank" rel="noopener noreferrer" className="text-green-400 hover:text-green-300 transition-colors">
