@@ -12,7 +12,8 @@ import {
   X,
   User,
   Package,
-  Tag
+  Tag,
+  LogOut
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
@@ -177,20 +178,29 @@ export function Sidebar({ children }: SidebarProps) {
 
         {/* User Profile */}
         <div className="p-4 border-t border-gray-200" style={{ backgroundColor: 'transparent' }}>
-          <Link href="/dashboard/settings" className="flex items-center hover:bg-gray-50 rounded-lg p-2 -m-2 transition-colors">
-            <Avatar className="w-8 h-8 flex-shrink-0">
-              <AvatarFallback className="bg-pink-500 text-white text-sm">
-                <User className="w-4 h-4" />
-              </AvatarFallback>
-            </Avatar>
-            
-            <div className={cn(
-              "ml-3 transition-all duration-300 overflow-hidden",
-              shouldExpand ? "w-auto opacity-100" : "w-0 opacity-0"
-            )}>
-              <span className="text-sm text-gray-600 whitespace-nowrap">Usuário</span>
-            </div>
-          </Link>
+          <div className="flex items-center justify-between">
+            <Link href="/dashboard/settings" className="flex items-center hover:bg-gray-50 rounded-lg p-2 -m-2 transition-colors flex-grow">
+              <Avatar className="w-8 h-8 flex-shrink-0">
+                <AvatarFallback className="bg-pink-500 text-white text-sm">
+                  <User className="w-4 h-4" />
+                </AvatarFallback>
+              </Avatar>
+              
+              <div className={cn(
+                "ml-3 transition-all duration-300 overflow-hidden",
+                shouldExpand ? "w-auto opacity-100" : "w-0 opacity-0"
+              )}>
+                <span className="text-sm text-gray-600 whitespace-nowrap">Usuário</span>
+              </div>
+            </Link>
+            {shouldExpand && (
+              <Link href="/api/auth/logout" className="ml-2">
+                <Button variant="ghost" size="sm" className="p-2">
+                  <LogOut className="w-4 h-4 text-gray-600" />
+                </Button>
+              </Link>
+            )}
+          </div>
         </div>
       </div>
 

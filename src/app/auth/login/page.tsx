@@ -16,15 +16,33 @@ export default function LoginPage() {
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 
+  const [error, setError] = useState('');
+
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
-    
-    // Simular login (aqui você integraria com Supabase depois)
-    setTimeout(() => {
-      router.push('/dashboard');
-      setIsLoading(false);
-    }, 1000);
+    setError('');
+
+    try {
+      const response = await fetch('/api/auth/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, password }),
+      });
+
+      if (response.ok) {
+        router.push('/dashboard');
+      } else {
+        const data = await response.json();
+        setError(data.message || 'Erro ao fazer login');
+      }
+    } catch (error) {
+      setError('Erro de conexão. Tente novamente.');
+    }
+
+    setIsLoading(false);
   };
 
   const handleDemoAccess = () => {
@@ -50,6 +68,7 @@ export default function LoginPage() {
             <CardDescription>
               Digite suas credenciais para acessar o sistema
             </CardDescription>
+            {error && <p className="text-sm font-medium text-destructive text-center pt-2">{error}</p>}
           </CardHeader>
           
           <CardContent className="space-y-4">
